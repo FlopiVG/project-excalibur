@@ -1,0 +1,21 @@
+{
+  "name": "project-excalibur",
+  "version": "0.1.0",
+  "repository": "https://gitlab.com/FlopiCompany/project-excalibur.git",
+  "author": "FlopiVG <flopivillagarcia@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "~9.9.0",
+    "yarn": "~1.3.2"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^5.1.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  }
+}
