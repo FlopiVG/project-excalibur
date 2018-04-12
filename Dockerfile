@@ -9,6 +9,7 @@ ADD package.json yarn.lock /project-excalibur/
 RUN yarn --pure-lockfile
 
 ADD pages pages
+ADD server.js .
 
 RUN yarn build
 
