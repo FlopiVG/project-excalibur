@@ -14,7 +14,7 @@ class Index extends React.Component {
     return (
       <div className="container">
         <figure className="image">
-          <img src="https://bulma.io/images/placeholders/128x128.png" />
+          <img src="http://elpajaroburlon.com/wp-content/uploads/2013/09/excalibur-11.jpg" />
         </figure>
         <NavBar />
         <section className="section">
