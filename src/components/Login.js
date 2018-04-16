@@ -1,4 +1,4 @@
-import { logginUser } from "../apis";
+import { logginUser, whoAmi } from "../apis";
 
 class Login extends React.Component {
 
@@ -17,15 +17,21 @@ class Login extends React.Component {
     this.onSubmitLoggin = this.onSubmitLoggin.bind(this)
   }
 
+  componentWillMount() {
+    whoAmi()
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }
+
   onSubmitLoggin(e) {
     const { username, password } = this.state
     e.preventDefault()
 
     this.setState({ loading: true })
 
-    logginUser({username, password})
-      .then(() => this.setState({ userLogged: true, loading: false}))
-      .catch(error => this.setState({error, loading: false}))
+    logginUser({ username, password })
+      .then(() => this.setState({ userLogged: true, loading: false }))
+      .catch(error => this.setState({ error, loading: false }))
   }
 
   render() {
@@ -33,7 +39,7 @@ class Login extends React.Component {
 
     return (
       <div className="navbar-end">
-        { userLogged ? this.renderUserLogged() : this.renderUserLogout()}
+        {userLogged ? this.renderUserLogged() : this.renderUserLogout()}
       </div>
     )
   }

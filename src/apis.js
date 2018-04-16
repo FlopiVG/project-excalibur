@@ -11,3 +11,11 @@ export function logginUser(data) {
     }, 3000)
   })
 }
+
+export function whoAmi() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Done')
+    }, 3000)
+  })
+}
