@@ -1,6 +1,35 @@
+import { logginUser } from "../apis";
+
 class Login extends React.Component {
+
+  state = {
+    username: '',
+    password: '',
+    loading: false,
+    error: '',
+    userLogged: false
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.renderUserLogged = this.renderUserLogged.bind(this)
+    this.onSubmitLoggin = this.onSubmitLoggin.bind(this)
+  }
+
+  onSubmitLoggin(e) {
+    const { username, password } = this.state
+    e.preventDefault()
+
+    this.setState({ loading: true })
+
+    logginUser({username, password})
+      .then(() => this.setState({ userLogged: true, loading: false}))
+      .catch(error => this.setState({error, loading: false}))
+  }
+
   render() {
-    const userLogged = false
+    const { userLogged } = this.state
 
     return (
       <div className="navbar-end">
@@ -10,11 +39,16 @@ class Login extends React.Component {
   }
 
   renderUserLogout() {
+    const { username, password, loading, error } = this.state
+
     return (
-      <form className="is-flex">
+      <form className="is-flex" onSubmit={this.onSubmitLoggin}>
+        <div className="navbar-item">
+          <p className="help is-danger">{error}</p>
+        </div>
         <div className="navbar-item">
           <div className="control has-icons-left">
-            <input className="input" type="text" name="username" placeholder="Username" />
+            <input className={`input ${error && 'is-danger'}`} type="text" placeholder="Username" value={username} disabled={loading} />
             <span className="icon is-small is-left">
               <i className="fas fa-user" />
             </span>
@@ -22,14 +56,14 @@ class Login extends React.Component {
         </div>
         <div className="navbar-item">
           <div className="control has-icons-left">
-            <input className="input" type="password" name="password" placeholder="Password" />
+            <input className={`input ${error && 'is-danger'}`} type="password" placeholder="Password" value={password} disabled={loading} />
             <span className="icon is-small is-left">
               <i className="fas fa-key" />
             </span>
           </div>
         </div>
         <div className="navbar-item">
-          <button className="button" type="submit">Login</button>
+          <button className={`button ${loading && 'is-loading'}`} type="submit">Login</button>
         </div>
         <div className="navbar-item">
           <button className="button">Register</button>
