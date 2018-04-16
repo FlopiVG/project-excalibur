@@ -1,6 +1,6 @@
-import NavBar from "../components/NavBar";
-import NewsItem from "../components/NewsItem";
-import { getNews } from "../mocks/news";
+import NavBar from "../src/components/NavBar";
+import NewsItem from "../src/components/NewsItem";
+import { getNews } from "../src/mocks/news";
 
 class Index extends React.Component {
   static async getInitialProps() {
