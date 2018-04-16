@@ -8,11 +8,21 @@ class NavBar extends React.Component {
         </div>
         <form>
           <div className="navbar-end">
-            <div className="navbar-item control">
-              <input className="input" type="text" name="username" placeholder="Username" />
+            <div className="navbar-item">
+              <div className="control has-icons-left">
+                <input className="input" type="text" name="username" placeholder="Username" />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-user" />
+                </span>
+              </div>
             </div>
-            <div className="navbar-item control">
-              <input className="input" type="password" name="password" placeholder="Password" />
+            <div className="navbar-item">
+              <div className="control has-icons-left">
+                <input className="input" type="password" name="password" placeholder="Password" />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-key" />
+                </span>
+              </div>
             </div>
             <div className="navbar-item">
               <button className="button" type="submit">Login</button>
