@@ -1,3 +1,5 @@
+import NavBar from "../components/NavBar";
+
 class Index extends React.Component {
   render() {
     return (
@@ -5,10 +7,10 @@ class Index extends React.Component {
         <figure className="image">
           <img src="https://bulma.io/images/placeholders/128x128.png" />
         </figure>
-        Hello World
+        <NavBar />
       <style jsx scoped>{`
         img {
-          height: 160px;
+          max-height: 160px;
         }
       `}</style>
       </div>
