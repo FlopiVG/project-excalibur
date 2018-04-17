@@ -1,6 +1,8 @@
 import Layout from "../src/components/Layout";
 import { whoAmi } from "../src/apis";
 import Router from 'next/router'
+import { userBuilds } from "../src/apis/game";
+import BuildItem from "../src/components/BuildItem";
 
 class Game extends React.Component {
     static async getInitialProps({ res }) {
@@ -14,13 +16,16 @@ class Game extends React.Component {
             Router.replace('/')
         }
 
+        const builds = await userBuilds()
+
         return {
-          userLogged
+            userLogged,
+            builds
         }
     }
 
     render() {
-        const { userLogged } = this.props
+        const { userLogged, builds } = this.props
 
         return (
             <Layout userLogged={userLogged}>
@@ -30,20 +35,7 @@ class Game extends React.Component {
                         <img src="https://img1.cgtrader.com/items/117683/7bcf6531ce/cartoon-village-mobile-3d-model-max-obj-fbx-tga.jpg" />
                     </figure>
                     <br />
-                    <div className="tile is-child box">
-                        <h3 className="title is-3 has-text-centered">Farm</h3>
-                        <div className="columns">
-                            <div className="column is-2">
-                                <img src="http://game-icons.net/icons/delapouite/originals/svg/farmer.svg"/>
-                            </div>
-                            <div className="column is-9">
-                                A farm is an area of land that is devoted primarily to agricultural processes with the primary objective of producing food and other crops; it is the basic facility in food production.[1] The name is used for specialised units such as arable farms, vegetable farms, fruit farms, dairy, pig and poultry farms, and land used for the production of natural fibres, biofuel and other commodities. It includes ranches, feedlots, orchards, plantations and estates, smallholdings and hobby farms, and includes the farmhouse and agricultural buildings as well as the land. In modern times the term has been extended so as to include such industrial operations as wind farms and fish farms, both of which can operate on land or sea.
-                            </div>
-                            <div className="column is-3">
-                                <a className="button">Upgrade</a>
-                            </div>
-                        </div>
-                    </div>
+                    { builds.map(build => <BuildItem key={build.id} {...build} />)}
                 </div>
                 <style jsx scoped>{`
                 img {
