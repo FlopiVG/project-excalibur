@@ -7,7 +7,7 @@ export function logginUser(data) {
       if (!data.password) {
         reject('Invalid password.')
       }
-      resolve('Login succesfull.')
+      resolve(data.username)
     }, 3000)
   })
 }
@@ -15,7 +15,7 @@ export function logginUser(data) {
 export function whoAmi() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve('Done')
+      resolve('')
     }, 3000)
   })
 }

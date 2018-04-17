@@ -1,37 +1,17 @@
 import { logginUser, whoAmi } from "../apis";
+import { Consumer } from '../providers/User'
 
 class Login extends React.Component {
 
   state = {
     username: '',
-    password: '',
-    loading: false,
-    error: '',
-    userLogged: false
+    password: ''
   }
 
   constructor(props) {
     super(props)
 
     this.renderUserLogged = this.renderUserLogged.bind(this)
-    this.onSubmitLoggin = this.onSubmitLoggin.bind(this)
-  }
-
-  componentWillMount() {
-    whoAmi()
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
-
-  onSubmitLoggin(e) {
-    const { username, password } = this.state
-    e.preventDefault()
-
-    this.setState({ loading: true })
-
-    logginUser({ username, password })
-      .then(() => this.setState({ userLogged: true, loading: false }))
-      .catch(error => this.setState({ error, loading: false }))
   }
 
   render() {
@@ -39,22 +19,25 @@ class Login extends React.Component {
 
     return (
       <div className="navbar-end">
-        {userLogged ? this.renderUserLogged() : this.renderUserLogout()}
+        <Consumer>
+          {(context) => context.state.userLogged ? this.renderUserLogged(context) : this.renderUserLogout(context)}
+        </Consumer>
       </div>
     )
   }
 
-  renderUserLogout() {
-    const { username, password, loading, error } = this.state
+  renderUserLogout(context) {
+    const { username, password } = this.state
+    const { state: { loading, error }} = context
 
     return (
-      <form className="is-flex" onSubmit={this.onSubmitLoggin}>
+      <div className="is-flex">
         <div className="navbar-item">
           <p className="help is-danger">{error}</p>
         </div>
         <div className="navbar-item">
           <div className="control has-icons-left">
-            <input className={`input ${error && 'is-danger'}`} type="text" placeholder="Username" value={username} disabled={loading} />
+            <input className={`input ${error && 'is-danger'}`} type="text" placeholder="Username" value={username} disabled={loading} onChange={(e) => this.setState({ username: e.target.value})} />
             <span className="icon is-small is-left">
               <i className="fas fa-user" />
             </span>
@@ -62,27 +45,28 @@ class Login extends React.Component {
         </div>
         <div className="navbar-item">
           <div className="control has-icons-left">
-            <input className={`input ${error && 'is-danger'}`} type="password" placeholder="Password" value={password} disabled={loading} />
+            <input className={`input ${error && 'is-danger'}`} type="password" placeholder="Password" value={password} disabled={loading} onChange={(e) => this.setState({ password: e.target.value})} />
             <span className="icon is-small is-left">
               <i className="fas fa-key" />
             </span>
           </div>
         </div>
         <div className="navbar-item">
-          <button className={`button ${loading && 'is-loading'}`} type="submit">Login</button>
+          <button className={`button ${loading && 'is-loading'}`} onClick={() => context.doLogging(this.state)}>Login</button>
         </div>
         <div className="navbar-item">
           <button className="button">Register</button>
         </div>
-      </form>
+      </div>
     )
   }
 
-  renderUserLogged() {
+  renderUserLogged(context) {
+    const { state: { userLogged }} = context
     return (
       <div className="is-flex">
         <div className="navbar-item">
-          Generic Name
+          {userLogged}
         </div>
         <div className="navbar-item">
           <a className="has-text-link">Disconnect</a>
