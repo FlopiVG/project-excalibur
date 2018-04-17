@@ -23,7 +23,7 @@ export function logoutUser() {
 export function whoAmi() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve('')
+      resolve('Pepe')
     }, 3000)
   })
 }

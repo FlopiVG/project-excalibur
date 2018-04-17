@@ -9,8 +9,13 @@ class UserProvider extends React.Component {
     userLogged: ''
   }
 
-  componentDidMount() {
-    this.doWhoAmi()
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.userLogged !== prevState.userLogged) {
+      return {
+        userLogged: nextProps.userLogged
+      }
+    }
+    return null
   }
 
   doLogging(data) {

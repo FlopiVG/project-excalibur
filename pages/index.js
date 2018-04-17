@@ -1,19 +1,24 @@
 import NewsItem from "../src/components/NewsItem";
 import { getNews } from "../src/mocks/news";
 import Layout from "../src/components/Layout";
+import { whoAmi } from "../src/apis";
 
 
 class Index extends React.Component {
   static async getInitialProps() {
+    const news = await getNews()
+    const userLogged = await whoAmi()
+
     return {
-      news: await getNews()
+      news,
+      userLogged
     }
   }
-  render() {
-    const { news } = this.props
 
+  render() {
+    const { news, userLogged } = this.props
     return (
-      <Layout>
+      <Layout userLogged={userLogged}>
           <div className="tile is-ancestor is-vertical">
             <h1 className="title is-1">News</h1>
             { news.map(({id, ...rest }) => <NewsItem key={id} {...rest} />)}

@@ -2,9 +2,12 @@ import UserProvider from '../providers/User'
 import NavBar from './NavBar'
 
 class Layout extends React.Component {
+
     render() {
+        const { userLogged } = this.props
+
         return (
-            <UserProvider>
+            <UserProvider userLogged={userLogged}>
                 <div className="container">
                 <figure className="image">
                     <img src="http://elpajaroburlon.com/wp-content/uploads/2013/09/excalibur-11.jpg" />
