@@ -1,4 +1,4 @@
-import { logginUser, whoAmi } from "../apis";
+import { logginUser, whoAmi, logoutUser } from "../apis";
 
 const UserContext = React.createContext()
 
@@ -27,12 +27,20 @@ class UserProvider extends React.Component {
       .catch(error => this.setState({ loading: false}))
   }
 
+  doLoggout() {
+    this.setState({ loading: true })
+    logoutUser()
+      .then(() => this.setState({ userLogged: '', loading: false}))
+      .catch(() => this.setState({ loading: false}))
+  }
+
   render() {
     return (
       <UserContext.Provider value={{
         state: this.state,
         doLogging: data => this.doLogging(data),
-        doWhoAmi: () => this.doWhoAmi()
+        doWhoAmi: () => this.doWhoAmi(),
+        doLoggout: () => this.doLoggout()
       }}>
         { this.props.children }
       </UserContext.Provider>

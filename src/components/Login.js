@@ -52,7 +52,10 @@ class Login extends React.Component {
           </div>
         </div>
         <div className="navbar-item">
-          <button className={`button ${loading && 'is-loading'}`} onClick={() => context.doLogging(this.state)}>Login</button>
+          <button className={`button ${loading && 'is-loading'}`} onClick={() => {
+            context.doLogging(this.state)
+            this.setState({ username: '', password: ''})
+          }}>Login</button>
         </div>
         <div className="navbar-item">
           <button className="button">Register</button>
@@ -62,14 +65,14 @@ class Login extends React.Component {
   }
 
   renderUserLogged(context) {
-    const { state: { userLogged }} = context
+    const { state: { userLogged, loading }, doLoggout} = context
     return (
       <div className="is-flex">
         <div className="navbar-item">
           {userLogged}
         </div>
         <div className="navbar-item">
-          <a className="has-text-link">Disconnect</a>
+          <a className={`button ${loading && 'is-loading'}`} onClick={() => doLoggout()}>Disconnect</a>
         </div>
       </div>
     )
