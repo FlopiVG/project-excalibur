@@ -25,9 +25,26 @@ class Game extends React.Component {
         return (
             <Layout userLogged={userLogged}>
                 <div className="tile is-ancestor is-vertical">
-                    Hello Game
+                    {this.renderResources()}
                 </div>
             </Layout>
+        )
+    }
+
+    renderResources() {
+        return (
+            <div className="columns">
+                <div className="column">
+                    <div className="tile is-child box has-text-centered">
+                        <span className="is-size-5">Food:</span> 3000
+                    </div>
+                </div>
+                <div className="column">
+                    <div className="tile is-child box has-text-centered">
+                        <span className="is-size-5">Wood:</span> 3000
+                    </div>
+                </div>
+            </div>
         )
     }
 }
