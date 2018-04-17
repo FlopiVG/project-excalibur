@@ -1,5 +1,5 @@
 import NewsItem from "../src/components/NewsItem";
-import { getNews } from "../src/mocks/news";
+import { getNews } from "../src/apis/news";
 import Layout from "../src/components/Layout";
 import { whoAmi } from "../src/apis/user";
 
