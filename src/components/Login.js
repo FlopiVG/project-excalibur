@@ -1,4 +1,4 @@
-import { logginUser, whoAmi } from "../apis";
+import { logginUser, whoAmi } from "../apis/user";
 import { Consumer } from '../providers/User'
 
 class Login extends React.Component {

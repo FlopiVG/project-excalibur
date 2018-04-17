@@ -1,7 +1,7 @@
 import NewsItem from "../src/components/NewsItem";
 import { getNews } from "../src/mocks/news";
 import Layout from "../src/components/Layout";
-import { whoAmi } from "../src/apis";
+import { whoAmi } from "../src/apis/user";
 
 
 class Index extends React.Component {

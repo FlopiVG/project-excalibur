@@ -1,4 +1,4 @@
-import { logginUser, whoAmi, logoutUser } from "../apis";
+import { logginUser, whoAmi, logoutUser } from "../apis/user";
 
 const UserContext = React.createContext()
 

@@ -1,6 +1,6 @@
 import Layout from "../src/components/Layout";
-import { whoAmi } from "../src/apis";
 import Router from 'next/router'
+import { whoAmi } from "../src/apis/user";
 import { userBuilds } from "../src/apis/game";
 import BuildItem from "../src/components/BuildItem";
 
