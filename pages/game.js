@@ -26,7 +26,15 @@ class Game extends React.Component {
             <Layout userLogged={userLogged}>
                 <div className="tile is-ancestor is-vertical">
                     {this.renderResources()}
+                    <figure className="image">
+                        <img src="https://img1.cgtrader.com/items/117683/7bcf6531ce/cartoon-village-mobile-3d-model-max-obj-fbx-tga.jpg" />
+                    </figure>
                 </div>
+                <style jsx scoped>{`
+                img {
+                    max-height: 560px;
+                }
+                `}</style>
             </Layout>
         )
     }
