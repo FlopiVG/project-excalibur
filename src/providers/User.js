@@ -1,4 +1,4 @@
-import { logginUser, whoAmi, logoutUser } from "../apis";
+import { logginUser, whoAmi, logoutUser } from "../apis/user";
 
 const UserContext = React.createContext()
 
@@ -9,8 +9,13 @@ class UserProvider extends React.Component {
     userLogged: ''
   }
 
-  componentDidMount() {
-    this.doWhoAmi()
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.userLogged !== prevState.userLogged) {
+      return {
+        userLogged: nextProps.userLogged
+      }
+    }
+    return null
   }
 
   doLogging(data) {
