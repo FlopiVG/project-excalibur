@@ -1,9 +1,9 @@
-import { Builds, Resources } from './gameData';
+import { builds, resources } from './gameData';
 
 export function userBuilds() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(Builds);
+      resolve(builds);
     }, 3000);
   });
 }
@@ -11,7 +11,7 @@ export function userBuilds() {
 export function getUserResources() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(Resources);
+      resolve(resources);
     }, 3000);
   });
 }
