@@ -1,4 +1,4 @@
-export default [
+export const builds = [
   {
     id: 1,
     name: 'Farm',
@@ -14,5 +14,18 @@ export default [
       'Lumberjacks are Canadian workers in the logging industry who perform the initial harvesting and transport of trees for ultimate processing into forest products. The term usually refers to a bygone era (before 1945 in the United States) when hand tools were used in harvesting trees. Because of its historical ties, the term lumberjack has become ingrained in popular culture through folklore, mass media and spectator sports. The actual work was difficult, dangerous, intermittent, low-paying, and primitive in living conditions. However, the men built a traditional culture that celebrated strength, masculinity, confrontation with danger, and resistance to modernization.',
     imgSrc: 'http://game-icons.net/icons/lorc/originals/svg/axe-in-stump.svg',
     level: 1,
+  },
+];
+
+export const resources = [
+  {
+    id: 1,
+    name: 'food',
+    quantity: 3000,
+  },
+  {
+    id: 2,
+    name: 'wood',
+    quantity: 3000,
   },
 ];
