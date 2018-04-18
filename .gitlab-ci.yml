@@ -1,11 +1,12 @@
-image: node:latest
+image: node:9.11.1
 
-stages:
-  - lint
+before_script:
+  - yarn install
 
-eslint:
-  stage: lint
+cache:
+  paths:
+    - node_modules/
+
+test:lint:
   script:
-    - yarn global add eslint
-    - eslint --init
-    - eslint .
+    - yarn lint
