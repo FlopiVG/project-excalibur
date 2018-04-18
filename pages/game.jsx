@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
 import { userBuilds } from '../src/apis/game';
@@ -40,6 +41,10 @@ class Game extends React.Component {
     userLogged: '',
     builds: [],
   };
+
+  componentDidMount() {
+    this.socket = io();
+  }
 
   renderResources = () => (
     <div className="columns">
