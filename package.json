@@ -11,12 +11,29 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "lint": "eslint .",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,css}": ["eslint --fix", "git add"]
   },
   "dependencies": {
     "express": "^4.16.3",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
     "next": "^5.1.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-react": "7.7.0",
+    "prettier-eslint": "^8.8.1"
   }
 }

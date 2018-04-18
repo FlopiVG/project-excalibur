@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": ["react", "jsx-a11y", "import"],
+  "globals": {
+    "React": true
+  },
+  "rules": {
+    "react/prop-types": [
+      2,
+      {
+        "ignore": ["children"]
+      }
+    ],
+    "linebreak-style": [0]
+  }
+}
