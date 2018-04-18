@@ -2,7 +2,7 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
-import userBuilds from '../src/apis/game';
+import { userBuilds } from '../src/apis/game';
 import BuildItem from '../src/components/BuildItem';
 
 class Game extends React.Component {
