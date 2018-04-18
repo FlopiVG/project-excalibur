@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import Login from "./Login"
-import { Consumer } from '../providers/User'
+import Link from 'next/link';
+import Login from './Login';
+import { Consumer } from '../providers/User';
 
 class NavBar extends React.Component {
   render() {
@@ -15,8 +15,8 @@ class NavBar extends React.Component {
         </div>
         <Login />
       </nav>
-    )
+    );
   }
 }
 
-export default NavBar
+export default NavBar;
