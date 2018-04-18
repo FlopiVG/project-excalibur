@@ -1,7 +1,7 @@
-import { News } from './newsData';
+import News from './newsData';
 
-export function getNews() {
-  return new Promise((resolve, reject) => {
+export default function () {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(News);
     }, 3000);

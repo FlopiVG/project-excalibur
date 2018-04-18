@@ -1,9 +1,9 @@
-import { builds } from './gameData';
+import Builds from './gameData';
 
-export function userBuilds() {
-  return new Promise((resolve, reject) => {
+export default function () {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(builds);
+      resolve(Builds);
     }, 3000);
   });
 }
