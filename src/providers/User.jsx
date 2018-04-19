@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { logginUser, whoAmi, logoutUser } from '../apis/user';
 
 const UserContext = React.createContext();
@@ -35,7 +36,10 @@ class UserProvider extends React.Component {
   doLoggout() {
     this.setState({ loading: true });
     logoutUser()
-      .then(() => this.setState({ userLogged: '', loading: false }))
+      .then(() => {
+        Router.replace('/');
+        this.setState({ userLogged: '', loading: false });
+      })
       .catch(() => this.setState({ loading: false }));
   }
 
