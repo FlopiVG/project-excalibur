@@ -1,10 +1,13 @@
-const { getResources, updateResources } = require('./resources/controller');
+const {
+  getResourcesFromModel,
+  updateResourcesFromModel,
+} = require('./resources/service');
 
 module.exports = (socket) => {
   setInterval(async () => {
     try {
-      await updateResources();
-      socket.emit('get_resources', await getResources());
+      await updateResourcesFromModel();
+      socket.emit('get_resources', await getResourcesFromModel());
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);

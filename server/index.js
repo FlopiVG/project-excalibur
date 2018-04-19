@@ -8,6 +8,8 @@ const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
 
+require('./resources/router')(app);
+
 const sockets = require('./sockets');
 
 io.on('connection', (socket) => {
