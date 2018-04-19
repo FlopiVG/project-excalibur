@@ -44,6 +44,7 @@ class Game extends React.Component {
 
   componentDidMount() {
     this.socket = io();
+    this.socket.on('get_resources', data => console.log(data));
   }
 
   renderResources = () => (

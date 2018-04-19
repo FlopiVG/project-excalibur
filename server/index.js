@@ -8,8 +8,10 @@ const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
 
-io.on('connection', () => {
-  console.log('User connected.');
+const sockets = require('./sockets');
+
+io.on('connection', (socket) => {
+  sockets(socket);
 });
 
 nextApp.prepare().then(() => {
