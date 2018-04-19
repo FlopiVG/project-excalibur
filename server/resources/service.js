@@ -14,10 +14,8 @@ function getResourcesFromModel() {
 function updateResourcesFromModel() {
   return new Promise((resolve) => {
     resourcesModel = resourcesModel.map(resource => ({
-      id: resource.id,
-      name: resource.name,
+      ...resource,
       quantity: resource.quantity + resource.perSec,
-      perSec: resource.perSec,
     }));
     resolve('Done');
   });

@@ -8,7 +8,7 @@ import ResourceProvider, { Consumer } from '../src/providers/Resources';
 
 class Game extends React.Component {
   static async getInitialProps({ res }) {
-    const userLogged = await whoAmi();
+    const [userLogged, builds] = await Promise.all([whoAmi(), userBuilds()]);
 
     if (res && !userLogged) {
       res.writeHead(302, { Location: '/' });
@@ -17,8 +17,6 @@ class Game extends React.Component {
     } else if (!userLogged) {
       Router.replace('/');
     }
-
-    const builds = await userBuilds();
 
     return {
       userLogged,
