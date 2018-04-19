@@ -1,10 +1,12 @@
 import { builds, resources } from './gameData';
 
+const { DELAY = 0 } = process.env;
+
 export function userBuilds() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(builds);
-    }, 3000);
+    }, DELAY);
   });
 }
 
@@ -12,7 +14,7 @@ export function getUserResources() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(resources);
-    }, 3000);
+    }, DELAY);
   });
 }
 
@@ -20,6 +22,6 @@ export function startCounterResource() {
   return new Promise((resolve) => {
     setInterval(() => {
       resolve('Ok');
-    }, 1000);
+    }, DELAY);
   });
 }
