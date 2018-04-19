@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import { builds, resources } from './gameData';
 
 const { DELAY = 0 } = process.env;
@@ -18,10 +19,19 @@ export function getUserResources() {
   });
 }
 
-export function startCounterResource() {
-  return new Promise((resolve) => {
-    setInterval(() => {
-      resolve('Ok');
-    }, DELAY);
+export function updateBuild(id) {
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+      },
+      url: '/api/resources',
+      data: {
+        id,
+      },
+    })
+      .then(() => resolve('Ok'))
+      .catch(err => reject(err));
   });
 }
