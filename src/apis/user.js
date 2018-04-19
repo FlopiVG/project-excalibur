@@ -1,3 +1,5 @@
+const { DELAY = 0 } = process.env;
+
 export function logginUser(data) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -8,7 +10,7 @@ export function logginUser(data) {
         reject(new Error('Invalid password.'));
       }
       resolve(data.username);
-    }, 3000);
+    }, DELAY);
   });
 }
 
@@ -16,7 +18,7 @@ export function logoutUser() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve('Logout succesfull');
-    }, 3000);
+    }, DELAY);
   });
 }
 
@@ -24,6 +26,6 @@ export function whoAmi() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve('Pepe');
-    }, 3000);
+    }, DELAY);
   });
 }

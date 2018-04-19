@@ -17,7 +17,6 @@ class Game extends React.Component {
     } else if (!userLogged) {
       Router.replace('/');
     }
-
     return {
       userLogged,
       builds,
