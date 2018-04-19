@@ -4,7 +4,10 @@ let resourcesModel = ResourcesModel;
 
 function getResourcesFromModel() {
   return new Promise((resolve) => {
-    resolve(resourcesModel);
+    resolve(resourcesModel.map(resources => ({
+      ...resources,
+      quantity: Math.floor(resources.quantity),
+    })));
   });
 }
 
