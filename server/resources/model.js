@@ -9,6 +9,6 @@ module.exports = [
     id: 2,
     name: 'wood',
     quantity: 3000,
-    perSec: 0.003,
+    perSec: 2.27,
   },
 ];
