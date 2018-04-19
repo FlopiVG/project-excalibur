@@ -1,9 +1,25 @@
-import Builds from './gameData';
+import { builds, resources } from './gameData';
 
-export default function () {
+export function userBuilds() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(Builds);
+      resolve(builds);
     }, 3000);
+  });
+}
+
+export function getUserResources() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(resources);
+    }, 3000);
+  });
+}
+
+export function startCounterResource() {
+  return new Promise((resolve) => {
+    setInterval(() => {
+      resolve('Ok');
+    }, 1000);
   });
 }

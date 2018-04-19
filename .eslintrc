@@ -12,6 +12,15 @@
         "ignore": ["children"]
       }
     ],
-    "linebreak-style": [0]
+    "linebreak-style": [0],
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreUrls": true,
+        "ignoreStrings": true
+      }
+    ],
+    "react/jsx-no-undef": [2, { "allowGlobals": true }]
   }
 }

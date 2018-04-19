@@ -2,8 +2,9 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
-import userBuilds from '../src/apis/game';
+import { userBuilds } from '../src/apis/game';
 import BuildItem from '../src/components/BuildItem';
+import ResourceProvider, { Consumer } from '../src/providers/Resources';
 
 class Game extends React.Component {
   static async getInitialProps({ res }) {
@@ -43,16 +44,19 @@ class Game extends React.Component {
 
   renderResources = () => (
     <div className="columns">
-      <div className="column">
-        <div className="tile is-child box has-text-centered">
-          <span className="is-size-5">Food:</span> 3000
-        </div>
-      </div>
-      <div className="column">
-        <div className="tile is-child box has-text-centered">
-          <span className="is-size-5">Wood:</span> 3000
-        </div>
-      </div>
+      <Consumer>
+        {({ resources }) => (
+          <React.Fragment>
+            {resources.map(({ id, name, quantity }) => (
+              <div key={id} className="column">
+                <div className="tile is-child box has-text-centered">
+                  <span className="is-size-5">{name}:</span> {quantity}
+                </div>
+              </div>
+            ))}
+          </React.Fragment>
+        )}
+      </Consumer>
     </div>
   );
 
@@ -61,17 +65,19 @@ class Game extends React.Component {
 
     return (
       <Layout userLogged={userLogged}>
-        <div className="tile is-ancestor is-vertical">
-          {this.renderResources()}
-          <figure className="image">
-            <img
-              src="https://img1.cgtrader.com/items/117683/7bcf6531ce/cartoon-village-mobile-3d-model-max-obj-fbx-tga.jpg"
-              alt="village"
-            />
-          </figure>
-          <br />
-          {builds.map(build => <BuildItem key={build.id} {...build} />)}
-        </div>
+        <ResourceProvider>
+          <div className="tile is-ancestor is-vertical">
+            {this.renderResources()}
+            <figure className="image">
+              <img
+                src="https://img1.cgtrader.com/items/117683/7bcf6531ce/cartoon-village-mobile-3d-model-max-obj-fbx-tga.jpg"
+                alt="village"
+              />
+            </figure>
+            <br />
+            {builds.map(build => <BuildItem key={build.id} {...build} />)}
+          </div>
+        </ResourceProvider>
         <style jsx scoped>
           {`
             img {
