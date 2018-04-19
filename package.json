@@ -16,11 +16,15 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "**/*.{js,jsx,css}": ["eslint --fix", "git add"]
+    "**/*.{js,jsx,css}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-plugin-transform-inline-environment-variables": "^0.4.0",
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "next": "^5.1.0",
     "prop-types": "^15.6.1",
