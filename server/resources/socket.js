@@ -1,7 +1,7 @@
 const {
   getResourcesFromModel,
   updateResourcesFromModel,
-} = require('./resources/service');
+} = require('./service');
 
 module.exports = (socket) => {
   setInterval(async () => {

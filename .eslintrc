@@ -21,6 +21,7 @@
         "ignoreStrings": true
       }
     ],
-    "react/jsx-no-undef": [2, { "allowGlobals": true }]
+    "react/jsx-no-undef": [2, { "allowGlobals": true }],
+    "global-require": [0]
   }
 }
