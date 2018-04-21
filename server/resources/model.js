@@ -2,7 +2,7 @@ module.exports = [
   {
     id: 1,
     name: 'food',
-    quantity: 3000,
+    quantity: 3025,
     perSec: 0.3,
     incPerUpdate: 0.6,
     level: 1,
