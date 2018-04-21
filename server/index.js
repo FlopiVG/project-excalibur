@@ -18,4 +18,4 @@ require('./config/socketServer')(server);
  * Routes
  */
 require('./resources/router')(app);
-
+require('./builds/router')(app);
