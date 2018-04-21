@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import BuildsProvider, { Consumer as BuildsConsumer } from '../src/providers/Builds';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
 import { userBuilds } from '../src/apis/game';
@@ -62,7 +63,7 @@ class Game extends React.Component {
   );
 
   render() {
-    const { userLogged, builds } = this.props;
+    const { userLogged } = this.props;
 
     return (
       <Layout userLogged={userLogged}>
@@ -76,7 +77,15 @@ class Game extends React.Component {
               />
             </figure>
             <br />
-            {builds.map(build => <BuildItem key={build.id} {...build} />)}
+            <BuildsProvider>
+              <BuildsConsumer>
+                {({ builds, loading }) => (loading ? (
+                  <div>Loading...</div>
+                  ) : (
+                    builds.map(build => <BuildItem key={build.id} {...build} />)
+                  ))}
+              </BuildsConsumer>
+            </BuildsProvider>
           </div>
         </ResourceProvider>
         <style jsx scoped>
