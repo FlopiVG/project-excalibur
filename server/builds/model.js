@@ -17,7 +17,4 @@ const builds = [
   },
 ];
 
-module.exports = () =>
-  new Promise((resolve) => {
-    resolve(builds);
-  });
+module.exports = builds;

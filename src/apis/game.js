@@ -32,7 +32,7 @@ export function updateBuild(id) {
       headers: {
         'content-type': 'application/json',
       },
-      url: '/api/resources',
+      url: '/api/build',
       data: {
         id,
       },

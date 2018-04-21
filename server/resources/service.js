@@ -28,24 +28,7 @@ function updateResourcesFromModel() {
   });
 }
 
-function updateLevelFromModel(id) {
-  return new Promise((resolve, reject) => {
-    if (!resourcesModel.find(resource => resource.id === id)) {
-      reject(new Error(`Dont find any resource with id ${id}`));
-    }
-    resourcesModel = resourcesModel.map((resource) => {
-      if (resource.id !== id) return resource;
-      return {
-        ...resource,
-        level: resource.level + 1,
-      };
-    });
-    resolve('Done');
-  });
-}
-
 module.exports = {
   getResourcesFromModel,
   updateResourcesFromModel,
-  updateLevelFromModel,
 };
