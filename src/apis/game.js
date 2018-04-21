@@ -1,13 +1,19 @@
 import Axios from 'axios';
-import { builds, resources } from './gameData';
+import { resources } from './gameData';
+
+require('isomorphic-unfetch');
 
 const { DELAY = 0 } = process.env;
 
-export function userBuilds() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(builds);
-    }, DELAY);
+export function userBuilds(host) {
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'GET',
+      url: '/api/builds',
+      baseURL: host,
+    })
+      .then(res => resolve(res.data))
+      .catch(error => reject(new Error(error)));
   });
 }
 

@@ -7,8 +7,12 @@ import BuildItem from '../src/components/BuildItem';
 import ResourceProvider, { Consumer } from '../src/providers/Resources';
 
 class Game extends React.Component {
-  static async getInitialProps({ res }) {
-    const [userLogged, builds] = await Promise.all([whoAmi(), userBuilds()]);
+  static async getInitialProps({ res, req }) {
+    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+    const [userLogged, builds] = await Promise.all([
+      whoAmi(),
+      userBuilds(baseUrl),
+    ]);
 
     if (res && !userLogged) {
       res.writeHead(302, { Location: '/' });
