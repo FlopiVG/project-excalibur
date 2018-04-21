@@ -1,9 +1,11 @@
+const socketIO = require('socket.io');
+
+const socketResources = require('../resources/socket');
 
 module.exports = (server) => {
-  const io = require('socket.io')(server);
+  const io = socketIO(server);
 
   io.on('connection', (socket) => {
-    require('../resources/socket')(socket);
+    socketResources(socket);
   });
 };
-
