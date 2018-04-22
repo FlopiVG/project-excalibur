@@ -2,7 +2,8 @@ const Builds = require('./model');
 
 let builds = Builds;
 
-function calculeTotalCost(build, { cost, level }) {
+function calculeTotalCost(build) {
+  const { cost, level } = build;
   return {
     ...build,
     foodCost: Math.floor(cost.food.quantity * (cost.food.multi * level)),
