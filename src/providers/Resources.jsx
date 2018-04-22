@@ -25,7 +25,8 @@ class ResourcesProvider extends React.Component {
     getUserResources()
       .then((data) => {
         this.setState({ fetchLoading: false, resources: data });
-        // this.socket.on('get_resources', this.onGetResources);
+        this.socket.on('get_resources', resources =>
+          this.setState({ resources }));
       })
       .catch(error =>
         this.setState({ fetchLoading: false, fetchError: error }));
