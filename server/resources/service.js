@@ -1,13 +1,13 @@
 const ResourcesModel = require('./model');
+const Resource = require('./mongoModel');
 
 let resourcesModel = ResourcesModel;
 
 function getResourcesFromModel() {
-  return new Promise((resolve) => {
-    resolve(resourcesModel.map(resources => ({
-      ...resources,
-      quantity: Math.floor(resources.quantity),
-    })));
+  return new Promise((resolve, reject) => {
+    Resource.find({})
+      .then(resources => resolve(resources))
+      .catch(error => reject(error));
   });
 }
 

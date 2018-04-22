@@ -79,11 +79,13 @@ class Game extends React.Component {
             <br />
             <BuildsProvider>
               <BuildsConsumer>
-                {({ builds, loading }) => (loading ? (
-                  <div>Loading...</div>
+                {({ builds, loading }) =>
+                  (loading ? (
+                    <div>Loading...</div>
                   ) : (
                     builds.map(build => <BuildItem key={build.id} {...build} />)
-                  ))}
+                  ))
+                }
               </BuildsConsumer>
             </BuildsProvider>
           </div>
