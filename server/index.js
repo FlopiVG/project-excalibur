@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 /**
  * Configs
  */
+require('./config/mongoDb');
 require('./config/nextServer')(app, server);
 require('./config/socketServer')(server);
 
