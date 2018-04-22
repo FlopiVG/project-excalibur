@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Consumer } from '../providers/Resources';
+import { Consumer } from '../providers/Builds';
 
 const BuildItem = ({
   id, name, description, imgSrc, level,
@@ -15,10 +15,10 @@ const BuildItem = ({
       <div className="column is-9">{description}</div>
       <div className="column is-3">
         <Consumer>
-          {({ loadingUpdate, updateBuild }) => (
+          {({ upgradeLoading, upgradeBuild }) => (
             <button
-              className={`button ${loadingUpdate && 'is-loading'}`}
-              onClick={() => updateBuild(id)}
+              className={`button ${upgradeLoading && 'is-loading'}`}
+              onClick={() => upgradeBuild(id)}
             >
               Updrade
             </button>

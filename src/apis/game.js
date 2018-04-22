@@ -25,7 +25,7 @@ export function getUserResources() {
   });
 }
 
-export function updateBuild(id) {
+export function upgradeBuild(id) {
   return new Promise((resolve, reject) => {
     Axios({
       method: 'PATCH',
@@ -37,7 +37,7 @@ export function updateBuild(id) {
         id,
       },
     })
-      .then(() => resolve('Ok'))
+      .then(res => resolve(res.data))
       .catch(err => reject(err));
   });
 }

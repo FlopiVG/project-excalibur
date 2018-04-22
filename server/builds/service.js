@@ -20,7 +20,7 @@ function updateLevelFromModel(id) {
         level: resource.level + 1,
       };
     });
-    resolve('Done');
+    resolve(builds.find(build => build.id === id));
   });
 }
 

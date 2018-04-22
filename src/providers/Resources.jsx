@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import { updateBuild } from '../apis/game';
 
 const ResourcesContext = React.createContext();
 
@@ -18,14 +17,6 @@ class ResourcesProvider extends React.Component {
     this.socket.disconnect();
   }
 
-  onUpdateBuild = (id) => {
-    this.setState({ loadingUpdate: true, errorUpdate: '' });
-    updateBuild(id)
-      .then(() => this.setState({ loadingUpdate: false }))
-      .catch(error =>
-        this.setState({ loadingUpdate: false, errorUpdate: error }));
-  };
-
   onGetResources = (data) => {
     this.setState({
       resources: data,
@@ -41,7 +32,6 @@ class ResourcesProvider extends React.Component {
           resources,
           loadingUpdate,
           errorUpdate,
-          updateBuild: id => this.onUpdateBuild(id),
         }}
       >
         {this.props.children}

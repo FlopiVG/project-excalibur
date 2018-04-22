@@ -1,10 +1,11 @@
-import { userBuilds } from '../apis/game';
+import { userBuilds, upgradeBuild } from '../apis/game';
 
 const BuildsContext = React.createContext();
 
 class BuildsProvider extends React.Component {
   state = {
     loading: false,
+    upgradeLoading: false,
     error: '',
     builds: [],
   };
@@ -19,10 +20,32 @@ class BuildsProvider extends React.Component {
       .then(data => this.setState({ loading: false, builds: data }))
       .catch(error => this.setState({ loading: false, error }));
   };
+  upgradeBuild = (id) => {
+    const { builds } = this.state;
+
+    this.setState({ upgradeLoading: true });
+    upgradeBuild(id)
+      .then(data =>
+        this.setState({
+          upgradeLoading: false,
+          builds: builds.map(build => (build.id === data.id ? data : build)),
+        }))
+      .catch(() => this.setState({ upgradeLoading: false }));
+  };
   render() {
-    const { loading, builds, error } = this.state;
+    const {
+      loading, builds, error, upgradeLoading,
+    } = this.state;
     return (
-      <BuildsContext.Provider value={{ loading, builds, error }}>
+      <BuildsContext.Provider
+        value={{
+          loading,
+          builds,
+          error,
+          upgradeLoading,
+          upgradeBuild: id => this.upgradeBuild(id),
+        }}
+      >
         {this.props.children}
       </BuildsContext.Provider>
     );

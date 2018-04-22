@@ -27,7 +27,7 @@ function upgradeBuild(req, res) {
   }
 
   updateLevelFromModel(id)
-    .then(() => res.status(200).end())
+    .then(data => res.status(200).send(data))
     .catch((error) => {
       // eslint-disable-next-line no-console
       console.log(error);
