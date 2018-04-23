@@ -12,11 +12,27 @@ const Build = require('./model');
   };
 } */
 
-function getBuildsFromModel() {
+function getUserBuilds() {
   return new Promise((resolve, reject) => {
     Build.find({})
       .then(builds => resolve(builds))
       .catch(error => reject(error));
+  });
+}
+
+function checkFoundResource(doc) {
+  return new Promise((resolve, reject) => {
+    if (doc) resolve(doc);
+    else reject(new Error('Dont found resource'));
+  });
+}
+
+function getUserBuild(id) {
+  return new Promise((resolve, reject) => {
+    Build.findById(id)
+      .then(checkFoundResource)
+      .then(resolve)
+      .catch(reject);
   });
 }
 
@@ -37,6 +53,7 @@ function getBuildsFromModel() {
 } */
 
 module.exports = {
-  getBuildsFromModel,
+  getUserBuilds,
+  getUserBuild,
   // updateLevelFromModel,
 };
