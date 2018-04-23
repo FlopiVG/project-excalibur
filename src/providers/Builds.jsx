@@ -20,15 +20,15 @@ class BuildsProvider extends React.Component {
       .then(data => this.setState({ loading: false, builds: data }))
       .catch(error => this.setState({ loading: false, error }));
   };
-  upgradeBuild = (id) => {
+  upgradeBuild = (_id) => {
     const { builds } = this.state;
 
     this.setState({ upgradeLoading: true });
-    upgradeBuild(id)
+    upgradeBuild(_id)
       .then(data =>
         this.setState({
           upgradeLoading: false,
-          builds: builds.map(build => (build.id === data.id ? data : build)),
+          builds: builds.map(build => (build._id === data._id ? data : build)),
         }))
       .catch(() => this.setState({ upgradeLoading: false }));
   };
