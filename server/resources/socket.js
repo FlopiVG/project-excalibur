@@ -2,12 +2,10 @@ const { getResourcesFromModel, updateResourcesNextTick } = require('./service');
 
 module.exports = (socket) => {
   setInterval(async () => {
-    try {
-      await updateResourcesNextTick();
-      socket.emit('get_resources', await getResourcesFromModel());
-    } catch (e) {
+    updateResourcesNextTick()
+      .then(getResourcesFromModel)
+      .then(resources => socket.emit('get_resources', resources))
       // eslint-disable-next-line no-console
-      console.log(e);
-    }
+      .catch(error => console.log(error));
   }, 1000);
 };
