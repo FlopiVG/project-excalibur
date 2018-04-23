@@ -8,17 +8,27 @@ function getResourcesFromModel() {
   });
 }
 
-function updateResourcesFromModel() {
-  return new Promise((resolve, reject) => {
-    Resource.updateMany({}, { $inc: { quantity: 1 } })
-      .then(() => {
-        resolve('Ok');
-      })
-      .catch(error => reject(error));
+function updateResourcesNextTick() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resources = await getResourcesFromModel();
+      resources.forEach(async (resource) => {
+        try {
+          await Resource.findByIdAndUpdate(resource._id, {
+            $inc: { quantity: 1 },
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+      resolve('Ok');
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 
 module.exports = {
   getResourcesFromModel,
-  updateResourcesFromModel,
+  updateResourcesNextTick,
 };
