@@ -1,16 +1,12 @@
-module.exports = [
-  {
-    id: 1,
-    name: 'food',
-    quantity: 3025,
-    perSec: 0.3,
-    incPerUpdate: 0.6,
-  },
-  {
-    id: 2,
-    name: 'wood',
-    quantity: 3000,
-    perSec: 2.27,
-    incPerUpdate: 0.02,
-  },
-];
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+
+const resourceSchema = new Schema({
+  name: String,
+  quantity: Number,
+  perSec: Number,
+  incPerUpdate: Number,
+});
+
+module.exports = mongoose.model('resources', resourceSchema);

@@ -1,4 +1,4 @@
-const Resource = require('./mongoModel');
+const Resource = require('./model');
 
 function getResourcesFromModel() {
   return new Promise((resolve, reject) => {
