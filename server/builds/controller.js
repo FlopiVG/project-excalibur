@@ -1,14 +1,9 @@
 const { getUserBuilds, getUserBuild, upgradeUserBuild } = require('./service');
 
 async function getBuilds(req, res) {
-  try {
-    const builds = await getUserBuilds();
-    res.status(200).send(builds);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
-    res.status(500).send('Internal server error.');
-  }
+  getUserBuilds()
+    .then(builds => res.status(200).send(builds))
+    .catch(error => res.status(500).send(error));
 }
 
 function getBuild(req, res) {
