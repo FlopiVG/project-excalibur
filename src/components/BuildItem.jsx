@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Consumer } from '../providers/Builds';
 
 const BuildItem = ({
-  id, name, description, imgSrc, level, upgradeCost,
+  _id, name, description, imgSrc, level, upgradeCost,
 }) => (
   <div className="tile is-child box">
     <h3 className="title is-3 has-text-centered">
@@ -18,7 +18,7 @@ const BuildItem = ({
           {({ upgradeLoading, upgradeBuild }) => (
             <button
               className={`button ${upgradeLoading && 'is-loading'}`}
-              onClick={() => upgradeBuild(id)}
+              onClick={() => upgradeBuild(_id)}
             >
               Updrade
             </button>
@@ -38,7 +38,7 @@ const BuildItem = ({
 );
 
 BuildItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imgSrc: PropTypes.string.isRequired,

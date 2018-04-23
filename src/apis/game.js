@@ -28,14 +28,8 @@ export function getUserResources() {
 export function upgradeBuild(id) {
   return new Promise((resolve, reject) => {
     Axios({
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      url: '/api/build',
-      data: {
-        id,
-      },
+      method: 'POST',
+      url: `/api/build/${id}`,
     })
       .then(res => resolve(res.data))
       .catch(err => reject(err));

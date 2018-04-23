@@ -36,6 +36,14 @@ function getUserBuild(id) {
   });
 }
 
+function upgradeUserBuild(id) {
+  return new Promise((resolve, reject) => {
+    Build.findByIdAndUpdate(id, { $inc: { level: 1 } }, { new: true })
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
 /* function updateLevelFromModel(id) {
   return new Promise((resolve, reject) => {
     if (!builds.find(build => build.id === id)) {
@@ -55,5 +63,6 @@ function getUserBuild(id) {
 module.exports = {
   getUserBuilds,
   getUserBuild,
+  upgradeUserBuild,
   // updateLevelFromModel,
 };
