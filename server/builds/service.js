@@ -1,23 +1,26 @@
-const Builds = require('./model');
+// const Builds = require('./model');
+const Build = require('./model');
 
-let builds = Builds;
+// const builds = Builds;
 
-function calculeTotalCost(build) {
+/* function calculeTotalCost(build) {
   const { cost, level } = build;
   return {
     ...build,
     foodCost: Math.floor(cost.food.quantity * (cost.food.multi * level)),
     woodCost: Math.floor(cost.wood.quantity * (cost.wood.multi * level)),
   };
-}
+} */
 
 function getBuildsFromModel() {
-  return new Promise((resolve) => {
-    resolve(builds.map(calculeTotalCost));
+  return new Promise((resolve, reject) => {
+    Build.find({})
+      .then(builds => resolve(builds))
+      .catch(error => reject(error));
   });
 }
 
-function updateLevelFromModel(id) {
+/* function updateLevelFromModel(id) {
   return new Promise((resolve, reject) => {
     if (!builds.find(build => build.id === id)) {
       reject(new Error(`Dont find any build with id ${id}`));
@@ -31,9 +34,9 @@ function updateLevelFromModel(id) {
     });
     resolve(builds.map(calculeTotalCost).find(build => build.id === id));
   });
-}
+} */
 
 module.exports = {
   getBuildsFromModel,
-  updateLevelFromModel,
+  // updateLevelFromModel,
 };
