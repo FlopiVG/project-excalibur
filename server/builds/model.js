@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mockData = require('./mock');
 
 const { Schema } = mongoose;
 
@@ -20,4 +21,20 @@ const buildSchema = new Schema({
   upgradeCost: [upgradeCostSchema],
 });
 
-module.exports = mongoose.model('builds', buildSchema);
+const buildsModel = mongoose.model('builds', buildSchema);
+
+if (process.env.MOCK) {
+  buildsModel
+    .find({})
+    .then((builds) => {
+      if (builds.length === 0) return buildsModel.insertMany(mockData);
+      return Promise.resolve(null);
+    })
+    .then(isInit =>
+    // eslint-disable-next-line no-console
+      isInit && console.log('Builds model initialize with mock data.'))
+    // eslint-disable-next-line no-console
+    .catch(console.log);
+}
+
+module.exports = buildsModel;
