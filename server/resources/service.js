@@ -8,6 +8,19 @@ function getResourcesFromModel() {
   });
 }
 
+function updateUserResource(resourcesQuantities) {
+  return new Promise((resolve, reject) => {
+    const resourcesQuantitiesMapped = resourcesQuantities.map(resource =>
+      Resource.findByIdAndUpdate(resource._id, {
+        $inc: { quantity: -resource.quantity },
+      }));
+
+    Promise.all(resourcesQuantitiesMapped)
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
 function updateResourcesNextTick() {
   return new Promise(async (resolve, reject) => {
     try {
@@ -30,5 +43,6 @@ function updateResourcesNextTick() {
 
 module.exports = {
   getResourcesFromModel,
+  updateUserResource,
   updateResourcesNextTick,
 };

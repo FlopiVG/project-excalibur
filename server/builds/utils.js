@@ -15,6 +15,7 @@ function mapUpgradeCost(build) {
     } else {
       const buildMapped = build;
       buildMapped.upgradeCost = build.upgradeCost.map(cost => ({
+        _id: cost._id,
         name: cost.name,
         quantity: Math.floor(cost.quantity * (build.level * cost.multi)),
       }));

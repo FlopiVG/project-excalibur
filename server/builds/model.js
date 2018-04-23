@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const upgradeCostSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    ref: 'resources',
+  },
   name: String,
   quantity: Number,
   multi: Number,

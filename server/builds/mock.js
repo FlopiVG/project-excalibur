@@ -8,11 +8,13 @@ const builds = [
     level: 1,
     upgradeCost: [
       {
+        _id: '5add94bc58f904e8aa8b9028',
         name: 'food',
         quantity: 250,
         multi: 1.2,
       },
       {
+        _id: '5add94bc58f904e8aa8b9029',
         name: 'wood',
         quantity: 200,
         multi: 2.23,
@@ -32,11 +34,13 @@ const builds = [
     level: 1,
     upgradeCost: [
       {
+        _id: '5add94bc58f904e8aa8b9028',
         name: 'food',
         quantity: 200,
         multi: 2.23,
       },
       {
+        _id: '5add94bc58f904e8aa8b9029',
         name: 'wood',
         quantity: 100,
         multi: 1.25,
