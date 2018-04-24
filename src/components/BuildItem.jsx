@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 import { Consumer } from '../providers/Builds';
 
 const BuildItem = ({
-  _id, name, description, imgSrc, level, upgradeCost,
+  _id,
+  name,
+  description,
+  imgSrc,
+  level,
+  upgradeCost,
+  canUpgrade,
 }) => (
   <div className="tile is-child box">
     <h3 className="title is-3 has-text-centered">
@@ -17,6 +23,7 @@ const BuildItem = ({
         <Consumer>
           {({ upgradeLoading, upgradeBuild }) => (
             <button
+              disabled={!canUpgrade}
               className={`button ${upgradeLoading && 'is-loading'}`}
               onClick={() => upgradeBuild(_id)}
             >
@@ -47,6 +54,7 @@ BuildItem.propTypes = {
     name: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
   })),
+  canUpgrade: PropTypes.bool.isRequired,
 };
 
 BuildItem.defaultProps = {
