@@ -1,4 +1,4 @@
-const { getResourcesFromModel, updateUserResource } = require('./service');
+const { getResourcesFromModel, updateUserResources } = require('./service');
 
 function getResources(req, res) {
   getResourcesFromModel()
@@ -25,7 +25,7 @@ function checkUpdateBody(body) {
 
 function updateResources(req, res) {
   checkUpdateBody(req.body)
-    .then(updateUserResource)
+    .then(updateUserResources)
     .then(resources => res.status(200).send(resources))
     .catch(error => res.status(500).send(error.message));
 }

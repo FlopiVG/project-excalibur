@@ -1,4 +1,5 @@
 const Resource = require('./model');
+const { mapResourcesToUpdate, checkEnoughResource } = require('./utils');
 
 function getResourcesFromModel() {
   return new Promise((resolve, reject) => {
@@ -8,14 +9,28 @@ function getResourcesFromModel() {
   });
 }
 
-function updateUserResource(resourcesQuantities) {
+function getUserResource(_id) {
   return new Promise((resolve, reject) => {
-    const resourcesQuantitiesMapped = resourcesQuantities.map(resource =>
-      Resource.findByIdAndUpdate(resource._id, {
-        $inc: { quantity: -resource.quantity },
-      }));
+    Resource.findById(_id)
+      .lean()
+      .then(resolve)
+      .catch(reject);
+  });
+}
 
-    Promise.all(resourcesQuantitiesMapped)
+function updateUserResources(resourcesQuantities) {
+  return new Promise((resolve, reject) => {
+    Promise.all(resourcesQuantities.map(({ _id }) => getUserResource(_id)))
+      .then(resources =>
+        Promise.all(resources.map(resource =>
+          mapResourcesToUpdate(resource, resourcesQuantities))))
+      .then(resources => Promise.all(resources.map(checkEnoughResource)))
+      .then(resources =>
+        Promise.all(resources.map(resource =>
+          Resource.updateOne(
+            { _id: resource._id },
+            { $inc: { quantity: -resource.needRes } },
+          ))))
       .then(resolve)
       .catch(reject);
   });
@@ -43,6 +58,6 @@ function updateResourcesNextTick() {
 
 module.exports = {
   getResourcesFromModel,
-  updateUserResource,
+  updateUserResources,
   updateResourcesNextTick,
 };

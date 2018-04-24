@@ -4,6 +4,7 @@
   "repository": "https://gitlab.com/FlopiCompany/project-excalibur.git",
   "author": "FlopiVG <flopivillagarcia@gmail.com>",
   "license": "MIT",
+  "main": "./server/index.js",
   "engines": {
     "node": "9.11.1",
     "yarn": "^1.5.1"
@@ -16,10 +17,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "**/*.{js,jsx,css}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "**/*.{js,jsx,css}": ["eslint --fix", "git add"]
   },
   "dependencies": {
     "axios": "^0.18.0",

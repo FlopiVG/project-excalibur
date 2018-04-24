@@ -1,10 +1,11 @@
 const { checkFoundResource, mapUpgradeCost } = require('./utils');
-const { updateUserResource } = require('../resources/service');
+const { updateUserResources } = require('../resources/service');
 const Build = require('./model');
 
 function getUserBuilds() {
   return new Promise((resolve, reject) => {
     Build.find({})
+      .lean()
       .then(mapUpgradeCost)
       .then(resolve)
       .catch(reject);
@@ -23,10 +24,9 @@ function getUserBuild(id) {
 
 function upgradeUserBuild(id) {
   return new Promise((resolve, reject) => {
-    // Build.findByIdAndUpdate(id, { $inc: { level: 1 } }, { new: true })
     getUserBuild(id)
       .then(build =>
-        updateUserResource(build.upgradeCost)
+        updateUserResources(build.upgradeCost)
           .then(() => Promise.resolve(build))
           .catch(error => Promise.reject(error)))
       .then(build =>
