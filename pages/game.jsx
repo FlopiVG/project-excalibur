@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import BuildsProvider, { Consumer as BuildsConsumer } from '../src/providers/Builds';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
 import { userBuilds } from '../src/apis/game';
@@ -7,8 +8,12 @@ import BuildItem from '../src/components/BuildItem';
 import ResourceProvider, { Consumer } from '../src/providers/Resources';
 
 class Game extends React.Component {
-  static async getInitialProps({ res }) {
-    const [userLogged, builds] = await Promise.all([whoAmi(), userBuilds()]);
+  static async getInitialProps({ res, req }) {
+    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+    const [userLogged, builds] = await Promise.all([
+      whoAmi(),
+      userBuilds(baseUrl),
+    ]);
 
     if (res && !userLogged) {
       res.writeHead(302, { Location: '/' });
@@ -26,7 +31,7 @@ class Game extends React.Component {
   static propTypes = {
     userLogged: PropTypes.string,
     builds: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       imgSrc: PropTypes.string.isRequired,
@@ -44,8 +49,8 @@ class Game extends React.Component {
       <Consumer>
         {({ resources }) => (
           <React.Fragment>
-            {resources.map(({ id, name, quantity }) => (
-              <div key={id} className="column">
+            {resources.map(({ _id, name, quantity }) => (
+              <div key={_id} className="column">
                 <div className="tile is-child box has-text-centered">
                   <span className="is-size-5">{name}:</span> {quantity}
                 </div>
@@ -58,7 +63,7 @@ class Game extends React.Component {
   );
 
   render() {
-    const { userLogged, builds } = this.props;
+    const { userLogged } = this.props;
 
     return (
       <Layout userLogged={userLogged}>
@@ -72,7 +77,19 @@ class Game extends React.Component {
               />
             </figure>
             <br />
-            {builds.map(build => <BuildItem key={build.id} {...build} />)}
+            <BuildsProvider>
+              <BuildsConsumer>
+                {({ builds, loading }) =>
+                  (loading ? (
+                    <div>Loading...</div>
+                  ) : (
+                    builds.map(build => (
+                      <BuildItem key={build._id} {...build} />
+                    ))
+                  ))
+                }
+              </BuildsConsumer>
+            </BuildsProvider>
           </div>
         </ResourceProvider>
         <style jsx scoped>

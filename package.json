@@ -4,12 +4,13 @@
   "repository": "https://gitlab.com/FlopiCompany/project-excalibur.git",
   "author": "FlopiVG <flopivillagarcia@gmail.com>",
   "license": "MIT",
+  "main": "./server/index.js",
   "engines": {
     "node": "9.11.1",
-    "yarn": "1.5.1"
+    "yarn": "^1.5.1"
   },
   "scripts": {
-    "dev": "node server",
+    "dev": "nodemon server",
     "build": "next build",
     "start": "NODE_ENV=production node server",
     "lint": "eslint .",
@@ -19,9 +20,14 @@
     "**/*.{js,jsx,css}": ["eslint --fix", "git add"]
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-plugin-transform-inline-environment-variables": "^0.4.0",
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "isomorphic-unfetch": "^2.0.0",
+    "mongoose": "^5.0.15",
     "next": "^5.1.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
@@ -38,6 +44,8 @@
     "eslint-plugin-react": "7.7.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.4",
+    "nodemon": "^1.17.3",
     "prettier-eslint": "^8.8.1"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }

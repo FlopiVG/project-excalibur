@@ -74,7 +74,11 @@ class Login extends React.Component {
       <div className="is-flex">
         <div className="navbar-item">{userLogged}</div>
         <div className="navbar-item">
-          <a className={`button ${loading && 'is-loading'}`} href="/#" onClick={() => doLoggout()}>
+          <a
+            className={`button ${loading && 'is-loading'}`}
+            href="/#"
+            onClick={() => doLoggout()}
+          >
             Disconnect
           </a>
         </div>

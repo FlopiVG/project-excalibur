@@ -1,27 +1,37 @@
-import { builds, resources } from './gameData';
+import Axios from 'axios';
 
-const { DELAY = 0 } = process.env;
+require('isomorphic-unfetch');
 
-export function userBuilds() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(builds);
-    }, DELAY);
+export function userBuilds(host) {
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'GET',
+      url: '/api/builds',
+      baseURL: host,
+    })
+      .then(res => resolve(res.data))
+      .catch(error => reject(new Error(error)));
   });
 }
 
 export function getUserResources() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(resources);
-    }, DELAY);
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'GET',
+      url: '/api/resources',
+    })
+      .then(res => resolve(res.data))
+      .catch(err => reject(err));
   });
 }
 
-export function startCounterResource() {
-  return new Promise((resolve) => {
-    setInterval(() => {
-      resolve('Ok');
-    }, DELAY);
+export function upgradeBuild(id) {
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'POST',
+      url: `/api/build/${id}`,
+    })
+      .then(res => resolve(res.data))
+      .catch(err => reject(err));
   });
 }
