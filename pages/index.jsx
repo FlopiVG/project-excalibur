@@ -6,8 +6,7 @@ import { whoAmi } from '../src/apis/user';
 
 class Index extends React.Component {
   static async getInitialProps() {
-    const news = await getNews();
-    const userLogged = await whoAmi();
+    const [news, userLogged] = await Promise.all([getNews(), whoAmi()]);
 
     return {
       news,

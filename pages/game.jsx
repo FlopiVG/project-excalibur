@@ -1,13 +1,19 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import BuildsProvider, { Consumer as BuildsConsumer } from '../src/providers/Builds';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
-import userBuilds from '../src/apis/game';
+import { userBuilds } from '../src/apis/game';
 import BuildItem from '../src/components/BuildItem';
+import ResourceProvider, { Consumer } from '../src/providers/Resources';
 
 class Game extends React.Component {
-  static async getInitialProps({ res }) {
-    const userLogged = await whoAmi();
+  static async getInitialProps({ res, req }) {
+    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+    const [userLogged, builds] = await Promise.all([
+      whoAmi(),
+      userBuilds(baseUrl),
+    ]);
 
     if (res && !userLogged) {
       res.writeHead(302, { Location: '/' });
@@ -16,9 +22,6 @@ class Game extends React.Component {
     } else if (!userLogged) {
       Router.replace('/');
     }
-
-    const builds = await userBuilds();
-
     return {
       userLogged,
       builds,
@@ -28,7 +31,7 @@ class Game extends React.Component {
   static propTypes = {
     userLogged: PropTypes.string,
     builds: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       imgSrc: PropTypes.string.isRequired,
@@ -43,35 +46,52 @@ class Game extends React.Component {
 
   renderResources = () => (
     <div className="columns">
-      <div className="column">
-        <div className="tile is-child box has-text-centered">
-          <span className="is-size-5">Food:</span> 3000
-        </div>
-      </div>
-      <div className="column">
-        <div className="tile is-child box has-text-centered">
-          <span className="is-size-5">Wood:</span> 3000
-        </div>
-      </div>
+      <Consumer>
+        {({ resources }) => (
+          <React.Fragment>
+            {resources.map(({ _id, name, quantity }) => (
+              <div key={_id} className="column">
+                <div className="tile is-child box has-text-centered">
+                  <span className="is-size-5">{name}:</span> {quantity}
+                </div>
+              </div>
+            ))}
+          </React.Fragment>
+        )}
+      </Consumer>
     </div>
   );
 
   render() {
-    const { userLogged, builds } = this.props;
+    const { userLogged } = this.props;
 
     return (
       <Layout userLogged={userLogged}>
-        <div className="tile is-ancestor is-vertical">
-          {this.renderResources()}
-          <figure className="image">
-            <img
-              src="https://img1.cgtrader.com/items/117683/7bcf6531ce/cartoon-village-mobile-3d-model-max-obj-fbx-tga.jpg"
-              alt="village"
-            />
-          </figure>
-          <br />
-          {builds.map(build => <BuildItem key={build.id} {...build} />)}
-        </div>
+        <ResourceProvider>
+          <div className="tile is-ancestor is-vertical">
+            {this.renderResources()}
+            <figure className="image">
+              <img
+                src="https://img1.cgtrader.com/items/117683/7bcf6531ce/cartoon-village-mobile-3d-model-max-obj-fbx-tga.jpg"
+                alt="village"
+              />
+            </figure>
+            <br />
+            <BuildsProvider>
+              <BuildsConsumer>
+                {({ builds, loading }) =>
+                  (loading ? (
+                    <div>Loading...</div>
+                  ) : (
+                    builds.map(build => (
+                      <BuildItem key={build._id} {...build} />
+                    ))
+                  ))
+                }
+              </BuildsConsumer>
+            </BuildsProvider>
+          </div>
+        </ResourceProvider>
         <style jsx scoped>
           {`
             img {

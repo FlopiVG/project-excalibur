@@ -10,7 +10,7 @@ RUN yarn --pure-lockfile
 
 ADD pages pages
 ADD src src
-ADD server.js .
+ADD server server
 
 RUN yarn build
 
