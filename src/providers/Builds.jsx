@@ -45,6 +45,7 @@ class BuildsProvider extends React.Component {
 
     Promise.all(buildsMapped)
       .then(data => this.setState({ builds: data }))
+      // eslint-disable-next-line no-console
       .catch(console.log);
   };
 
