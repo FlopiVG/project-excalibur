@@ -1,9 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:jest/recommended"],
   "plugins": ["react", "jsx-a11y", "import"],
   "globals": {
     "React": true
+  },
+  "env": {
+    "jest": true
   },
   "rules": {
     "react/prop-types": [
@@ -20,8 +23,6 @@
         "ignoreUrls": true,
         "ignoreStrings": true
       }
-    ],
-    "react/jsx-no-undef": [2, { "allowGlobals": true }],
-    "no-underscore-dangle": [2, { "allow": ["_id"] }]
+    ]
   }
 }

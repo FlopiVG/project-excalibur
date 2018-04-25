@@ -14,13 +14,11 @@
     "build": "next build",
     "start": "NODE_ENV=production node server",
     "lint": "eslint .",
+    "unit-test": "jest",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "**/*.{js,jsx,css}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "**/*.{js,jsx,css}": ["eslint --fix", "git add"]
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -43,6 +41,7 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-react": "7.7.0",
     "husky": "^0.14.3",
