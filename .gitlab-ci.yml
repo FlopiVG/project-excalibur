@@ -10,3 +10,7 @@ cache:
 test:lint:
   script:
     - yarn lint
+
+test:unit-test:
+  script:
+    - yarn unit-test
