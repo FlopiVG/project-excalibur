@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:jest/recommended"],
+  "extends": "airbnb",
   "plugins": ["react", "jsx-a11y", "import"],
   "globals": {
     "React": true
@@ -23,6 +23,7 @@
         "ignoreUrls": true,
         "ignoreStrings": true
       }
-    ]
+    ],
+    "no-underscore-dangle": [2, { "allow": ["_id"] }]
   }
 }
