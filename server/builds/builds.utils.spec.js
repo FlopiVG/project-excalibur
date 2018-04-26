@@ -20,7 +20,9 @@ describe('utils in builds', () => {
     expect(mapUpgradeCost(inputData[0])).toBeInstanceOf(Promise);
   });
   it('should mapUpgradeCost map build correctly', () =>
-    mapUpgradeCost(inputData).then((data) => {
-      expect(data).toEqual(outputData);
-    }));
+    mapUpgradeCost(inputData)
+      .then((data) => {
+        expect(data).toEqual(outputData);
+      })
+      .catch(error => expect(error).toBeFalsy()));
 });

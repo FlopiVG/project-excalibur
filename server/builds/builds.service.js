@@ -16,6 +16,7 @@ function getUserBuilds() {
 function getUserBuild(id) {
   return new Promise((resolve, reject) => {
     Build.findById(id)
+      .lean()
       .then(checkFoundDoc)
       .then(mapUpgradeCost)
       .then(resolve)
