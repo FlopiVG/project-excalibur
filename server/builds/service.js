@@ -1,4 +1,5 @@
-const { checkFoundResource, mapUpgradeCost } = require('./utils');
+const { checkFoundDoc } = require('../utils/validations');
+const { mapUpgradeCost } = require('./utils');
 const { updateUserResources } = require('../resources/service');
 const Build = require('./model');
 
@@ -15,7 +16,7 @@ function getUserBuilds() {
 function getUserBuild(id) {
   return new Promise((resolve, reject) => {
     Build.findById(id)
-      .then(checkFoundResource)
+      .then(checkFoundDoc)
       .then(mapUpgradeCost)
       .then(resolve)
       .catch(reject);

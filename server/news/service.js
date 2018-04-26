@@ -1,3 +1,4 @@
+const { checkFoundDoc } = require('../utils/validations');
 const News = require('./model');
 
 function getServerNews() {
@@ -13,6 +14,7 @@ function getServerNew(id) {
   return new Promise((resolve, reject) => {
     News.findById(id)
       .lean()
+      .then(checkFoundDoc)
       .then(resolve)
       .catch(reject);
   });
