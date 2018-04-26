@@ -1,6 +1,6 @@
 const { checkFoundDoc } = require('../utils/validations');
 const { mapUpgradeCost } = require('./builds.utils');
-const { updateUserResources } = require('../resources/resources.service');
+const { updateUserResourcesShared } = require('./builds.shared');
 const Build = require('./builds.model');
 
 function getUserBuilds() {
@@ -27,7 +27,7 @@ function upgradeUserBuild(id) {
   return new Promise((resolve, reject) => {
     getUserBuild(id)
       .then(build =>
-        updateUserResources(build.upgradeCost)
+        updateUserResourcesShared(build.upgradeCost)
           .then(() => Promise.resolve(build))
           .catch(error => Promise.reject(error)))
       .then(build =>
