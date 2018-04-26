@@ -1,5 +1,5 @@
 const { mapUpgradeCost } = require('./builds.utils');
-const mockData = require('./builds.mock');
+const mockData = require('./__mocks__/builds.data');
 
 describe('utils in builds', () => {
   let inputData;
