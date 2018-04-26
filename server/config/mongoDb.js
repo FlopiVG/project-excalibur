@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { MONGO_URI } = process.env;
-
+console.log(MONGO_URI);
 mongoose.connect(MONGO_URI);
 
 // eslint-disable-next-line no-console

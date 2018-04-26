@@ -21,3 +21,4 @@ require('./config/socketServer')(server);
  */
 require('./resources/router')(app);
 require('./builds/router')(app);
+require('./news/router')(app);
