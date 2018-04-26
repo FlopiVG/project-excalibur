@@ -1,4 +1,4 @@
-const { getNews, getNew } = require('./controller');
+const { getNews, getNew } = require('./news.controller');
 
 module.exports = (app) => {
   app.get('/api/news', getNews);

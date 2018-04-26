@@ -1,4 +1,8 @@
-const { getUserBuilds, getUserBuild, upgradeUserBuild } = require('./service');
+const {
+  getUserBuilds,
+  getUserBuild,
+  upgradeUserBuild,
+} = require('./builds.service');
 
 async function getBuilds(req, res) {
   getUserBuilds()

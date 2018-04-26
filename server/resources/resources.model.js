@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mockData = require('./mock');
+const mockData = require('./resources.mock');
 const { generateMockData } = require('../utils/mock');
 
 const { Schema } = mongoose;

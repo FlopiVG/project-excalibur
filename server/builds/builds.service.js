@@ -1,7 +1,7 @@
 const { checkFoundDoc } = require('../utils/validations');
-const { mapUpgradeCost } = require('./utils');
-const { updateUserResources } = require('../resources/service');
-const Build = require('./model');
+const { mapUpgradeCost } = require('./builds.utils');
+const { updateUserResources } = require('../resources/resources.service');
+const Build = require('./builds.model');
 
 function getUserBuilds() {
   return new Promise((resolve, reject) => {

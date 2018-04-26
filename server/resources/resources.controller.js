@@ -1,4 +1,7 @@
-const { getResourcesFromModel, updateUserResources } = require('./service');
+const {
+  getResourcesFromModel,
+  updateUserResources,
+} = require('./resources.service');
 
 function getResources(req, res) {
   getResourcesFromModel()
