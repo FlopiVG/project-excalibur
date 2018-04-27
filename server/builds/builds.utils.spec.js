@@ -16,10 +16,10 @@ describe('utils in builds', () => {
       })),
     };
   });
-  it('should mapUpgradeCost return a promise', () => {
+  xit('should mapUpgradeCost return a promise', () => {
     expect(mapUpgradeCost(inputData[0])).toBeInstanceOf(Promise);
   });
-  it('should mapUpgradeCost map build correctly', () =>
+  xit('should mapUpgradeCost map build correctly', () =>
     mapUpgradeCost(inputData)
       .then((data) => {
         expect(data).toEqual(outputData);

@@ -14,8 +14,8 @@
     "build": "next build",
     "start": "NODE_ENV=production node server",
     "lint": "eslint .",
-    "unit-test": "jest",
-    "unit-test:watch": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "precommit": "lint-staged"
   },
   "lint-staged": {
