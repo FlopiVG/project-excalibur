@@ -1,9 +1,8 @@
 const { checkFoundDoc } = require('../utils/validations');
 const { mapUpgradeCost } = require('./builds.utils');
 const { updateUserResourcesShared } = require('./builds.shared');
-const Build = require('./builds.model');
 
-function getUserBuilds() {
+function getUserBuilds(Build) {
   return new Promise((resolve, reject) => {
     Build.find({})
       .lean()
@@ -13,7 +12,7 @@ function getUserBuilds() {
   });
 }
 
-function getUserBuild(id) {
+function getUserBuild(Build, id) {
   return new Promise((resolve, reject) => {
     Build.findById(id)
       .lean()
@@ -24,9 +23,9 @@ function getUserBuild(id) {
   });
 }
 
-function upgradeUserBuild(id) {
+function upgradeUserBuild(Build, id) {
   return new Promise((resolve, reject) => {
-    getUserBuild(id)
+    getUserBuild(Build, id)
       .then(build =>
         updateUserResourcesShared(build.upgradeCost)
           .then(() => Promise.resolve(build))
@@ -43,8 +42,8 @@ function upgradeUserBuild(id) {
   });
 }
 
-module.exports = {
-  getUserBuilds,
-  getUserBuild,
-  upgradeUserBuild,
-};
+module.exports = Build => ({
+  getUserBuilds: () => getUserBuilds(Build),
+  getUserBuild: id => getUserBuild(Build, id),
+  upgradeUserBuild: id => upgradeUserBuild(Build, id),
+});
