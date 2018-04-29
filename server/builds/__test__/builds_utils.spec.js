@@ -1,5 +1,5 @@
-const { mapUpgradeCost } = require('./builds.utils');
-const mockData = require('./__mocks__/builds.data');
+const { mapUpgradeCost } = require('../builds.utils');
+const mockData = require('../__mocks__/builds.data');
 
 describe('utils in builds', () => {
   let inputData;
@@ -16,13 +16,12 @@ describe('utils in builds', () => {
       })),
     };
   });
-  xit('should mapUpgradeCost return a promise', () => {
+  it('should mapUpgradeCost return a promise', () => {
     expect(mapUpgradeCost(inputData[0])).toBeInstanceOf(Promise);
   });
-  xit('should mapUpgradeCost map build correctly', () =>
-    mapUpgradeCost(inputData)
-      .then((data) => {
-        expect(data).toEqual(outputData);
-      })
-      .catch(error => expect(error).toBeFalsy()));
+  it('should mapUpgradeCost map build correctly', async () => {
+    const mappedData = await mapUpgradeCost(inputData);
+
+    expect(mappedData).toEqual(outputData);
+  });
 });

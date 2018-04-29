@@ -1,18 +1,9 @@
 const mongoose = require('mongoose');
+const { removeMongoKeys } = require('../../utils/general');
 
 const MONGO_URI_TEST = 'mongodb://127.0.0.1:27017/proyect-excalibur-test';
 mongoose.connect(MONGO_URI_TEST);
 const Build = require('../builds.model');
-
-function removeMongoKeys(docs) {
-  if (docs.length) {
-    return docs.map(removeMongoKeys);
-  }
-  const { _id, __v, ...rest } = docs;
-  return {
-    ...rest,
-  };
-}
 
 describe('build model test', () => {
   let input;

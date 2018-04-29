@@ -1,18 +1,20 @@
 const data = require('./builds.data');
+const { clone } = require('../../utils/general');
 
 const find = () => ({
-  lean: () => Promise.resolve(data),
+  lean: () => Promise.resolve(clone(data)),
 });
 
 const findById = (_id) => {
-  const searchData = data.find(dat => dat._id === _id);
+  const searchData = clone(data).find(dat => dat._id === _id);
+
   return {
     lean: () => Promise.resolve(searchData),
   };
 };
 
 const findByIdAndUpdate = (_id, op) => {
-  const searchData = data.find(dat => dat._id === _id);
+  const searchData = clone(data).find(dat => dat._id === _id);
   if (op.$inc) {
     Object.keys(op.$inc).forEach((key) => {
       searchData[key] += op.$inc[key];
