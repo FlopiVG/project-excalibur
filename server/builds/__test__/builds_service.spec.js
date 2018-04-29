@@ -6,7 +6,7 @@ const { clone } = require('../../utils/general');
 
 jest.mock('../builds.shared');
 
-describe('builds service with mock data', () => {
+describe('builds service test', () => {
   let service;
   let mockResponse;
 
