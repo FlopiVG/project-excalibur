@@ -1,4 +1,4 @@
-const { getBuilds, getBuild, upgradeBuild } = require('./builds.controller');
+const { getBuilds, getBuild, upgradeBuild } = require('./builds_controller');
 
 module.exports = (app) => {
   app.get('/api/builds', getBuilds);

@@ -1,12 +1,12 @@
 const request = require('supertest');
 const app = require('express')();
-const router = require('../builds.router');
-const data = require('../__mocks__/builds.data');
+const router = require('../builds_router');
+const data = require('../__mocks__/builds_data');
 const { clone } = require('../../utils/general');
-const { mapUpgradeCost } = require('../builds.utils');
+const { mapUpgradeCost } = require('../builds_utils');
 
-jest.mock('../builds.model');
-jest.mock('../builds.shared');
+jest.mock('../builds_model');
+jest.mock('../builds_shared');
 
 describe('builds controllers test', () => {
   let mockData;

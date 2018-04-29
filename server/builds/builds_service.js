@@ -1,6 +1,6 @@
 const { checkFoundDoc } = require('../utils/validations');
-const { mapUpgradeCost } = require('./builds.utils');
-const { updateUserResourcesShared } = require('./builds.shared');
+const { mapUpgradeCost } = require('./builds_utils');
+const { updateUserResourcesShared } = require('./builds_shared');
 
 function getUserBuilds(Build) {
   return new Promise((resolve, reject) => {

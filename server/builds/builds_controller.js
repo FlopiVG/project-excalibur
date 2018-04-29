@@ -1,5 +1,5 @@
-const Build = require('./builds.model');
-const BuildService = require('./builds.service')(Build);
+const Build = require('./builds_model');
+const BuildService = require('./builds_service')(Build);
 
 async function getBuilds(req, res) {
   BuildService.getUserBuilds()

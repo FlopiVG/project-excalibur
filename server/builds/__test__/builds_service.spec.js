@@ -1,10 +1,10 @@
-const data = require('../__mocks__/builds.data');
-const Service = require('../builds.service');
-const mockModel = require('../__mocks__/builds.model');
-const { mapUpgradeCost } = require('../builds.utils');
+const data = require('../__mocks__/builds_data');
+const Service = require('../builds_service');
+const mockModel = require('../__mocks__/builds_model');
+const { mapUpgradeCost } = require('../builds_utils');
 const { clone } = require('../../utils/general');
 
-jest.mock('../builds.shared');
+jest.mock('../builds_shared');
 
 describe('builds service test', () => {
   let service;

@@ -3,7 +3,7 @@ const { removeMongoKeys } = require('../../utils/general');
 
 const MONGO_URI_TEST = 'mongodb://127.0.0.1:27017/proyect-excalibur-test';
 mongoose.connect(MONGO_URI_TEST);
-const Build = require('../builds.model');
+const Build = require('../builds_model');
 
 describe('builds model test', () => {
   let input;
