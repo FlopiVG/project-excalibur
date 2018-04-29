@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const { removeMongoKeys } = require('../../utils/general');
 
-const MONGO_URI_TEST = 'mongodb://127.0.0.1:27017/proyect-excalibur-test';
-mongoose.connect(MONGO_URI_TEST);
+mongoose.connect(process.env.MONGO_URI_TEST);
 const Build = require('../builds_model');
 
 describe('builds model test', () => {
@@ -74,7 +73,6 @@ describe('builds model test', () => {
       ).lean();
       const expectedBuild = input;
       expectedBuild.level = 2;
-
       expect(removeMongoKeys(updateBuild)).toEqual(expectedBuild);
     });
   });
