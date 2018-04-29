@@ -13,4 +13,4 @@ test:lint:
 
 test:unit-test:
   script:
-    - yarn unit-test
+    - yarn test

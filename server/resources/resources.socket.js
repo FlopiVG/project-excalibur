@@ -1,4 +1,7 @@
-const { getResourcesFromModel, updateResourcesNextTick } = require('./service');
+const {
+  getResourcesFromModel,
+  updateResourcesNextTick,
+} = require('./resources.service');
 
 module.exports = (socket) => {
   setInterval(async () => {

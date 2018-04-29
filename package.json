@@ -14,8 +14,8 @@
     "build": "next build",
     "start": "NODE_ENV=production node server",
     "lint": "eslint .",
-    "unit-test": "jest",
-    "unit-test:watch": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "2.7.0",

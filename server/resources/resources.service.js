@@ -1,5 +1,8 @@
-const Resource = require('./model');
-const { mapResourcesToUpdate, checkEnoughResource } = require('./utils');
+const Resource = require('./resources.model');
+const {
+  mapResourcesToUpdate,
+  checkEnoughResource,
+} = require('./resources.utils');
 
 function getResourcesFromModel() {
   return new Promise((resolve, reject) => {

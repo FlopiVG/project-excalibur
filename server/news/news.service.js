@@ -1,5 +1,5 @@
 const { checkFoundDoc } = require('../utils/validations');
-const News = require('./model');
+const News = require('./news.model');
 
 function getServerNews() {
   return new Promise((resolve, reject) => {
