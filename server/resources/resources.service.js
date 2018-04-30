@@ -6,6 +6,7 @@ const {
 function getUserResources(Resource) {
   return new Promise((resolve, reject) => {
     Resource.find({})
+      .lean()
       .then(resources => resolve(resources))
       .catch(error => reject(error));
   });
@@ -28,10 +29,9 @@ function updateUserResources(Resource, resQuant) {
       .then(resources => Promise.all(resources.map(checkEnoughResource)))
       .then(resources =>
         Promise.all(resources.map(resource =>
-          Resource.updateOne(
-            { _id: resource._id },
-            { $inc: { quantity: -resource.needRes } },
-          ))))
+          Resource.findByIdAndUpdate(resource._id, {
+            $inc: { quantity: -resource.needRes },
+          }))))
       .then(resolve)
       .catch(reject);
   });
@@ -50,7 +50,7 @@ function updateResourcesNextTick(Resource) {
           reject(e);
         }
       });
-      resolve('Ok');
+      resolve('Ok.');
     } catch (e) {
       reject(e);
     }
@@ -59,6 +59,7 @@ function updateResourcesNextTick(Resource) {
 
 module.exports = Resource => ({
   getUserResources: () => getUserResources(Resource),
+  getUserResource: _id => getUserResource(Resource, _id),
   updateUserResources: resourcesQuantities =>
     updateUserResources(Resource, resourcesQuantities),
   updateResourcesNextTick: () => updateResourcesNextTick(Resource),

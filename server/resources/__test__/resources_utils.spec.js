@@ -78,7 +78,7 @@ describe('resources util test', () => {
       };
       const received = Utils.checkEnoughResource(resourceDontEnough);
 
-      return expect(received).rejects.toThrowError('Dont have enought resources..');
+      return expect(received).rejects.toThrowError('Dont have enought resources.');
     });
   });
 });
