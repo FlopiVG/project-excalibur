@@ -1,4 +1,4 @@
-const data = require('./news.data');
+const data = require('./news_data');
 
 const find = () => ({
   lean: () => Promise.resolve(data),
