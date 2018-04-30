@@ -25,7 +25,7 @@ describe('resources model test', () => {
     await mongoose.connection.close();
   });
 
-  it('has a module', () => {
+  it('should has a module', () => {
     expect(Resource).toBeDefined();
   });
 
