@@ -1,12 +1,10 @@
-const {
-  getResourcesFromModel,
-  updateResourcesNextTick,
-} = require('./resources.service');
+const Resource = require('./resources.model');
+const ResourcesService = require('./resources.service')(Resource);
 
 module.exports = (socket) => {
   setInterval(async () => {
-    updateResourcesNextTick()
-      .then(getResourcesFromModel)
+    ResourcesService.updateResourcesNextTick()
+      .then(ResourcesService.getUserResources)
       .then(resources => socket.emit('get_resources', resources))
       // eslint-disable-next-line no-console
       .catch(error => console.log(error));
