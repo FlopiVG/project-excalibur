@@ -1,5 +1,5 @@
-const Resource = require('../resources/resources.model');
-const ResourcesService = require('../resources/resources.service')(Resource);
+const Resource = require('../resources/resources_model');
+const ResourcesService = require('../resources/resources_service')(Resource);
 
 const updateUserResourcesShared = data =>
   new Promise((resolve, reject) => {

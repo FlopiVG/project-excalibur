@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { removeMongoKeys } = require('../../utils/general');
 
 mongoose.connect(process.env.MONGO_URI_TEST);
-const Resource = require('../resources.model');
+const Resource = require('../resources_model');
 
 describe('resources model test', () => {
   let input;

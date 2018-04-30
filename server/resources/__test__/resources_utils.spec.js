@@ -1,4 +1,4 @@
-const Utils = require('../resources.utils');
+const Utils = require('../resources_utils');
 const { clone } = require('../../utils/general');
 
 describe('resources util test', () => {

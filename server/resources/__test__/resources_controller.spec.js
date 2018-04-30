@@ -1,11 +1,11 @@
 const request = require('supertest');
 const app = require('express')();
-const router = require('../resources.router');
+const router = require('../resources_router');
 const data = require('../__mocks__/resources_data');
 const bodyParser = require('body-parser');
 const { clone } = require('../../utils/general');
 
-jest.mock('../resources.model');
+jest.mock('../resources_model');
 
 describe('resources controller test', () => {
   beforeAll(() => {

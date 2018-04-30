@@ -1,5 +1,5 @@
-const Resource = require('./resources.model');
-const ResourcesService = require('./resources.service')(Resource);
+const Resource = require('./resources_model');
+const ResourcesService = require('./resources_service')(Resource);
 
 function getResources(req, res) {
   ResourcesService.getUserResources()

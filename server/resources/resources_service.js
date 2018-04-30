@@ -1,7 +1,7 @@
 const {
   mapResourcesToUpdate,
   checkEnoughResource,
-} = require('./resources.utils');
+} = require('./resources_utils');
 
 function getUserResources(Resource) {
   return new Promise((resolve, reject) => {
