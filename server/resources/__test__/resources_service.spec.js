@@ -1,4 +1,4 @@
-const mockModel = require('../__mocks__/resources_model');
+const mockModel = require('../__mocks__/resources.model');
 const data = require('../__mocks__/resources_data');
 const Service = require('../resources.service');
 const { clone } = require('../../utils/general');
