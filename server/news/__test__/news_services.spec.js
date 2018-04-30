@@ -1,7 +1,7 @@
-const { getServerNews, getServerNew } = require('./news.service');
-const data = require('./__mocks__/news.data');
+const { getServerNews, getServerNew } = require('../news_service');
+const data = require('../__mocks__/news_data');
 
-jest.mock('./news.model');
+jest.mock('../news_model');
 
 describe('news services with mock data', () => {
   it('should get all news in model', () =>

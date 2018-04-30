@@ -1,9 +1,9 @@
 const request = require('supertest');
 const app = require('express')();
-const router = require('./news.router');
-const mockData = require('./__mocks__/news.data');
+const router = require('../news_router');
+const mockData = require('../__mocks__/news_data');
 
-jest.mock('./news.model');
+jest.mock('../news_model');
 
 describe('news controller with mock data', () => {
   beforeAll(() => {

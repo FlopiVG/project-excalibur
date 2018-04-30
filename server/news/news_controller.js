@@ -1,4 +1,4 @@
-const { getServerNews, getServerNew } = require('./news.service');
+const { getServerNews, getServerNew } = require('./news_service');
 
 function getNews(req, res) {
   getServerNews()

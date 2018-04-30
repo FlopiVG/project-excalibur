@@ -1,18 +1,18 @@
-const Resource = require('./resources.model');
 const {
   mapResourcesToUpdate,
   checkEnoughResource,
-} = require('./resources.utils');
+} = require('./resources_utils');
 
-function getResourcesFromModel() {
+function getUserResources(Resource) {
   return new Promise((resolve, reject) => {
     Resource.find({})
+      .lean()
       .then(resources => resolve(resources))
       .catch(error => reject(error));
   });
 }
 
-function getUserResource(_id) {
+function getUserResource(Resource, _id) {
   return new Promise((resolve, reject) => {
     Resource.findById(_id)
       .lean()
@@ -21,28 +21,26 @@ function getUserResource(_id) {
   });
 }
 
-function updateUserResources(resourcesQuantities) {
+function updateUserResources(Resource, resQuant) {
   return new Promise((resolve, reject) => {
-    Promise.all(resourcesQuantities.map(({ _id }) => getUserResource(_id)))
+    Promise.all(resQuant.map(({ _id }) => getUserResource(Resource, _id)))
       .then(resources =>
-        Promise.all(resources.map(resource =>
-          mapResourcesToUpdate(resource, resourcesQuantities))))
+        Promise.all(resources.map(r => mapResourcesToUpdate(r, resQuant))))
       .then(resources => Promise.all(resources.map(checkEnoughResource)))
       .then(resources =>
         Promise.all(resources.map(resource =>
-          Resource.updateOne(
-            { _id: resource._id },
-            { $inc: { quantity: -resource.needRes } },
-          ))))
+          Resource.findByIdAndUpdate(resource._id, {
+            $inc: { quantity: -resource.needRes },
+          }))))
       .then(resolve)
       .catch(reject);
   });
 }
 
-function updateResourcesNextTick() {
+function updateResourcesNextTick(Resource) {
   return new Promise(async (resolve, reject) => {
     try {
-      const resources = await getResourcesFromModel();
+      const resources = await getUserResources(Resource);
       resources.forEach(async (resource) => {
         try {
           await Resource.findByIdAndUpdate(resource._id, {
@@ -52,15 +50,17 @@ function updateResourcesNextTick() {
           reject(e);
         }
       });
-      resolve('Ok');
+      resolve('Ok.');
     } catch (e) {
       reject(e);
     }
   });
 }
 
-module.exports = {
-  getResourcesFromModel,
-  updateUserResources,
-  updateResourcesNextTick,
-};
+module.exports = Resource => ({
+  getUserResources: () => getUserResources(Resource),
+  getUserResource: _id => getUserResource(Resource, _id),
+  updateUserResources: resourcesQuantities =>
+    updateUserResources(Resource, resourcesQuantities),
+  updateResourcesNextTick: () => updateResourcesNextTick(Resource),
+});
