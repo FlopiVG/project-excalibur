@@ -21,7 +21,8 @@
       {
         "code": 80,
         "ignoreUrls": true,
-        "ignoreStrings": true
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
       }
     ],
     "no-underscore-dangle": [2, { "allow": ["_id"] }],
