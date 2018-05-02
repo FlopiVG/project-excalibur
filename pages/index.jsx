@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import NewsItem from '../src/components/NewsItem';
 import NewsProvider, { Consumer } from '../src/providers/News';
 import Layout from '../src/components/Layout';
-import { whoAmi } from '../src/apis/user';
+import { whoAmi } from '../src/apis/api_users';
 import Loader from '../src/components/Loader';
 
 class Index extends React.Component {
