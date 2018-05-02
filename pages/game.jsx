@@ -6,6 +6,7 @@ import { whoAmi } from '../src/apis/user';
 import { userBuilds } from '../src/apis/game';
 import BuildItem from '../src/components/BuildItem';
 import ResourceProvider, { Consumer } from '../src/providers/Resources';
+import Loader from '../src/components/Loader';
 
 class Game extends React.Component {
   static async getInitialProps({ res, req }) {
@@ -47,15 +48,19 @@ class Game extends React.Component {
   renderResources = () => (
     <div className="columns">
       <Consumer>
-        {({ resources }) => (
+        {({ resources, fetchLoading }) => (
           <React.Fragment>
-            {resources.map(({ _id, name, quantity }) => (
-              <div key={_id} className="column">
-                <div className="tile is-child box has-text-centered">
-                  <span className="is-size-5">{name}:</span> {quantity}
+            {fetchLoading ? (
+              <Loader isLoading />
+            ) : (
+              resources.map(({ _id, name, quantity }) => (
+                <div key={_id} className="column">
+                  <div className="tile is-child box has-text-centered">
+                    <span className="is-size-5">{name}:</span> {quantity}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </React.Fragment>
         )}
       </Consumer>
@@ -81,7 +86,7 @@ class Game extends React.Component {
               <BuildsConsumer>
                 {({ builds, loading }) =>
                   (loading ? (
-                    <div>Loading...</div>
+                    <Loader isLoading />
                   ) : (
                     builds.map(build => (
                       <BuildItem key={build._id} {...build} />

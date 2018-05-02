@@ -3,6 +3,7 @@ import NewsItem from '../src/components/NewsItem';
 import NewsProvider, { Consumer } from '../src/providers/News';
 import Layout from '../src/components/Layout';
 import { whoAmi } from '../src/apis/user';
+import Loader from '../src/components/Loader';
 
 class Index extends React.Component {
   static async getInitialProps() {
@@ -31,7 +32,7 @@ class Index extends React.Component {
             <Consumer>
               {({ news, loadingAll }) =>
                 (loadingAll ? (
-                  <div>Loading...</div>
+                  <Loader isLoading />
                 ) : (
                   news.map(({ _id, ...rest }) => (
                     <NewsItem key={_id} {...rest} />
