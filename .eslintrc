@@ -24,6 +24,7 @@
         "ignoreStrings": true
       }
     ],
-    "no-underscore-dangle": [2, { "allow": ["_id"] }]
+    "no-underscore-dangle": [2, { "allow": ["_id"] }],
+    "react/jsx-no-undef": [2, { "allowGlobals": true }]
   }
 }
