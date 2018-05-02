@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { getUserResources } from '../apis/game';
+import { getUserResources } from '../apis/api_resources';
 
 const ResourcesContext = React.createContext();
 
