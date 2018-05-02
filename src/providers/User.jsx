@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import { logginUser, whoAmi, logoutUser } from '../apis/user';
+import { logginUser, whoAmi, logoutUser } from '../apis/api_users';
 
 const UserContext = React.createContext();
 

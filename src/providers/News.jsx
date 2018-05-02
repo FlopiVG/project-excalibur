@@ -1,4 +1,4 @@
-import { getNews, getNew } from '../apis/news';
+import { getNews, getNew } from '../apis/api_news';
 
 const NewsContext = React.createContext();
 
