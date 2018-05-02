@@ -13,7 +13,7 @@ const checkEnoughResource = resource =>
     if (resource.quantity > resource.needRes) {
       resolve(resource);
     }
-    reject(new Error('Dont have enought resources'));
+    reject(new Error('Dont have enought resources.'));
   });
 
 module.exports = {

@@ -1,19 +1,20 @@
-const { getUserBuilds, getUserBuild, upgradeUserBuild } = require('./service');
+const Build = require('./builds_model');
+const BuildService = require('./builds_service')(Build);
 
 async function getBuilds(req, res) {
-  getUserBuilds()
+  BuildService.getUserBuilds()
     .then(builds => res.status(200).send(builds))
     .catch(error => res.status(500).send(error.message));
 }
 
 function getBuild(req, res) {
-  getUserBuild(req.params.id)
+  BuildService.getUserBuild(req.params.id)
     .then(build => res.status(200).send(build))
     .catch(error => res.status(500).send(error.message));
 }
 
 function upgradeBuild(req, res) {
-  upgradeUserBuild(req.params.id)
+  BuildService.upgradeUserBuild(req.params.id)
     .then(build => res.status(200).send(build))
     .catch(error => res.status(500).send(error.message));
 }

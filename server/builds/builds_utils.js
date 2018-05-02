@@ -1,10 +1,3 @@
-function checkFoundResource(doc) {
-  return new Promise((resolve, reject) => {
-    if (doc) resolve(doc);
-    else reject(new Error('Dont found resource'));
-  });
-}
-
 function mapUpgradeCost(build) {
   return new Promise((resolve, reject) => {
     if (build.length) {
@@ -25,6 +18,5 @@ function mapUpgradeCost(build) {
 }
 
 module.exports = {
-  checkFoundResource,
   mapUpgradeCost,
 };

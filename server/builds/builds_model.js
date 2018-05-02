@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mockData = require('./mock');
+const mockData = require('./__mocks__/builds_data');
+const { generateMockData } = require('../utils/mock');
 
 const { Schema } = mongoose;
 
@@ -23,18 +24,6 @@ const buildSchema = new Schema({
 
 const buildsModel = mongoose.model('builds', buildSchema);
 
-if (process.env.MOCK) {
-  buildsModel
-    .find({})
-    .then((builds) => {
-      if (builds.length === 0) return buildsModel.insertMany(mockData);
-      return Promise.resolve(null);
-    })
-    .then(isInit =>
-    // eslint-disable-next-line no-console
-      isInit && console.log('Builds model initialize with mock data.'))
-    // eslint-disable-next-line no-console
-    .catch(console.log);
-}
+generateMockData(buildsModel, mockData);
 
 module.exports = buildsModel;
