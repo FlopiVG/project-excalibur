@@ -1,7 +1,7 @@
-function checkFoundDoc(doc) {
+function checkFoundDoc(doc, msg = 'Dont found the resource.') {
   return new Promise((resolve, reject) => {
-    if (doc) resolve(doc);
-    else reject(new Error('Dont found the resource.'));
+    if (doc && !doc.length) resolve(doc);
+    else reject(new Error(msg));
   });
 }
 
