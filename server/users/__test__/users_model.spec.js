@@ -12,7 +12,7 @@ describe('users model test', () => {
     input = {
       name: 'foo',
       password: 'foo',
-      email: 'foo',
+      email: 'foo@foo.com',
     };
   });
 
