@@ -18,6 +18,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: v => /\S+@\S+\.\S+/.test(v),
       message: '{VALUE} is not a valid email.',
