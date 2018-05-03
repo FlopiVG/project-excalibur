@@ -18,22 +18,29 @@ function generateMockData(model, mockData) {
 }
 
 class MockModel {
-  data = [];
-  find = () => ({
-    lean: () => this.lean(clone(this.data)),
-  });
+  constructor() {
+    this.data = [];
+  }
 
-  findById = (_id) => {
+  find() {
+    return {
+      lean: () => this.lean(clone(this.data)),
+    };
+  }
+
+  findById(_id) {
     const searchData = this.data.find(dat => dat._id === _id);
 
     return {
       lean: () => this.lean(clone(searchData)),
     };
-  };
+  }
 
-  lean = doc => Promise.resolve(clone(doc));
+  lean(doc) {
+    return Promise.resolve(clone(doc));
+  }
 
-  findByIdAndUpdate = async (_id, op) => {
+  async findByIdAndUpdate(_id, op) {
     const searchData = await this.findById(_id).lean();
 
     if (op.$inc) {
@@ -43,7 +50,7 @@ class MockModel {
     }
 
     return Promise.resolve(clone(searchData));
-  };
+  }
 }
 
 module.exports = {
