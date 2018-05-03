@@ -5,9 +5,23 @@ const { generateMockData } = require('../utils/mock');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  name: String,
-  password: String,
-  email: String,
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    validate: {
+      validator: v => /\S+@\S+\.\S+/.test(v),
+      message: '{VALUE} is not a valid email.',
+    },
+  },
 });
 
 const usersModel = mongoose.model('users', userSchema);
