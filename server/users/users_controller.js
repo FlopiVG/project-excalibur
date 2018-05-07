@@ -25,7 +25,7 @@ const deleteUser = (req, res) => {
 };
 
 const loginUser = (req, res) => {
-  checkLogingUser(req.body)
+  checkLogingUser(req.user)
     .then(data => res.status(200).send(data))
     .catch(error => res.status(500).send(error.message));
 };

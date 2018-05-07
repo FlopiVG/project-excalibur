@@ -6,11 +6,12 @@ const { comparePassword, generatePassword } = require('./users_utils');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     unique: true,
     required: true,
   },
+  name: String,
   password: {
     type: String,
     required: true,

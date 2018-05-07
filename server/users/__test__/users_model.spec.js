@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { removeMongoKeys } = require('../../utils/general');
 
 mongoose.connect(process.env.MONGO_URI_TEST);
 const User = require('../users_model');
@@ -32,24 +31,12 @@ describe('users model test', () => {
     beforeEach(async () => {
       await User.insertMany(input, input);
     });
-
-    it('should get users', async () => {
-      const users = await User.find({}).lean();
-
-      expect(removeMongoKeys(users)).toContainEqual(input);
-    });
   });
 
   describe('create user', () => {
-    it('should create user succesfull', async () =>
-      new User(input).save().then((data) => {
-        expect(data.name).toEqual(input.name);
-        expect(data.email).toEqual(input.email);
-      }));
-
     it('should send the correct error if email is invalid', () => {
       const expected = {
-        name: 'bar',
+        username: 'bar',
         email: 'bar',
         password: 'bar',
       };
@@ -59,21 +46,21 @@ describe('users model test', () => {
       });
     });
 
-    it('should send required error if dont type name, email and password fields', () =>
+    it('should send required error if dont type username, email and password fields', () =>
       new User({}).save().catch(({ errors }) => {
         expect(errors.email.message).toEqual('Path `email` is required.');
         expect(errors.password.message).toEqual('Path `password` is required.');
-        expect(errors.name.message).toEqual('Path `name` is required.');
+        expect(errors.username.message).toEqual('Path `username` is required.');
       }));
 
-    it('should send unique error if there are two users with the same name', () => {
+    it('should send unique error if there are two users with the same username', () => {
       const user1 = {
-        name: 'bar',
+        username: 'bar',
         email: 'bar@bar.com',
         password: 'bar',
       };
       const user2 = {
-        name: 'bar',
+        username: 'bar',
         email: 'foo@foo.com',
         password: 'bar',
       };
@@ -89,12 +76,12 @@ describe('users model test', () => {
 
     it('should send unique error if there are two users with the same email', () => {
       const user1 = {
-        name: 'bar',
+        username: 'bar',
         email: 'bar@bar.com',
         password: 'bar',
       };
       const user2 = {
-        name: 'foo',
+        username: 'foo',
         email: 'bar@bar.com',
         password: 'bar',
       };
