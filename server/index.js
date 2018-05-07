@@ -9,6 +9,7 @@ const expressSession = require('express-session');
 const { secret } = process.env;
 /**
  * Middlewares
+ *
  */
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
