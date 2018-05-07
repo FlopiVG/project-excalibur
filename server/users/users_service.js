@@ -16,6 +16,14 @@ const createNewUser = (User, data) =>
       .catch(reject);
   });
 
+const deleteModelUser = (User, id) =>
+  new Promise((resolve, reject) => {
+    User.findById(id)
+      .remove()
+      .then(resolve)
+      .catch(reject);
+  });
+
 const checkLoginRequest = body =>
   new Promise((resolve, reject) => {
     if (!body.name || !body.password) reject(new Error('Bad request.'));
@@ -39,6 +47,7 @@ const checkLogingUser = (User, data) =>
 
 module.exports = model => ({
   getAllModelUsers: () => getAllModelUsers(model),
+  deleteModelUser: id => deleteModelUser(model, id),
   createNewUser: data => createNewUser(model, data),
   checkLogingUser: data => checkLogingUser(model, data),
 });
