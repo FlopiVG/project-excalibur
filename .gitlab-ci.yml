@@ -22,8 +22,13 @@ test:lint:
 deploy_staging:
   stage: deploy
   script:
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/proyect-excalibur.git
-    - git push -f heroku master
+    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+    - apt-get update
+    - apt-get install -y heroku-toolbelt
+    - export HEROKU_API_KEY=$HEROKU_API_KEY
+    - heroku login
+    - heroku container:push web --app proyect-excalibur
   environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
