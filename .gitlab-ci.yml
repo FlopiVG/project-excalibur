@@ -22,10 +22,8 @@ test:lint:
 deploy_staging:
   stage: deploy
   script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API-KEY
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/proyect-excalibur.git
+    - git push -f heroku master
   environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
