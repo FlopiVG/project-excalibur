@@ -6,13 +6,14 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 
+const { secret } = process.env;
 /**
  * Middlewares
  */
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(expressSession({ secret: 'secret', resave: true, saveUninitialized: true }));
+app.use(expressSession({ secret, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
