@@ -24,6 +24,13 @@ const deleteUser = (req, res) => {
     .catch(error => res.status(500).send(error.message));
 };
 
+const whoAmi = (req, res) => {
+  const { user } = req;
+
+  if (user) res.status(200).send(user);
+  else res.status(401).end();
+};
+
 const loginUser = (req, res) => {
   checkLogingUser(req.user)
     .then(data => res.status(200).send(data))
@@ -34,5 +41,6 @@ module.exports = {
   getUsers,
   createUser,
   deleteUser,
+  whoAmi,
   loginUser,
 };
