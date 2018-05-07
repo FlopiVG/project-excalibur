@@ -22,6 +22,7 @@ test:lint:
 deploy_staging:
   stage: deploy
   script:
+    - apt-get install software-properties-common
     - apt-add-repository ppa:brightbox/ruby-ng
     - apt-get update
     - apt-get install ruby2.5
