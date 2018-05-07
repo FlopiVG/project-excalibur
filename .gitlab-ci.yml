@@ -24,7 +24,7 @@ deploy_staging:
   stage: deploy
   script:
     - gem install dpl
-    - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API_KEY --strategy=git
+    - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API_KEY
   environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
