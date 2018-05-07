@@ -23,7 +23,7 @@ deploy_staging:
   stage: deploy
   script:
     - apt-get update -qy
-    - apt-get install -y rubygems
+    - apt-get install -y ruby-full
     - gem install dpl
     - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API-KEY
   environment:
