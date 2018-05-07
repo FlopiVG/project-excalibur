@@ -22,8 +22,9 @@ test:lint:
 deploy_staging:
   stage: deploy
   script:
+    - apt-add-repository ppa:brightbox/ruby-ng
     - apt-get update
-    - apt-get install ruby2.2
+    - apt-get install ruby2.5
     - gem install dpl
     - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API-KEY
   environment:
