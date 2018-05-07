@@ -1,4 +1,4 @@
-image: node:9.11.1
+
 
 stages:
   - test
@@ -12,6 +12,7 @@ cache:
     - node_modules/
 
 test:lint:
+  image: node:9.11.1
   script:
     - yarn lint
 
@@ -20,14 +21,11 @@ test:lint:
 #    - yarn test
 
 deploy_staging:
+  image: ruby:2.3
   stage: deploy
   script:
-    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
-    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
-    - apt-get update
-    - apt-get install -y heroku-toolbelt
-    - export HEROKU_API_KEY=$HEROKU_API_KEY
-    - heroku container:push web --app proyect-excalibur
+    - gem install dpl
+    - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API_KEY --strategy=git
   environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
