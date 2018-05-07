@@ -24,7 +24,7 @@ desploy_staging:
   script:
     - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/proyect-excalibur.git
     - git push -f heroku master
-  enviroment:
+  environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
   only:
