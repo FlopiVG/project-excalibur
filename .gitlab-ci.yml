@@ -22,7 +22,6 @@ test:lint:
 deploy_staging:
   stage: deploy
   script:
-    - apt-add-repository ppa:brightbox/ruby-ng
     - apt-get update
     - apt-get install ruby2.2
     - gem install dpl
