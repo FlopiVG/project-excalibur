@@ -20,12 +20,11 @@ test:lint:
 #    - yarn test
 
 deploy_staging:
+  image: ruby:2.1
   stage: deploy
   script:
-    - apt-get install software-properties-common
-    - apt-add-repository ppa:brightbox/ruby-ng
     - apt-get update
-    - apt-get install ruby2.5
+    - sudo apt-get install yarn
     - gem install dpl
     - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API-KEY
   environment:
