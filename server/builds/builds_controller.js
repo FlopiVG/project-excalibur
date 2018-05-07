@@ -2,7 +2,7 @@ const Build = require('./builds_model');
 const BuildService = require('./builds_service')(Build);
 
 async function getBuilds(req, res) {
-  BuildService.getUserBuilds()
+  BuildService.getUserBuilds(req.user._id)
     .then(builds => res.status(200).send(builds))
     .catch(error => res.status(500).send(error.message));
 }

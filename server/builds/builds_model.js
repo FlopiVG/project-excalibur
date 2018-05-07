@@ -16,6 +16,10 @@ const upgradeCostSchema = new Schema({
 
 const buildSchema = new Schema({
   name: String,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+  },
   description: String,
   imgSrc: String,
   level: Number,
