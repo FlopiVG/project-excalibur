@@ -1,3 +1,5 @@
+const { clone } = require('./general');
+
 function generateMockData(model, mockData) {
   if (process.env.MOCK) {
     model
@@ -15,6 +17,43 @@ function generateMockData(model, mockData) {
   }
 }
 
+class MockModel {
+  constructor() {
+    this.data = [];
+  }
+
+  find() {
+    return {
+      lean: () => this.lean(clone(this.data)),
+    };
+  }
+
+  findById(_id) {
+    const searchData = this.data.find(dat => dat._id === _id);
+
+    return {
+      lean: () => this.lean(clone(searchData)),
+    };
+  }
+
+  lean(doc) {
+    return Promise.resolve(clone(doc));
+  }
+
+  async findByIdAndUpdate(_id, op) {
+    const searchData = await this.findById(_id).lean();
+
+    if (op.$inc) {
+      Object.keys(op.$inc).forEach((key) => {
+        searchData[key] += op.$inc[key];
+      });
+    }
+
+    return Promise.resolve(clone(searchData));
+  }
+}
+
 module.exports = {
   generateMockData,
+  MockModel,
 };

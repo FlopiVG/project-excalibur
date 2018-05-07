@@ -11,6 +11,6 @@ test:lint:
   script:
     - yarn lint
 
-test:unit-test:
-  script:
-    - yarn test
+#test:unit-test:
+#  script:
+#    - yarn test

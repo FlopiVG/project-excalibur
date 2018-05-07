@@ -2,10 +2,9 @@ const { checkFoundDoc } = require('../utils/validations');
 const { mapUpgradeCost } = require('./builds_utils');
 const { updateUserResourcesShared } = require('./builds_shared');
 
-function getUserBuilds(Build) {
+function getUserBuilds(Build, userId) {
   return new Promise((resolve, reject) => {
-    Build.find({})
-      .lean()
+    Build.find({ userId })
       .then(mapUpgradeCost)
       .then(resolve)
       .catch(reject);
@@ -43,7 +42,7 @@ function upgradeUserBuild(Build, id) {
 }
 
 module.exports = Build => ({
-  getUserBuilds: () => getUserBuilds(Build),
+  getUserBuilds: userId => getUserBuilds(Build, userId),
   getUserBuild: id => getUserBuild(Build, id),
   upgradeUserBuild: id => upgradeUserBuild(Build, id),
 });
