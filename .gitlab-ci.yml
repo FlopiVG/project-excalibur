@@ -1,5 +1,9 @@
 image: node:9.11.1
 
+stages:
+  - test
+  - deploy
+
 before_script:
   - yarn install
 
@@ -14,3 +18,14 @@ test:lint:
 #test:unit-test:
 #  script:
 #    - yarn test
+
+deploy_staging:
+  stage: deploy
+  script:
+    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/proyect-excalibur.git
+    - git push -f heroku master
+  environment:
+    name: heroku
+    url: https://proyect-excalibur.herokuapp.com
+  only:
+    - develop
