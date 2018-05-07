@@ -27,7 +27,6 @@ deploy_staging:
     - apt-get update
     - apt-get install -y heroku-toolbelt
     - export HEROKU_API_KEY=$HEROKU_API_KEY
-    - heroku login
     - heroku container:push web --app proyect-excalibur
   environment:
     name: heroku
