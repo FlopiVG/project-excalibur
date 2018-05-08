@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "nodemon server",
     "build": "next build",
+    "prestart": "yarn build",
     "start": "NODE_ENV=production node server",
     "lint": "eslint .",
     "test": "jest",
