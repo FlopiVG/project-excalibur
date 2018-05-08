@@ -23,7 +23,7 @@ deploy_staging:
   image: ruby:2.2
   script:
     - gem install dpl
-    - dpl --provider=heroku --app=viejo-relleno-bot --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=proyect-excalibur --api-key=$HEROKU_API_KEY --strategy=git
   environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
