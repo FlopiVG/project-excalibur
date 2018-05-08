@@ -6,12 +6,16 @@ import { whoAmi } from '../src/apis/api_users';
 import Loader from '../src/components/Loader';
 
 class Index extends React.Component {
-  static async getInitialProps() {
-    const [userLogged] = await Promise.all([whoAmi()]);
+  static async getInitialProps({ req }) {
+    const baseURL = req ? `${req.protocol}://${req.get('Host')}` : '';
+    // const [userLogged] = await Promise.all([whoAmi(baseURL)]);
 
-    return {
-      userLogged,
-    };
+    try {
+      const userLogged = await whoAmi(baseURL);
+      return { userLogged };
+    } catch (e) {
+      return { userLogged: '' };
+    }
   }
 
   static propTypes = {

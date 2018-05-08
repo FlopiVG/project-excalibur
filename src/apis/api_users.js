@@ -1,3 +1,5 @@
+import Axios from 'axios';
+
 const { DELAY = 0 } = process.env;
 
 export function logginUser(data) {
@@ -22,10 +24,14 @@ export function logoutUser() {
   });
 }
 
-export function whoAmi() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('Pepe');
-    }, DELAY);
+export function whoAmi(baseURL) {
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'GET',
+      url: '/api/whoami',
+      baseURL,
+    })
+      .then(res => resolve(res.data))
+      .catch(reject);
   });
 }
