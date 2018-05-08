@@ -20,7 +20,7 @@ test:lint:
 
 deploy_staging:
   stage: deploy
-  image: ruby:2.1
+  image: ruby:2.2
   script:
     - gem install dpl
     - dpl --provider=heroku --app=viejo-relleno-bot --api-key=$HEROKU_API_KEY
