@@ -4,8 +4,6 @@ stages:
   - test
   - deploy
 
-before_script:
-  - yarn install
 
 cache:
   paths:
@@ -13,6 +11,7 @@ cache:
 
 test:lint:
   script:
+    - yarn install
     - yarn lint
 
 #test:unit-test:
@@ -21,9 +20,10 @@ test:lint:
 
 deploy_staging:
   stage: deploy
+  image: ruby:2.1
   script:
-    - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/proyect-excalibur.git
-    - git push -f heroku master
+    - gem install dpl
+    - dpl --provider=heroku --app=viejo-relleno-bot --api-key=$HEROKU_API_KEY
   environment:
     name: heroku
     url: https://proyect-excalibur.herokuapp.com
