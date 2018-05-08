@@ -8,7 +8,6 @@ import Loader from '../src/components/Loader';
 class Index extends React.Component {
   static async getInitialProps({ req }) {
     const baseURL = req ? `${req.protocol}://${req.get('Host')}` : '';
-    // const [userLogged] = await Promise.all([whoAmi(baseURL)]);
 
     try {
       const userLogged = await whoAmi(baseURL);

@@ -8,20 +8,23 @@ import ResourceProvider, { Consumer } from '../src/providers/Resources';
 import Loader from '../src/components/Loader';
 
 class Game extends React.Component {
-  static async getInitialProps({ res }) {
-    // const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
-    const userLogged = await whoAmi();
+  // eslint-disable-next-line consistent-return
+  static async getInitialProps({ res, req }) {
+    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
 
-    if (res && !userLogged) {
-      res.writeHead(302, { Location: '/' });
-      res.end();
-      res.finished = true;
-    } else if (!userLogged) {
-      Router.replace('/');
+    try {
+      const userLogged = await whoAmi(baseUrl);
+      return {
+        userLogged: userLogged.username,
+      };
+    } catch (e) {
+      if (res) {
+        res.writeHead(302, { Location: '/' });
+        res.end();
+      } else {
+        Router.replace('/');
+      }
     }
-    return {
-      userLogged,
-    };
   }
 
   static propTypes = {

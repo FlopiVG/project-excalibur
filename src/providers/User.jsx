@@ -22,8 +22,9 @@ class UserProvider extends React.Component {
   doLogging(data) {
     this.setState({ loading: true });
     logginUser(data)
-      .then(user => this.setState({ loading: false, userLogged: user }))
-      .catch(error => this.setState({ error, loading: false }));
+      .then(user =>
+        this.setState({ loading: false, userLogged: user.username }))
+      .catch(error => this.setState({ error: error.message, loading: false }));
   }
 
   doWhoAmi() {
