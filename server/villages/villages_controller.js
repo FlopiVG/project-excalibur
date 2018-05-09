@@ -1,5 +1,8 @@
 const Village = require('./villages_model');
-const { getVillageFromId } = require('./villages_service')(Village);
+const {
+  getVillageFromId,
+  createNewUserVillage,
+} = require('./villages_service')(Village);
 
 const getVillage = (req, res) => {
   getVillageFromId(req.params.id)
@@ -7,6 +10,13 @@ const getVillage = (req, res) => {
     .catch(error => res.status(500).send(error.message));
 };
 
+const createVillage = (req, res) => {
+  createNewUserVillage(req.body, req.user._id)
+    .then(data => res.status(200).send(data))
+    .catch(error => res.status(500).send(error.message));
+};
+
 module.exports = {
   getVillage,
+  createVillage,
 };
