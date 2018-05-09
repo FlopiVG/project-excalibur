@@ -3,6 +3,7 @@ const {
   getAllModelUsers,
   deleteModelUser,
   createNewUser,
+  updateCurrentUser,
   checkLogingUser,
 } = require('./users_service')(User);
 
@@ -24,6 +25,12 @@ const deleteUser = (req, res) => {
     .catch(error => res.status(500).send(error.message));
 };
 
+const updateUser = (req, res) => {
+  updateCurrentUser(req.user._id, req.body)
+    .then(data => res.status(200).send(data))
+    .catch(error => res.status(500).send(error.message));
+};
+
 const whoAmi = (req, res) => {
   const { user } = req;
 
@@ -41,6 +48,7 @@ module.exports = {
   getUsers,
   createUser,
   deleteUser,
+  updateUser,
   whoAmi,
   loginUser,
 };
