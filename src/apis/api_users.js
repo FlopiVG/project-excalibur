@@ -1,16 +1,25 @@
+import Axios from 'axios';
+
 const { DELAY = 0 } = process.env;
 
 export function logginUser(data) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (!data.username) {
-        reject(new Error('Invalid username.'));
-      }
-      if (!data.password) {
-        reject(new Error('Invalid password.'));
-      }
-      resolve(data.username);
-    }, DELAY);
+    if (!data.username) {
+      return reject(new Error('Invalid username.'));
+    }
+    if (!data.password) {
+      return reject(new Error('Invalid password.'));
+    }
+    return Axios({
+      method: 'POST',
+      url: '/api/login',
+      data,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => resolve(res.data))
+      .catch(reject);
   });
 }
 
@@ -22,10 +31,14 @@ export function logoutUser() {
   });
 }
 
-export function whoAmi() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('Pepe');
-    }, DELAY);
+export function whoAmi(baseURL = '') {
+  return new Promise((resolve, reject) => {
+    Axios({
+      method: 'GET',
+      url: '/api/whoami',
+      baseURL,
+    })
+      .then(res => resolve(res.data))
+      .catch(reject);
   });
 }
