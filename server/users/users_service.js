@@ -35,6 +35,17 @@ const updateCurrentUser = (User, id, data) =>
       .catch(reject);
   });
 
+const removeUserVillage = (User, userId, villageId) =>
+  new Promise((resolve, reject) => {
+    User.findById(userId)
+      .then((user) => {
+        user.villages.pull(villageId);
+        return user.save();
+      })
+      .then(resolve)
+      .catch(reject);
+  });
+
 const checkLogingUser = user =>
   new Promise((resolve) => {
     user.set('password', '');
@@ -45,6 +56,8 @@ module.exports = model => ({
   getAllModelUsers: () => getAllModelUsers(model),
   deleteModelUser: id => deleteModelUser(model, id),
   updateCurrentUser: (id, data) => updateCurrentUser(model, id, data),
+  removeUserVillage: (userId, villageId) =>
+    removeUserVillage(model, userId, villageId),
   createNewUser: data => createNewUser(model, data),
   checkLogingUser: user => checkLogingUser(user),
 });

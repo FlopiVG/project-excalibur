@@ -1,4 +1,7 @@
-const { addNewVillageToUser } = require('./villages_shared');
+const {
+  addNewVillageToUser,
+  removeVillageToUser,
+} = require('./villages_shared');
 
 const getVillageFromId = (Village, id) =>
   new Promise((resolve, reject) => {
@@ -27,8 +30,18 @@ const createNewUserVillage = (Village, data, userId) =>
       .catch(reject);
   });
 
+const removeUserVillage = (Village, villageId, userId) =>
+  new Promise((resolve, reject) => {
+    removeVillageToUser(userId, villageId)
+      .then(() => Village.findByIdAndRemove(villageId))
+      .then(resolve)
+      .catch(reject);
+  });
+
 module.exports = Village => ({
   getVillageFromId: id => getVillageFromId(Village, id),
   createNewUserVillage: (data, userId) =>
     createNewUserVillage(Village, data, userId),
+  removeUserVillage: (villageId, userId) =>
+    removeUserVillage(Village, villageId, userId),
 });

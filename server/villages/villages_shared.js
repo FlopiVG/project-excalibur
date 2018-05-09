@@ -1,13 +1,24 @@
 const User = require('../users/users_model');
-const { updateCurrentUser } = require('../users/users_service')(User);
+const {
+  updateCurrentUser,
+  removeUserVillage,
+} = require('../users/users_service')(User);
 
-const addNewVillageToUser = (id, villageId) =>
+const addNewVillageToUser = (userId, villageId) =>
   new Promise((resolve, reject) => {
-    updateCurrentUser(id, { villages: villageId })
+    updateCurrentUser(userId, { villages: villageId })
+      .then(resolve)
+      .catch(reject);
+  });
+
+const removeVillageToUser = (userId, villageId) =>
+  new Promise((resolve, reject) => {
+    removeUserVillage(userId, villageId)
       .then(resolve)
       .catch(reject);
   });
 
 module.exports = {
   addNewVillageToUser,
+  removeVillageToUser,
 };
