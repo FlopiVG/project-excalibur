@@ -31,6 +31,7 @@ require('./config/socketServer')(server);
 /**
  * Routes
  */
+require('./villages/villages_router')(app);
 require('./resources/resources_router')(app);
 require('./builds/builds_router')(app);
 require('./users/users_router')(app);
