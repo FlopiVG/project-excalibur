@@ -1,3 +1,5 @@
+const { addNewVillageToUser } = require('./villages_shared');
+
 const getVillageFromId = (Village, id) =>
   new Promise((resolve, reject) => {
     Village.findById(id)
@@ -13,10 +15,14 @@ const getVillageFromId = (Village, id) =>
       .catch(reject);
   });
 
-const createNewUserVillage = (Village, data /* userId */) =>
+const createNewUserVillage = (Village, data, userId) =>
   new Promise((resolve, reject) => {
     new Village(data)
       .save()
+      .then(async (village) => {
+        await addNewVillageToUser(userId, village._id);
+        return Promise.resolve(village);
+      })
       .then(resolve)
       .catch(reject);
   });
