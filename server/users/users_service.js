@@ -1,7 +1,7 @@
 const getAllModelUsers = User =>
   new Promise((resolve, reject) => {
     User.find({})
-      .lean()
+      .select('-password')
       .then(resolve)
       .catch(reject);
   });
@@ -24,6 +24,7 @@ const deleteModelUser = (User, id) =>
 
 const checkLogingUser = user =>
   new Promise((resolve) => {
+    user.set('password', '');
     resolve(user);
   });
 

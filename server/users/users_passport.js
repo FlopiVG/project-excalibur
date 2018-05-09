@@ -7,9 +7,10 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
+  User.findById(id)
+    .select('-password')
+    .then(user => done(null, user))
+    .catch(error => done(error, null));
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
