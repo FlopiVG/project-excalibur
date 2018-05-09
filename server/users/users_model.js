@@ -25,6 +25,12 @@ const userSchema = new Schema({
       message: '{VALUE} is not a valid email.',
     },
   },
+  villages: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'villages',
+    },
+  ],
 });
 
 userSchema.pre('save', generatePassword);

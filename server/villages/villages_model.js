@@ -10,13 +10,9 @@ const villageSchema = new Schema({
     required: true,
     unique: true,
   },
-  idUser: {
-    type: Schema.Types.ObjectId,
-    ref: 'users',
-  },
   builds: [
     {
-      idBuild: {
+      info: {
         type: Schema.Types.ObjectId,
         ref: 'builds',
       },
@@ -25,7 +21,7 @@ const villageSchema = new Schema({
   ],
   resources: [
     {
-      idResource: {
+      info: {
         type: Schema.Types.ObjectId,
         ref: 'resources',
       },
