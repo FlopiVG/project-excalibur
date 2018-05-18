@@ -6,7 +6,9 @@ import { CreateNewsDto } from './dto/create-news.dto';
 
 @Injectable()
 export class NewsService {
-  constructor(@Inject('NewsModelToken') private readonly newsModel: Model<News>) {}
+  constructor(
+    @Inject('NewsModelToken') private readonly newsModel: Model<News>,
+  ) {}
 
   async create(createNewDto: CreateNewsDto): Promise<News> {
     const createdNews = new this.newsModel(createNewDto);

@@ -10,5 +10,5 @@ import { newsProviders } from './news.providers';
   imports: [DatabaseModule],
   controllers: [NewsController],
   providers: [NewsService, ...newsProviders],
-  })
+})
 export class NewsModule {}
