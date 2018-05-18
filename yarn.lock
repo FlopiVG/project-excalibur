@@ -36,6 +36,10 @@
     json-socket "^0.2.1"
     optional "0.1.4"
 
+"@nestjs/mongoose@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/mongoose/-/mongoose-4.0.0.tgz#22ddf074492e29a7a3244f95e881fde4c3f64aed"
+
 "@nestjs/testing@^5.0.0-beta.6":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-5.0.0.tgz#d44a48b9885a3160e31629b9fa8bee3512e931fd"
