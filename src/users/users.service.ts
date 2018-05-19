@@ -20,4 +20,8 @@ export class UsersService {
   async createUser(user: CreateUserDto): Promise<Users> {
     return await new this.usersModel(user).save();
   }
+
+  async deleteUser(id: String): Promise<Users> {
+    return await this.usersModel.findByIdAndRemove(id);
+  }
 }
