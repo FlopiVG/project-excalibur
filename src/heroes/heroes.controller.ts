@@ -5,11 +5,13 @@ import {
   Body,
   UseGuards,
   Headers,
+  Put,
 } from '@nestjs/common';
 import { CreateHeroDto } from './dto/create-hero.dto';
 import { Heroes } from './interfaces/heroes.interface';
 import { HeroesService } from './heroes.service';
 import { AuthGuard } from '@nestjs/passport';
+import { UpdateHeroDto } from './dto/update-hero.dto';
 
 @Controller('heroes')
 export class HeroesController {
@@ -32,5 +34,14 @@ export class HeroesController {
     @Headers('authorization') bearerToken: String,
   ): Promise<Heroes> {
     return this.heroesService.create(createheroDto, bearerToken);
+  }
+
+  @Put()
+  @UseGuards(AuthGuard('jwt'))
+  updateUserHero(
+    @Body() updateHeroDto: UpdateHeroDto,
+    @Headers('authorization') bearerToken: String,
+  ): Promise<Heroes> {
+    return this.heroesService.updateUserHero(updateHeroDto, bearerToken);
   }
 }

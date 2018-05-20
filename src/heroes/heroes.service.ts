@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { Heroes } from './interfaces/heroes.interface';
 import { CreateHeroDto } from './dto/create-hero.dto';
+import { UpdateHeroDto } from './dto/update-hero.dto';
 
 @Injectable()
 export class HeroesService {
@@ -33,5 +34,19 @@ export class HeroesService {
     });
 
     return await createdHero.save();
+  }
+
+  async updateUserHero(
+    updateHeroDto: UpdateHeroDto,
+    bearerToken: String,
+  ): Promise<Heroes> {
+    const token = bearerToken.split(' ')[1];
+    const userInfo = jwt.verify(token, 'secretKey');
+
+    return this.heroesModel.findOneAndUpdate(
+      { user_id: userInfo._id },
+      { $set: updateHeroDto },
+      { new: true },
+    );
   }
 }
