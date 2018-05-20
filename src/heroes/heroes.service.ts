@@ -9,6 +9,10 @@ export class HeroesService {
     @Inject('HeroesModelToken') private readonly heroesModel: Model<Heroes>,
   ) {}
 
+  async findAll(): Promise<Heroes[]> {
+    return await this.heroesModel.find();
+  }
+
   async create(createHeroDto: CreateHeroDto): Promise<Heroes> {
     return await new this.heroesModel(createHeroDto).save();
   }
