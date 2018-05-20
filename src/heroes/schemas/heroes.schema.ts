@@ -1,7 +1,10 @@
 import { Schema } from 'mongoose';
 
 export const HeroesSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   str: {
     type: Number,
     default: Math.floor(Math.random() * 20),
