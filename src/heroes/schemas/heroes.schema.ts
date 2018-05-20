@@ -20,5 +20,7 @@ export const HeroesSchema = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
     ref: 'Users',
+    required: true,
+    unique: true,
   },
 });

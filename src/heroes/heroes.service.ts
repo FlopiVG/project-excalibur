@@ -1,3 +1,4 @@
+import * as jwt from 'jsonwebtoken';
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { Heroes } from './interfaces/heroes.interface';
@@ -13,7 +14,17 @@ export class HeroesService {
     return await this.heroesModel.find();
   }
 
-  async create(createHeroDto: CreateHeroDto): Promise<Heroes> {
-    return await new this.heroesModel(createHeroDto).save();
+  async create(
+    createHeroDto: CreateHeroDto,
+    bearerToken: String,
+  ): Promise<Heroes> {
+    const token = bearerToken.split(' ')[1];
+    const userInfo = jwt.verify(token, 'secretKey');
+    const createdHero = new this.heroesModel({
+      ...createHeroDto,
+      user_id: userInfo._id,
+    });
+
+    return await createdHero.save();
   }
 }
