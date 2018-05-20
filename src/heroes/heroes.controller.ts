@@ -19,6 +19,12 @@ export class HeroesController {
     return this.heroesService.findAll();
   }
 
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  getUserHero(@Headers('authorization') bearerToken: String): Promise<Heroes> {
+    return this.heroesService.getUserHero(bearerToken);
+  }
+
   @Post()
   @UseGuards(AuthGuard('jwt'))
   create(

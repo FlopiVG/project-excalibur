@@ -14,6 +14,13 @@ export class HeroesService {
     return await this.heroesModel.find();
   }
 
+  async getUserHero(bearerToken: String): Promise<Heroes> {
+    const token = bearerToken.split(' ')[1];
+    const userInfo = jwt.verify(token, 'secretKey');
+
+    return await this.heroesModel.findOne({ user_id: userInfo._id });
+  }
+
   async create(
     createHeroDto: CreateHeroDto,
     bearerToken: String,
