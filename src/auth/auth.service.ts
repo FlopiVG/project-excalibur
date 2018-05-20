@@ -8,7 +8,10 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
   async createToken() {
-    const user: JwtPayload = { username: 'testop' };
+    const user: JwtPayload = {
+      username: 'testop',
+      _id: '5af00dc9b8f8c40b34e13528',
+    };
     return jwt.sign(user, 'secretKey', { expiresIn: 3600 });
   }
 
