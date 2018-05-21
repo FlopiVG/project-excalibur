@@ -13,7 +13,7 @@ import { HeroesService } from './heroes.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateHeroDto } from './dto/update-hero.dto';
 
-@Controller('heroes')
+@Controller('api/heroes')
 export class HeroesController {
   constructor(private readonly heroesService: HeroesService) {}
   @Get()

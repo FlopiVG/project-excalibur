@@ -11,7 +11,7 @@ import { NewsService } from './news.service';
 import { News } from './interfaces/news.interface';
 import { CreateNewsDto } from './dto/create-news.dto';
 
-@Controller('news')
+@Controller('api/news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
