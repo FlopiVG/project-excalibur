@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 
-const nextApp = next({ dev });
+const nextApp = next({ dev, dir: 'src/client' });
 
 export const nextHandler = nextApp.getRequestHandler();
 
