@@ -5,7 +5,8 @@ EXPOSE 3000
 RUN mkdir /project-excalibur
 WORKDIR /proyect-excalibur
 
-ADD package.json yarn.lock /project-excalibur/
+ADD package.json package.json
+ADD yarn.lock yarn.lock
 RUN yarn --pune-lockfile
 
 ADD client client
