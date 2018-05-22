@@ -10,6 +10,7 @@ RUN yarn --pune-lockfile
 
 ADD client client
 ADD src src
+ADD tsconfig.json tsconfig.json
 
 RUN yarn build
 
