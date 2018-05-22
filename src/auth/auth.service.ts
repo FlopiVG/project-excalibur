@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from 'users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 
+const { SECRET } = process.env;
+
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
@@ -12,7 +14,7 @@ export class AuthService {
       username: 'testop',
       _id: '5af00dc9b8f8c40b34e13528',
     };
-    return jwt.sign(user, 'secretKey', { expiresIn: 3600 });
+    return jwt.sign(user, SECRET, { expiresIn: 3600 });
   }
 
   async validateUser(payload: JwtPayload): Promise<any> {
@@ -21,6 +23,6 @@ export class AuthService {
 
   async getUserInfo(bearerToken: string): Promise<JwtPayload> {
     const token = bearerToken.split(' ')[1];
-    return jwt.verify(token, 'secretKey');
+    return jwt.verify(token, SECRET);
   }
 }

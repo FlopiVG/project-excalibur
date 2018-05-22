@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { NestFactory } from '@nestjs/core';
 import * as next from 'next';
 import { AppModule } from './app.module';
