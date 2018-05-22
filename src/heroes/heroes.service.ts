@@ -5,6 +5,8 @@ import { Heroes } from './interfaces/heroes.interface';
 import { CreateHeroDto } from './dto/create-hero.dto';
 import { UpdateHeroDto } from './dto/update-hero.dto';
 
+const { SECRET } = process.env;
+
 @Injectable()
 export class HeroesService {
   constructor(
@@ -17,7 +19,7 @@ export class HeroesService {
 
   async getUserHero(bearerToken: String): Promise<Heroes> {
     const token = bearerToken.split(' ')[1];
-    const userInfo = jwt.verify(token, 'secretKey');
+    const userInfo = jwt.verify(token, SECRET);
 
     return await this.heroesModel.findOne({ user_id: userInfo._id });
   }
@@ -27,7 +29,7 @@ export class HeroesService {
     bearerToken: String,
   ): Promise<Heroes> {
     const token = bearerToken.split(' ')[1];
-    const userInfo = jwt.verify(token, 'secretKey');
+    const userInfo = jwt.verify(token, SECRET);
     const createdHero = new this.heroesModel({
       ...createHeroDto,
       user_id: userInfo._id,
