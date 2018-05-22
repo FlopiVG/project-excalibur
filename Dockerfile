@@ -13,7 +13,6 @@ ADD src src
 ADD tsconfig.json tsconfig.json
 ADD next.config.js next.config.js
 
-RUN ls
 RUN yarn build
 
 CMD ["yarn", "start"]
