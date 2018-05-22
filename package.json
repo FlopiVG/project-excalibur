@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
-    "build": "next build",
+    "build": "next build client",
     "start":
       "NODE_ENV=production ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
