@@ -1,13 +1,31 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default () => (
   <div className="container">
-    <img
-      className="responsive-img"
-      src="http://elpajaroburlon.com/wp-content/uploads/2013/09/excalibur-11.jpg"
-      alt="logo"
-    />
-    <h1>Index Page</h1>
+    <div>
+      <img
+        src="http://elpajaroburlon.com/wp-content/uploads/2013/09/excalibur-11.jpg"
+        alt="logo"
+      />
+    </div>
+    <nav>
+      <div className="nav-wrapper">
+        <ul id="nav-mobile">
+          <li>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+          {/* Remove comment when user is logged
+          <li>
+            <Link href="/game">
+              <a>Game</a>
+            </Link>
+          </li>*/}
+        </ul>
+      </div>
+    </nav>
     <div>
       <a className="waves-effect waves-light btn">button</a>
     </div>
