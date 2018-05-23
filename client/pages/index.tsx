@@ -3,27 +3,22 @@ import Link from 'next/link';
 
 export default () => (
   <div className="container">
-    <div>
+    <figure className="image">
       <img
         src="http://elpajaroburlon.com/wp-content/uploads/2013/09/excalibur-11.jpg"
         alt="logo"
       />
-    </div>
-    <nav>
-      <div className="nav-wrapper">
-        <ul id="nav-mobile">
-          <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
-          {/* Remove comment when user is logged
-          <li>
-            <Link href="/game">
-              <a>Game</a>
-            </Link>
-          </li>*/}
-        </ul>
+    </figure>
+    <nav className="navbar" aria-label="main navigation">
+      <div className="navbar-start">
+        <Link href="/">
+          <a className="navbar-item">Home</a>
+        </Link>
+        {/* Remove when page /game is ready
+        <Link href="/game">
+          <a className="navbar-item">Game</a>
+        </Link>
+        */}
       </div>
     </nav>
     <div>
