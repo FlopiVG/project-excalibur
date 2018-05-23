@@ -5,20 +5,19 @@ export default class extends Document {
     return (
       <html lang="en">
         <Head>
-          <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
-          />
-          <link rel="stylesheet" href="/_next/static/style.css" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
           />
         </Head>
         <body>
           <Main />
           <NextScript />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js" />
+          <script
+            defer
+            src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
+          />
         </body>
       </html>
     );

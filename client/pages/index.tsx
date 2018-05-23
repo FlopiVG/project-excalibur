@@ -27,7 +27,7 @@ export default () => (
       </div>
     </nav>
     <div>
-      <a className="waves-effect waves-light btn">button</a>
+      <a className="button is-primary">button</a>
     </div>
     <style scoped>
       {`
