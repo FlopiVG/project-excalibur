@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import LoginForm from '../components/LoginForm';
 
 export default class extends React.Component {
   render() {
@@ -23,23 +24,7 @@ export default class extends React.Component {
         */}
           </div>
           <div className="navbar-end">
-            <form>
-              <div className="navbar-item">
-                <input type="text" className="input" placeholder="Username" />
-              </div>
-              <div className="navbar-item">
-                <input
-                  type="password"
-                  className="input"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="navbar-item">
-                <button className="button is-primary" type="submit">
-                  Login
-                </button>
-              </div>
-            </form>
+            <LoginForm />
           </div>
         </nav>
         <div>
@@ -50,9 +35,6 @@ export default class extends React.Component {
           img {
             max-height: 200px;
             width: 100%;
-          }
-          form {
-            display: flex;
           }
         `}
         </style>
