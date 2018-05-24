@@ -1,7 +1,9 @@
 import * as jwt from 'jsonwebtoken';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { LoginUserDto } from './dto/login-user.dto';
+import { User } from './interfaces/user.interface';
 
 const { SECRET } = process.env;
 
@@ -19,6 +21,12 @@ export class AuthService {
 
   async validateUser(payload: JwtPayload): Promise<any> {
     return await this.usersService.findByUsername(payload.username);
+  }
+
+  async login(payload: LoginUserDto): Promise<User> {
+    const user = await this.usersService.findByUsername(payload.username);
+    const { username } = user;
+    return { username, token: 'token' };
   }
 
   async getUserInfo(bearerToken: string): Promise<JwtPayload> {
