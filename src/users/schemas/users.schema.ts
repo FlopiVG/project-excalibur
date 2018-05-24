@@ -1,4 +1,7 @@
 import * as mongoose from 'mongoose';
+import * as bcrypt from 'bcrypt';
+
+const SALT_WORK_FACTOR = 10;
 
 export const UsersSchema = new mongoose.Schema({
   username: {
@@ -20,3 +23,27 @@ export const UsersSchema = new mongoose.Schema({
     },
   },
 });
+
+UsersSchema.pre('save', function(next: Function): void {
+  if (!this.isModified('password')) return next();
+
+  return bcrypt
+    .genSalt(SALT_WORK_FACTOR)
+    .then(salt => bcrypt.hash(this.password, salt))
+    .then(hash => {
+      this.password = hash;
+      next();
+    })
+    .catch(next);
+});
+
+UsersSchema.methods.comparePassword = function(
+  candidatePassword: string,
+): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    bcrypt
+      .compare(candidatePassword, this.password)
+      .then(resolve)
+      .catch(reject);
+  });
+};
