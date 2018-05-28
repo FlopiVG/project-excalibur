@@ -1,4 +1,4 @@
-export interface User {
+export interface UserResponse {
   readonly username: string;
   readonly token: string;
 }
