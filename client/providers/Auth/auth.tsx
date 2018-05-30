@@ -7,6 +7,7 @@ const initialContext: IAuthContext = {
   username: '',
   loginLoading: false,
   loginError: '',
+  logoutLoading: false,
 };
 
 const { Provider, Consumer } = React.createContext<IAuthContext>(
@@ -21,6 +22,7 @@ export default class extends React.Component {
     super(props);
 
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -35,16 +37,28 @@ export default class extends React.Component {
     this.setState({ loginLoading: true, loginError: '' });
     this.authApi
       .login(data)
-      .then(({ username, token }) => {
-        this.setState({ loading: false, username, token });
-        sessionStorage.setItem('token', token);
-      })
+      .then(({ username, token }) =>
+        this.setState({ loading: false, username, token }),
+      )
       .catch(error => this.setState({ loading: false, error }));
+  }
+
+  logout() {
+    this.setState({ logoutLoading: true });
+    this.authApi.logout().then(() => {
+      this.setState({
+        token: '',
+        username: '',
+        logoutLoading: false,
+      });
+    });
   }
 
   render() {
     return (
-      <Provider value={{ ...this.state, login: this.login }}>
+      <Provider
+        value={{ ...this.state, login: this.login, logout: this.logout }}
+      >
         {this.props.children}
       </Provider>
     );

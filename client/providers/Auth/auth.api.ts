@@ -13,8 +13,18 @@ export class AuthApi {
           'Content-Type': 'application/json',
         },
       })
-        .then(res => resolve(res.data))
+        .then(res => {
+          sessionStorage.setItem('token', res.data.token);
+          resolve(res.data);
+        })
         .catch(reject);
+    });
+  }
+
+  logout(): Promise<void> {
+    return new Promise(resolve => {
+      sessionStorage.removeItem('token');
+      resolve();
     });
   }
 }

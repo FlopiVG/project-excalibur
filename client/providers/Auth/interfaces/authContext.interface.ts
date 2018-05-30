@@ -6,4 +6,6 @@ export interface IAuthContext {
   loginLoading: boolean;
   loginError: string;
   login?: (data: ILoginPayload) => void;
+  logout?: () => void;
+  logoutLoading?: boolean;
 }

@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { Fragment } from 'react';
 import AuthProvider, { Consumer } from '../../providers/Auth';
 import { IAuthContext } from '../../providers/Auth/interfaces/authContext.interface';
 
@@ -12,12 +12,14 @@ export default class extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e, login: Function) {
     e.preventDefault();
     login(this.state);
+    this.setState({ username: '', password: '' });
   }
 
   render() {
@@ -28,10 +30,15 @@ export default class extends React.Component {
         <Consumer>
           {(context: IAuthContext) =>
             context.username ? (
-              <div>{context.username}</div>
+              <Fragment>
+                <div className="navbar-item">{context.username}</div>
+                <div className="navbar-item" onClick={context.logout}>
+                  <button className="button is-primary">Logout</button>
+                </div>
+              </Fragment>
             ) : (
               <form onSubmit={e => this.handleSubmit(e, context.login)}>
-                <div>{context.loginError}</div>
+                <div className="navbar-item">{context.loginError}</div>
                 <div className="navbar-item">
                   <input
                     type="text"
