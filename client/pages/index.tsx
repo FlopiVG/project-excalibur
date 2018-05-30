@@ -3,8 +3,10 @@ import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
 
 export default class extends React.Component {
+  static async getInitialProps() {
+    return { news: []}
+  }
   render() {
-    const hello: string = 'hello';
     return (
       <div className="container">
         <figure className="image">
