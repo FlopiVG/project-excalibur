@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
+import NewsList from '../components/NewsList';
 
 export default class extends React.Component {
   static async getInitialProps() {
-    return { news: []}
+    return { news: [] };
   }
   render() {
     return (
@@ -30,9 +31,10 @@ export default class extends React.Component {
             <LoginForm />
           </div>
         </nav>
-        <div>
-          <a className="button is-primary">button</a>
-          {hello}
+        <div className="section">
+          <div className="tile is-ancestor is-vertical">
+            <NewsList />
+          </div>
         </div>
         <style scoped>
           {`
