@@ -23,13 +23,22 @@ export default class extends React.Component {
     this.login = this.login.bind(this);
   }
 
+  componentDidMount() {
+    const tokenFromSession: string = sessionStorage.getItem('token');
+
+    if (this.state.token !== tokenFromSession) {
+      this.setState({ token: tokenFromSession });
+    }
+  }
+
   login(data) {
     this.setState({ loginLoading: true, loginError: '' });
     this.authApi
       .login(data)
-      .then(({ username, token }) =>
-        this.setState({ loading: false, username, token }),
-      )
+      .then(({ username, token }) => {
+        this.setState({ loading: false, username, token });
+        sessionStorage.setItem('token', token);
+      })
       .catch(error => this.setState({ loading: false, error }));
   }
 
