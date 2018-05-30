@@ -38,9 +38,9 @@ export default class extends React.Component {
     this.authApi
       .login(data)
       .then(({ username, token }) =>
-        this.setState({ loading: false, username, token }),
+        this.setState({ loginLoading: false, username, token }),
       )
-      .catch(error => this.setState({ loading: false, error }));
+      .catch(error => this.setState({ loginLoading: false, error }));
   }
 
   logout() {

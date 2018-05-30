@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import AuthProvider, { Consumer } from '../../providers/Auth';
 import { IAuthContext } from '../../providers/Auth/interfaces/authContext.interface';
 
-const TestComponent = () => <div>Test Component</div>;
-
 export default class extends React.Component {
   state = {
     username: '',
@@ -46,6 +44,7 @@ export default class extends React.Component {
                     placeholder="Username"
                     value={username}
                     onChange={e => this.setState({ username: e.target.value })}
+                    disabled={context.loginLoading}
                   />
                 </div>
                 <div className="navbar-item">
@@ -55,10 +54,15 @@ export default class extends React.Component {
                     placeholder="Password"
                     value={password}
                     onChange={e => this.setState({ password: e.target.value })}
+                    disabled={context.loginLoading}
                   />
                 </div>
                 <div className="navbar-item">
-                  <button className="button is-primary" type="submit">
+                  <button
+                    className={`button is-primary ${context.loginLoading &&
+                      'is-loading'}`}
+                    type="submit"
+                  >
                     Login
                   </button>
                 </div>
