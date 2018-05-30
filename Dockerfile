@@ -11,6 +11,7 @@ RUN yarn --pune-lockfile
 ADD client client
 ADD src src
 ADD tsconfig.json tsconfig.json
+ADD .babelrc .babelrc
 ADD next.config.js next.config.js
 
 RUN yarn build
