@@ -19,7 +19,7 @@ export class HeroesService {
 
   async getUserHero(bearerToken: String): Promise<Heroes> {
     const token = bearerToken.split(' ')[1];
-    const userInfo = jwt.verify(token, SECRET);
+    const userInfo: any = jwt.verify(token, SECRET);
 
     return await this.heroesModel.findOne({ user_id: userInfo._id });
   }
@@ -29,7 +29,7 @@ export class HeroesService {
     bearerToken: String,
   ): Promise<Heroes> {
     const token = bearerToken.split(' ')[1];
-    const userInfo = jwt.verify(token, SECRET);
+    const userInfo: any = jwt.verify(token, SECRET);
     const createdHero = new this.heroesModel({
       ...createHeroDto,
       user_id: userInfo._id,
@@ -43,7 +43,7 @@ export class HeroesService {
     bearerToken: String,
   ): Promise<Heroes> {
     const token = bearerToken.split(' ')[1];
-    const userInfo = jwt.verify(token, 'secretKey');
+    const userInfo: any = jwt.verify(token, 'secretKey');
 
     return this.heroesModel.findOneAndUpdate(
       { user_id: userInfo._id },

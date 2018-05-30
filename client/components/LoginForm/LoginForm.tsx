@@ -16,7 +16,7 @@ export default class extends React.Component {
             <button className="button is-primary" type="submit">
               Login
             </button>
-            <Consumer>{context => console.log(context.token)}</Consumer>
+            {/*<Consumer>{context => console.log(context.token)}</Consumer>*/}
           </div>
           <style scoped>
             {`

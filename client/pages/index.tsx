@@ -4,6 +4,7 @@ import LoginForm from '../components/LoginForm';
 
 export default class extends React.Component {
   render() {
+    const hello: string = 'hello';
     return (
       <div className="container">
         <figure className="image">
@@ -29,6 +30,7 @@ export default class extends React.Component {
         </nav>
         <div>
           <a className="button is-primary">button</a>
+          {hello}
         </div>
         <style scoped>
           {`
