@@ -1,5 +1,9 @@
 import * as jwt from 'jsonwebtoken';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersService } from 'users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -25,19 +29,20 @@ export class AuthService {
   }
 
   async login(payload: LoginUserDto) {
-    const user: Users = await this.usersService.findByUsername(
-      payload.username,
-    );
+    return new Promise((resolve, reject) => {
+      this.usersService
+        .findByUsername(payload.username)
+        .then(async (user: Users) => {
+          if (!user) return reject(new NotFoundException());
+          if (!(await user.comparePassword(payload.password)))
+            return reject(new UnauthorizedException());
 
-    if (user && (await user.comparePassword(payload.password))) {
-      const token: string = await this.createToken(user);
-      return {
-        username: user.username,
-        token,
-      };
-    } else {
-      return new UnauthorizedException();
-    }
+          return resolve({
+            username: user.username,
+            token: await this.createToken(user),
+          });
+        });
+    });
   }
 
   getUserInfo(bearerToken: string) {
