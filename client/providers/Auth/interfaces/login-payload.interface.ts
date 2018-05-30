@@ -1,5 +1,4 @@
-export class CreateUserDto {
+export interface ILoginPayload {
   readonly username: string;
-  readonly email: string;
   readonly password: string;
 }
