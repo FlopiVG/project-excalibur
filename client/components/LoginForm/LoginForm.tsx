@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import AuthProvider, { Consumer } from '../../providers/Auth';
 import { IAuthContext } from '../../providers/Auth/interfaces/authContext.interface';
 
-const TestComponent = () => <div>Test Component</div>;
-
 export default class extends React.Component {
   state = {
     username: '',
@@ -33,32 +31,47 @@ export default class extends React.Component {
               <Fragment>
                 <div className="navbar-item">{context.username}</div>
                 <div className="navbar-item" onClick={context.logout}>
-                  <button className="button is-primary">Logout</button>
+                  <button
+                    className={`button is-primary ${context.logoutLoading &&
+                      'is-loading'}`}
+                    disabled={context.logoutLoading}
+                  >
+                    Logout
+                  </button>
                 </div>
               </Fragment>
             ) : (
               <form onSubmit={e => this.handleSubmit(e, context.login)}>
-                <div className="navbar-item">{context.loginError}</div>
+                <div className="navbar-item has-text-danger">
+                  {context.loginError}
+                </div>
                 <div className="navbar-item">
                   <input
                     type="text"
-                    className="input"
+                    className={`input ${context.loginError && 'is-danger'}`}
                     placeholder="Username"
                     value={username}
                     onChange={e => this.setState({ username: e.target.value })}
+                    disabled={context.loginLoading}
                   />
                 </div>
                 <div className="navbar-item">
                   <input
                     type="password"
-                    className="input"
+                    className={`input ${context.loginError && 'is-danger'}`}
                     placeholder="Password"
                     value={password}
                     onChange={e => this.setState({ password: e.target.value })}
+                    disabled={context.loginLoading}
                   />
                 </div>
                 <div className="navbar-item">
-                  <button className="button is-primary" type="submit">
+                  <button
+                    className={`button is-primary ${context.loginLoading &&
+                      'is-loading'}`}
+                    type="submit"
+                    disabled={!password || !username || context.loginLoading}
+                  >
                     Login
                   </button>
                 </div>

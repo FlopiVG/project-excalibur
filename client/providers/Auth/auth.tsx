@@ -25,6 +25,10 @@ export default class extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
+  componentWillMount() {
+    this.whoAmi();
+  }
+
   componentDidMount() {
     const tokenFromSession: string = sessionStorage.getItem('token');
 
@@ -38,9 +42,9 @@ export default class extends React.Component {
     this.authApi
       .login(data)
       .then(({ username, token }) =>
-        this.setState({ loading: false, username, token }),
+        this.setState({ loginLoading: false, username, token }),
       )
-      .catch(error => this.setState({ loading: false, error }));
+      .catch(loginError => this.setState({ loginLoading: false, loginError }));
   }
 
   logout() {
@@ -52,6 +56,15 @@ export default class extends React.Component {
         logoutLoading: false,
       });
     });
+  }
+
+  whoAmi() {
+    this.authApi
+      .whoAmi()
+      .then(user => {
+        this.setState({ username: user.username });
+      })
+      .catch(() => {});
   }
 
   render() {
