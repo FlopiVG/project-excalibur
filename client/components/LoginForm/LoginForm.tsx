@@ -31,7 +31,13 @@ export default class extends React.Component {
               <Fragment>
                 <div className="navbar-item">{context.username}</div>
                 <div className="navbar-item" onClick={context.logout}>
-                  <button className="button is-primary">Logout</button>
+                  <button
+                    className={`button is-primary ${context.logoutLoading &&
+                      'is-loading'}`}
+                    disabled={context.logoutLoading}
+                  >
+                    Logout
+                  </button>
                 </div>
               </Fragment>
             ) : (
@@ -64,7 +70,7 @@ export default class extends React.Component {
                     className={`button is-primary ${context.loginLoading &&
                       'is-loading'}`}
                     type="submit"
-                    disabled={!password || !username}
+                    disabled={!password || !username || context.loginLoading}
                   >
                     Login
                   </button>
