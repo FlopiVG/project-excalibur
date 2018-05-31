@@ -5,6 +5,7 @@ import {
   UseGuards,
   Headers,
   Body,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,6 +24,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @HttpCode(200)
   async login(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }
