@@ -36,7 +36,9 @@ export default class extends React.Component {
               </Fragment>
             ) : (
               <form onSubmit={e => this.handleSubmit(e, context.login)}>
-                <div className="navbar-item">{context.loginError}</div>
+                <div className="navbar-item has-text-danger">
+                  {context.loginError}
+                </div>
                 <div className="navbar-item">
                   <input
                     type="text"

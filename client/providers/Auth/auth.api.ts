@@ -17,7 +17,7 @@ export class AuthApi {
           sessionStorage.setItem('token', res.data.token);
           resolve(res.data);
         })
-        .catch(reject);
+        .catch((error: Error) => reject(error.message));
     });
   }
 

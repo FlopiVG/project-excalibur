@@ -40,7 +40,7 @@ export default class extends React.Component {
       .then(({ username, token }) =>
         this.setState({ loginLoading: false, username, token }),
       )
-      .catch(error => this.setState({ loginLoading: false, error }));
+      .catch(loginError => this.setState({ loginLoading: false, loginError }));
   }
 
   logout() {
