@@ -6,12 +6,14 @@ import {
   Headers,
   Put,
   Body,
+  Delete,
 } from '@nestjs/common';
 import { AuthorizationService } from './authorization.service';
 import { IAuthorization } from './interfaces/IAuthorization.interface';
 import { AuthGuard } from '@nestjs/passport';
 import { IPermissions } from './interfaces/IPermissions.interface';
 import { IChangePermissionsDto } from './dto/IChangePermissions.dto';
+import { IDeletePermissionDto } from './dto/IDeletePermission.dto';
 
 @Controller('api/authorization')
 export class AuthorizationController {
@@ -29,6 +31,13 @@ export class AuthorizationController {
     return this.authorizationService.updateUserPermissions(
       changePermissionsDto,
     );
+  }
+
+  @Delete()
+  deleteUserPermission(
+    @Body() deletePermissionDto: IDeletePermissionDto,
+  ): Promise<IAuthorization> {
+    return this.authorizationService.deleteUserPermission(deletePermissionDto);
   }
 
   @Get('me')
