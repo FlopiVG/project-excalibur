@@ -1,5 +1,5 @@
 import { INews } from './dto/INews.dto';
-import Axios from 'axios';
+import Axios from '../../utils/Axios';
 
 export class NewsApi {
   fetchAllNews(): Promise<INews[]> {

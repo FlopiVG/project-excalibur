@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios from '../../utils/Axios';
 import { ILoginPayload } from './interfaces/login-payload.interface';
 import { loginDto } from './dto/login.dto';
 
