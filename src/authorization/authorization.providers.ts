@@ -5,7 +5,7 @@ export const authorizationProviders = [
   {
     provide: 'AuthorizationModelToken',
     useFactory: (connection: Connection) =>
-      connection.model('Authorization', AuthorizationSchema),
+      connection.model('Authorizations', AuthorizationSchema),
     inject: ['DbConnectionToken'],
   },
 ];

@@ -14,7 +14,7 @@ const PermissionSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  remove: {
+  delete: {
     type: Boolean,
     default: false,
   },
