@@ -43,7 +43,10 @@ export class AuthApi {
         },
       })
         .then(res => resolve(res.data))
-        .catch((error: Error) => reject(error.message));
+        .catch((error: Error) => {
+          sessionStorage.removeItem('token');
+          reject(error.message);
+        });
     });
   }
 }
