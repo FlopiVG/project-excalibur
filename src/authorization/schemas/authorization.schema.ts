@@ -29,3 +29,18 @@ export const AuthorizationSchema = new Schema({
   },
   permissions: [PermissionSchema],
 });
+
+AuthorizationSchema.methods.updatePermissions = function(
+  user_id,
+  permissions,
+  module,
+) {
+  const authorization = this.findOne({ user_id });
+  authorization.permissions = authorization.permissions(p => {
+    if (p.module === module) {
+      return { ...p, ...permissions };
+    } else return p;
+  });
+
+  authorization.save();
+};

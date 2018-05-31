@@ -1,8 +1,9 @@
 import * as jwt from 'jsonwebtoken';
 import { Model } from 'mongoose';
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { IAuthorization } from './interfaces/IAuthorization.interface';
 import { IPermissions } from './interfaces/IPermissions.interface';
+import { IChangePermissionsDto } from './dto/IChangePermissions.dto';
 
 const { SECRET } = process.env;
 
@@ -17,6 +18,39 @@ export class AuthorizationService {
     return new Promise((resolve, reject) => {
       this.authorizationModel
         .find()
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  updateUserPermissions(
+    changePermissionsDto: IChangePermissionsDto,
+  ): Promise<IAuthorization> {
+    return new Promise(async (resolve, reject) => {
+      const { user_id, module, ...permissions } = changePermissionsDto;
+
+      if (!user_id)
+        return reject(new BadRequestException('Need user_id parameter!.'));
+      if (!module)
+        return reject(new BadRequestException('Need module parameter!.'));
+
+      const permissionWhiteList: any = ['read', 'write', 'edit', 'delete'];
+      const update = {
+        'permissions.$.module': module,
+      };
+
+      for (let key in permissions) {
+        if (!permissionWhiteList.includes(key))
+          return reject(new BadRequestException(`Invalid ${key} permission!`));
+        update[`permissions.$.${key}`] = permissions[key];
+      }
+
+      this.authorizationModel
+        .findOneAndUpdate(
+          { user_id, 'permissions.module': module },
+          { $set: update },
+          { new: true },
+        )
         .then(resolve)
         .catch(reject);
     });
