@@ -5,6 +5,9 @@ import { loginDto } from './dto/login.dto';
 export class AuthApi {
   login(loginPayload: ILoginPayload): Promise<loginDto> {
     return new Promise((resolve, reject) => {
+      if (!loginPayload.password) return reject('You must insert a password.');
+      if (!loginPayload.username) return reject('You must insert a username.');
+
       Axios({
         method: 'POST',
         data: loginPayload,

@@ -42,7 +42,7 @@ export default class extends React.Component {
                 <div className="navbar-item">
                   <input
                     type="text"
-                    className="input"
+                    className={`input ${context.loginError && 'is-danger'}`}
                     placeholder="Username"
                     value={username}
                     onChange={e => this.setState({ username: e.target.value })}
@@ -52,7 +52,7 @@ export default class extends React.Component {
                 <div className="navbar-item">
                   <input
                     type="password"
-                    className="input"
+                    className={`input ${context.loginError && 'is-danger'}`}
                     placeholder="Password"
                     value={password}
                     onChange={e => this.setState({ password: e.target.value })}
@@ -64,6 +64,7 @@ export default class extends React.Component {
                     className={`button is-primary ${context.loginLoading &&
                       'is-loading'}`}
                     type="submit"
+                    disabled={!password || !username}
                   >
                     Login
                   </button>
