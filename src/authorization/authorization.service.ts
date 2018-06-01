@@ -13,6 +13,7 @@ import { IDeletePermissionDto } from './dto/IDeletePermission.dto';
 import { IAddPermissionDto } from './dto/IAddPermission.dto';
 
 const { SECRET } = process.env;
+const PERMISSION_WHITE_LIST: any = ['read', 'write', 'edit', 'delete'];
 
 @Injectable()
 export class AuthorizationService {
@@ -40,13 +41,12 @@ export class AuthorizationService {
       if (!module)
         return reject(new BadRequestException('Need module parameter!.'));
 
-      const permissionWhiteList: any = ['read', 'write', 'edit', 'delete'];
       const create = {
         module,
       };
 
       for (let key in permissions) {
-        if (!permissionWhiteList.includes(key))
+        if (!PERMISSION_WHITE_LIST.includes(key))
           return reject(new BadRequestException(`Invalid ${key} permission!`));
         create[key] = permissions[key];
       }
@@ -81,13 +81,12 @@ export class AuthorizationService {
       if (!module)
         return reject(new BadRequestException('Need module parameter!.'));
 
-      const permissionWhiteList: any = ['read', 'write', 'edit', 'delete'];
       const update = {
         'permissions.$.module': module,
       };
 
       for (let key in permissions) {
-        if (!permissionWhiteList.includes(key))
+        if (!PERMISSION_WHITE_LIST.includes(key))
           return reject(new BadRequestException(`Invalid ${key} permission!`));
         update[`permissions.$.${key}`] = permissions[key];
       }
