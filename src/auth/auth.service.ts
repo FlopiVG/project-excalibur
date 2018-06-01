@@ -44,7 +44,6 @@ export class AuthService {
           const authorization = await this.authorizationService.findOne(
             user._id,
           );
-          console.log(authorization);
           return resolve({
             username: user.username,
             token: await this.createToken(user),
@@ -54,8 +53,15 @@ export class AuthService {
     });
   }
 
-  getUserInfo(bearerToken: string) {
+  async getUserInfo(bearerToken: string) {
     const token = bearerToken.split(' ')[1];
-    return jwt.verify(token, SECRET);
+    const { _id, username }: any = jwt.verify(token, SECRET);
+    return {
+      _id,
+      username,
+      permissions: await this.authorizationService.findUserAuthorization(
+        bearerToken,
+      ),
+    };
   }
 }
