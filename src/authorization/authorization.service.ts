@@ -10,6 +10,7 @@ import { IAuthorization } from './interfaces/IAuthorization.interface';
 import { IPermissions } from './interfaces/IPermissions.interface';
 import { IChangePermissionsDto } from './dto/IChangePermissions.dto';
 import { IDeletePermissionDto } from './dto/IDeletePermission.dto';
+import { IAddPermissionDto } from './dto/IAddPermission.dto';
 
 const { SECRET } = process.env;
 
@@ -25,6 +26,46 @@ export class AuthorizationService {
       this.authorizationModel
         .find()
         .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  addUserPermission(
+    addPermissionDto: IAddPermissionDto,
+  ): Promise<IAuthorization> {
+    return new Promise((resolve, reject) => {
+      const { user_id, module, ...permissions } = addPermissionDto;
+      if (!user_id)
+        return reject(new BadRequestException('Need user_id parameter!.'));
+      if (!module)
+        return reject(new BadRequestException('Need module parameter!.'));
+
+      const permissionWhiteList: any = ['read', 'write', 'edit', 'delete'];
+      const create = {
+        module,
+      };
+
+      for (let key in permissions) {
+        if (!permissionWhiteList.includes(key))
+          return reject(new BadRequestException(`Invalid ${key} permission!`));
+        create[key] = permissions[key];
+      }
+
+      this.authorizationModel
+        .findOneAndUpdate(
+          { user_id, 'permissions.module': { $ne: module } },
+          { $push: { permissions: create } },
+          { new: true },
+        )
+        .then(data => {
+          if (data) return resolve(data);
+          else
+            return reject(
+              new NotFoundException(
+                'User not found or permission is already created.!!',
+              ),
+            );
+        })
         .catch(reject);
     });
   }

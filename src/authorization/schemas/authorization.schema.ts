@@ -1,7 +1,11 @@
 import { Schema } from 'mongoose';
 
 const PermissionSchema = new Schema({
-  module: String,
+  module: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   write: {
     type: Boolean,
     default: false,

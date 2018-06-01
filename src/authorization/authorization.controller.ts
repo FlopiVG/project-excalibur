@@ -14,6 +14,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { IPermissions } from './interfaces/IPermissions.interface';
 import { IChangePermissionsDto } from './dto/IChangePermissions.dto';
 import { IDeletePermissionDto } from './dto/IDeletePermission.dto';
+import { IAddPermissionDto } from './dto/IAddPermission.dto';
 
 @Controller('api/authorization')
 export class AuthorizationController {
@@ -22,6 +23,13 @@ export class AuthorizationController {
   @Get()
   findAll(): Promise<IAuthorization[]> {
     return this.authorizationService.findAll();
+  }
+
+  @Post('add')
+  addUserPermission(
+    @Body() addPermissionDto: IAddPermissionDto,
+  ): Promise<IAuthorization> {
+    return this.authorizationService.addUserPermission(addPermissionDto);
   }
 
   @Put()
