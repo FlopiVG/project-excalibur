@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import {
   Injectable,
   Inject,
@@ -27,6 +27,24 @@ export class AuthorizationService {
       this.authorizationModel
         .find()
         .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  findOne(user_id: Types.ObjectId): Promise<IAuthorization> {
+    return new Promise((resolve, reject) => {
+      if (!Types.ObjectId.isValid(user_id))
+        return reject(new BadRequestException('Invalid user_id!'));
+
+      this.authorizationModel
+        .find({ user_id })
+        .then(user => {
+          if (!user)
+            return reject(
+              new NotFoundException('Not found user with id: ' + user.id),
+            );
+          return resolve(user);
+        })
         .catch(reject);
     });
   }
