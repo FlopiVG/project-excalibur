@@ -59,6 +59,7 @@ export class AuthService {
     return {
       _id,
       username,
+      token,
       permissions: await this.authorizationService.findUserAuthorization(
         bearerToken,
       ),

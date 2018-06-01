@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthApi } from './auth.api';
-import { IAuthContext } from './interfaces/authContext.interface';
+import { IAuthContext } from './interfaces/IAuthContext.interface';
 
 const initialContext: IAuthContext = {
   token: '',
@@ -41,8 +41,8 @@ export default class extends React.Component {
     this.setState({ loginLoading: true, loginError: '' });
     this.authApi
       .login(data)
-      .then(({ username, token }) =>
-        this.setState({ loginLoading: false, username, token }),
+      .then(({ username, token, permissions }) =>
+        this.setState({ loginLoading: false, username, token, permissions }),
       )
       .catch(loginError => this.setState({ loginLoading: false, loginError }));
   }
@@ -61,8 +61,8 @@ export default class extends React.Component {
   whoAmi() {
     this.authApi
       .whoAmi()
-      .then(user => {
-        this.setState({ username: user.username });
+      .then(({ username, token, permissions }) => {
+        this.setState({ username, token, permissions });
       })
       .catch(() => {});
   }

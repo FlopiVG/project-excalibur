@@ -1,4 +1,5 @@
 import { ILoginPayload } from './login-payload.interface';
+import { IPermissions } from './IPermissions.interface';
 
 export interface IAuthContext {
   token: string;
@@ -8,4 +9,5 @@ export interface IAuthContext {
   login?: (data: ILoginPayload) => void;
   logout?: () => void;
   logoutLoading?: boolean;
+  permissions?: [IPermissions];
 }

@@ -1,9 +1,9 @@
 import Axios from '../../utils/Axios';
 import { ILoginPayload } from './interfaces/login-payload.interface';
-import { loginDto } from './dto/login.dto';
+import { IUserInfoDto } from './dto/IUserInfo.dto';
 
 export class AuthApi {
-  login(loginPayload: ILoginPayload): Promise<loginDto> {
+  login(loginPayload: ILoginPayload): Promise<IUserInfoDto> {
     return new Promise((resolve, reject) => {
       if (!loginPayload.password) return reject('You must insert a password.');
       if (!loginPayload.username) return reject('You must insert a username.');
@@ -31,7 +31,7 @@ export class AuthApi {
     });
   }
 
-  whoAmi(): Promise<loginDto> {
+  whoAmi(): Promise<IUserInfoDto> {
     return new Promise((resolve, reject) => {
       const token = sessionStorage.getItem('token');
       if (!token) return reject('No token.');
