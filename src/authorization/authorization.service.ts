@@ -37,7 +37,7 @@ export class AuthorizationService {
         return reject(new BadRequestException('Invalid user_id!'));
 
       this.authorizationModel
-        .find({ user_id })
+        .findOne({ user_id })
         .then(user => {
           if (!user)
             return reject(

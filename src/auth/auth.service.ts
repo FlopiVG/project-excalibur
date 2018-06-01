@@ -9,12 +9,16 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Users } from '../users/interfaces/users.interface';
 import { UserResponse } from './interfaces/user-response.interface';
+import { AuthorizationService } from 'authorization/authorization.service';
 
 const { SECRET } = process.env;
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authorizationService: AuthorizationService,
+  ) {}
 
   public async createToken(user: Users): Promise<string> {
     const jwtPayload: JwtPayload = {
@@ -37,9 +41,14 @@ export class AuthService {
           if (!(await user.comparePassword(payload.password)))
             return reject(new UnauthorizedException());
 
+          const authorization = await this.authorizationService.findOne(
+            user._id,
+          );
+          console.log(authorization);
           return resolve({
             username: user.username,
             token: await this.createToken(user),
+            permissions: authorization.permissions,
           });
         });
     });
