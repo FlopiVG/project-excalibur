@@ -9,7 +9,7 @@ export default class extends React.Component<IUserDetailsContext> {
     return (
       <Layout {...userDetails}>
         <div className="columns">
-          <aside className="menu column is-one-quarter">
+          <aside className="menu column is-2">
             <p className="menu-label">Admin</p>
             <ul className="menu-list">
               <li>
