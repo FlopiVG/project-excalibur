@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import AuthProvider, { Consumer } from '../../providers/UserDetails';
-import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
+import AuthProvider, { Consumer } from '../../../providers/UserDetails';
+import { IUserDetailsContext } from '../../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
 
 export default class extends React.Component {
   state = {

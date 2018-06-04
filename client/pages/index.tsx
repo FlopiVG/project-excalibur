@@ -1,7 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
-import LoginForm from '../components/LoginForm';
 import NewsList from '../components/NewsList';
+import NavBar from '../components/NavBar';
 
 export default class extends React.Component {
   static async getInitialProps() {
@@ -16,21 +15,7 @@ export default class extends React.Component {
             alt="logo"
           />
         </figure>
-        <nav className="navbar" aria-label="main navigation">
-          <div className="navbar-start">
-            <Link href="/">
-              <a className="navbar-item">Home</a>
-            </Link>
-            {/* Remove when page /game is ready
-        <Link href="/game">
-          <a className="navbar-item">Game</a>
-        </Link>
-        */}
-          </div>
-          <div className="navbar-end">
-            <LoginForm />
-          </div>
-        </nav>
+        <NavBar />
         <div className="section">
           <div className="tile is-ancestor is-vertical">
             <NewsList />
