@@ -6,8 +6,8 @@ export interface IUserDetailsContext {
   username: string;
   loginLoading: boolean;
   loginError: string;
-  login?: (data: ILoginPayload) => void;
-  logout?: () => void;
-  logoutLoading?: boolean;
+  login: (data: ILoginPayload) => void;
+  logout: () => void;
+  logoutLoading: boolean;
   permissions?: [IPermissions];
 }

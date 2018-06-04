@@ -5,8 +5,10 @@ import { IUserDetailsContext } from './interfaces/IUserDetailsContext.interface'
 const initialContext: IUserDetailsContext = {
   token: '',
   username: '',
+  login: () => {},
   loginLoading: false,
   loginError: '',
+  logout: () => {},
   logoutLoading: false,
 };
 
@@ -52,6 +54,7 @@ export default class extends React.Component {
       this.setState({
         token: '',
         username: '',
+        permissions: [],
         logoutLoading: false,
       });
     });

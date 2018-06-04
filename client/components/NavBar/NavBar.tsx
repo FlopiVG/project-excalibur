@@ -1,9 +1,12 @@
+import '../../utils/Permissions';
 import React from 'react';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
+import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
 
-export default class extends React.Component {
+export default class extends React.Component<IUserDetailsContext> {
   render() {
+    const { permissions = [], ...authenticate } = this.props;
     return (
       <nav className="navbar" aria-label="main navigation">
         <div className="navbar-start">
@@ -15,12 +18,14 @@ export default class extends React.Component {
     <a className="navbar-item">Game</a>
   </Link>
   */}
-          <Link href="/admin">
-            <a className="navbar-item">Admin</a>
-          </Link>
+          {permissions.hasPermission('admin', 'read') && (
+            <Link href="/admin">
+              <a className="navbar-item">Admin</a>
+            </Link>
+          )}
         </div>
         <div className="navbar-end">
-          <LoginForm />
+          <LoginForm {...authenticate} />
         </div>
       </nav>
     );
