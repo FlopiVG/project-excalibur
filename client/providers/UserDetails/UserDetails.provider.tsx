@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 import { UserDetailsApi } from './UserDetails.api';
 import { IUserDetailsContext } from './interfaces/IUserDetailsContext.interface';
 
@@ -56,6 +57,9 @@ export default class extends React.Component {
         username: '',
         permissions: [],
         logoutLoading: false,
+      });
+      Router.push({
+        pathname: '/',
       });
     });
   }

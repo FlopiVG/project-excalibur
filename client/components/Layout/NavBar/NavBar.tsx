@@ -1,8 +1,8 @@
-import '../../utils/Permissions';
+import '../../../utils/Permissions';
 import React from 'react';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
-import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
+import { IUserDetailsContext } from '../../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
 
 export default class extends React.Component<IUserDetailsContext> {
   render() {

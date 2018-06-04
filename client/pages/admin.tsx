@@ -1,5 +1,4 @@
 import React from 'react';
-import NewsList from '../components/NewsList';
 import Layout from '../components/Layout';
 
 import AuthProvider, { Consumer } from '../providers/UserDetails';
@@ -11,9 +10,7 @@ export default class extends React.Component {
       <AuthProvider>
         <Consumer>
           {(context: IUserDetailsContext) => (
-            <Layout {...context}>
-              <NewsList />
-            </Layout>
+            <Layout {...context}>Admin</Layout>
           )}
         </Consumer>
       </AuthProvider>
