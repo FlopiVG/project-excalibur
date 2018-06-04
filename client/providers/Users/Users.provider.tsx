@@ -1,12 +1,16 @@
 import React from 'react';
 import { IUsersContext } from './interfaces/IUsersContext.interface';
 import { UserApi } from './Users.api';
-import { IUsersDto } from './dto/IUsers.dto';
+import { IUserDto } from './dto/IUser.dto';
+import { IUserCreate } from './interfaces/IUserCreate.interface';
 
 const InitialContext: IUsersContext = {
   users: [],
   fetchUsersLoading: false,
   fetchUsersError: '',
+  createUser: () => {},
+  createUserLoading: false,
+  createUserError: '',
 };
 
 const { Provider, Consumer } = React.createContext<IUsersContext>(
@@ -21,6 +25,7 @@ export default class extends React.Component {
     super(props);
 
     this.fetchUsers = this.fetchUsers.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
   componentWillMount() {
@@ -28,9 +33,9 @@ export default class extends React.Component {
   }
 
   fetchUsers() {
-    this.setState({ fetchUsersLoading: true });
+    this.setState({ fetchUsersLoading: true, fetchUsersError: '' });
     this.UsersApi.fetchUsers()
-      .then((users: IUsersDto[]) =>
+      .then((users: IUserDto[]) =>
         this.setState({ users, fetchUsersLoading: false }),
       )
       .catch((fetchUsersError: string) =>
@@ -38,8 +43,27 @@ export default class extends React.Component {
       );
   }
 
+  createUser(userCreate: IUserCreate) {
+    this.setState({ createUserLoading: true, createUserError: '' });
+    this.UsersApi.createUser(userCreate)
+      .then((user: IUserDto) =>
+        this.setState({
+          createUserError: false,
+          createUserLoading: false,
+          users: this.state.users.concat(user),
+        }),
+      )
+      .catch(createUserError =>
+        this.setState({ createUserLoading: false, createUserError }),
+      );
+  }
+
   render() {
-    return <Provider value={this.state}>{this.props.children}</Provider>;
+    return (
+      <Provider value={{ ...this.state, createUser: this.createUser }}>
+        {this.props.children}
+      </Provider>
+    );
   }
 }
 
