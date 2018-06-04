@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import AuthProvider, { Consumer } from '../../providers/Auth';
-import { IAuthContext } from '../../providers/Auth/interfaces/authContext.interface';
+import AuthProvider, { Consumer } from '../../providers/UserDetails';
+import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
 
 export default class extends React.Component {
   state = {
@@ -26,7 +26,7 @@ export default class extends React.Component {
     return (
       <AuthProvider>
         <Consumer>
-          {(context: IAuthContext) =>
+          {(context: IUserDetailsContext) =>
             context.username ? (
               <Fragment>
                 <div className="navbar-item">{context.username}</div>

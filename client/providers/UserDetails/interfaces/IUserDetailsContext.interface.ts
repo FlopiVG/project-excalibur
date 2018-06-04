@@ -1,7 +1,7 @@
-import { ILoginPayload } from './login-payload.interface';
+import { ILoginPayload } from './ILoginPayload.interface';
 import { IPermissions } from './IPermissions.interface';
 
-export interface IAuthContext {
+export interface IUserDetailsContext {
   token: string;
   username: string;
   loginLoading: boolean;

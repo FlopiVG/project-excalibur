@@ -1,8 +1,8 @@
 import React from 'react';
-import { AuthApi } from './auth.api';
-import { IAuthContext } from './interfaces/IAuthContext.interface';
+import { UserDetailsApi } from './UserDetails.api';
+import { IUserDetailsContext } from './interfaces/IUserDetailsContext.interface';
 
-const initialContext: IAuthContext = {
+const initialContext: IUserDetailsContext = {
   token: '',
   username: '',
   loginLoading: false,
@@ -10,12 +10,12 @@ const initialContext: IAuthContext = {
   logoutLoading: false,
 };
 
-const { Provider, Consumer } = React.createContext<IAuthContext>(
+const { Provider, Consumer } = React.createContext<IUserDetailsContext>(
   initialContext,
 );
 
 export default class extends React.Component {
-  authApi = new AuthApi();
+  UserDetailsApi = new UserDetailsApi();
   state = initialContext;
 
   constructor(props) {
@@ -39,8 +39,7 @@ export default class extends React.Component {
 
   login(data) {
     this.setState({ loginLoading: true, loginError: '' });
-    this.authApi
-      .login(data)
+    this.UserDetailsApi.login(data)
       .then(({ username, token, permissions }) =>
         this.setState({ loginLoading: false, username, token, permissions }),
       )
@@ -49,7 +48,7 @@ export default class extends React.Component {
 
   logout() {
     this.setState({ logoutLoading: true });
-    this.authApi.logout().then(() => {
+    this.UserDetailsApi.logout().then(() => {
       this.setState({
         token: '',
         username: '',
@@ -59,8 +58,7 @@ export default class extends React.Component {
   }
 
   whoAmi() {
-    this.authApi
-      .whoAmi()
+    this.UserDetailsApi.whoAmi()
       .then(({ username, token, permissions }) => {
         this.setState({ username, token, permissions });
       })
