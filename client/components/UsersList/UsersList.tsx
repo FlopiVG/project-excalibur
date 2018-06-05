@@ -12,6 +12,7 @@ interface IUsersListState {
   showDeleteModal: boolean;
   activeUserId: string;
   actionFn(_id: string);
+  editUserId: string;
 }
 
 export default class extends React.Component<null, IUsersListState> {
@@ -25,6 +26,7 @@ export default class extends React.Component<null, IUsersListState> {
     showDeleteModal: false,
     activeUserId: '',
     actionFn: (_id: string) => {},
+    editUserId: '',
   };
 
   handleDelete(_id, deleteFn) {}
@@ -86,7 +88,7 @@ export default class extends React.Component<null, IUsersListState> {
   }
 
   render() {
-    const { showDeleteModal } = this.state;
+    const { showDeleteModal, editUserId } = this.state;
     return (
       <UsersProvider>
         {this.renderDeleteModal()}
@@ -140,6 +142,18 @@ export default class extends React.Component<null, IUsersListState> {
                                     </span>
                                   </button>
                                 )}
+                                <button
+                                  className="button"
+                                  onClick={() =>
+                                    this.setState({
+                                      editUserId: editUserId ? '' : user._id,
+                                    })
+                                  }
+                                >
+                                  <span className="icon">
+                                    <i className="fas fa-edit" />
+                                  </span>
+                                </button>
                               </Fragment>
                             )}
                           </UserDetailsConsumer>
