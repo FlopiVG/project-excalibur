@@ -9,5 +9,5 @@ export interface IUserDetailsContext {
   login: (data: ILoginPayload) => void;
   logout: () => void;
   logoutLoading: boolean;
-  permissions?: [IPermissions];
+  permissions: IPermissions[];
 }

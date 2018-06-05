@@ -11,6 +11,7 @@ const initialContext: IUserDetailsContext = {
   loginError: '',
   logout: () => {},
   logoutLoading: false,
+  permissions: [],
 };
 
 const { Provider, Consumer } = React.createContext<IUserDetailsContext>(
