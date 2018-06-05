@@ -119,7 +119,12 @@ export default class extends React.Component<null, IUsersListState> {
                     {context.users.map((user: IUserDto) => (
                       <tr key={user._id}>
                         {editUserId === user._id ? (
-                          <UserEditRow {...user} />
+                          <UserEditRow
+                            {...user}
+                            userEditCancel={() =>
+                              this.setState({ editUserId: '' })
+                            }
+                          />
                         ) : (
                           <UserShowRow {...user} />
                         )}

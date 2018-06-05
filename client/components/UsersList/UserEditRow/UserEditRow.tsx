@@ -14,7 +14,7 @@ export default class extends Component<IUserEditRowProps, IUserEditRowState> {
     };
   }
   render() {
-    const { _id } = this.props;
+    const { _id, userEditCancel } = this.props;
     const { username, email, password } = this.state;
 
     return (
@@ -55,6 +55,16 @@ export default class extends Component<IUserEditRowProps, IUserEditRowState> {
               />
             </p>
           </div>
+          <button className="button is-primary">
+            <span className="icon">
+              <i className="fas fa-check-circle" />
+            </span>
+          </button>
+          <button className="button is-danger" onClick={userEditCancel}>
+            <span className="icon">
+              <i className="fas fa-ban" />
+            </span>
+          </button>
         </td>
       </Fragment>
     );

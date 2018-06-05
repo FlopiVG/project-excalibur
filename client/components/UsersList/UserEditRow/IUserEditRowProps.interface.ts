@@ -3,4 +3,5 @@ export interface IUserEditRowProps {
   username: string;
   email: string;
   password: string;
+  userEditCancel: () => void;
 }
