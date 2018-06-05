@@ -7,6 +7,7 @@ import { IUserDto } from '../../providers/Users/dto/IUser.dto';
 import CreateUser from './CreateUser';
 import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
 import UserShowRow from './UserShowRow';
+import UserEditRow from './UserEditRow';
 
 interface IUsersListState {
   showDeleteModal: boolean;
@@ -117,7 +118,11 @@ export default class extends React.Component<null, IUsersListState> {
                   <tbody>
                     {context.users.map((user: IUserDto) => (
                       <tr key={user._id}>
-                        <UserShowRow {...user} />
+                        {editUserId === user._id ? (
+                          <UserEditRow {...user} />
+                        ) : (
+                          <UserShowRow {...user} />
+                        )}
                         <td>
                           <UserDetailsConsumer>
                             {({ permissions }: IUserDetailsContext) => (
