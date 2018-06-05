@@ -20,13 +20,14 @@ export default class extends React.Component {
               {context.fetchUsersLoading ? (
                 <div>Loading...</div>
               ) : (
-                <table className="table">
+                <table className="table is-fullwidth">
                   <thead>
                     <tr>
                       <th>ID</th>
                       <th>Username</th>
                       <th>Email</th>
                       <th>Password (Encrypted)</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -35,7 +36,14 @@ export default class extends React.Component {
                         <td>{user._id}</td>
                         <td>{user.username}</td>
                         <td>{user.email}</td>
-                        <td>{user.password}</td>
+                        <td>{user.password.slice(0, 20)} ...</td>
+                        <td>
+                          <button className="button is-danger">
+                            <span className="icon">
+                              <i className="fas fa-trash-alt" />
+                            </span>
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
