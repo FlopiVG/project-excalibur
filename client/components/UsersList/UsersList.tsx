@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
+import '../../utils/Permissions';
 import UsersProvider, { Consumer } from '../../providers/Users';
+import { Consumer as UserDetailsConsumer } from '../../providers/UserDetails';
 import { IUsersContext } from '../../providers/Users/interfaces/IUsersContext.interface';
 import { IUserDto } from '../../providers/Users/dto/IUser.dto';
 import CreateUser from './CreateUser';
+import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
 
 interface IUsersListState {
   showDeleteModal: boolean;
@@ -116,21 +119,32 @@ export default class extends React.Component<null, IUsersListState> {
                         <td>{user.email}</td>
                         <td>{user.password.slice(0, 20)} ...</td>
                         <td>
-                          <button
-                            className="button is-danger"
-                            disabled={context.deleteUserLoading}
-                            onClick={() =>
-                              this.setState({
-                                showDeleteModal: true,
-                                activeUserId: user._id,
-                                actionFn: context.deleteUser,
-                              })
-                            }
-                          >
-                            <span className="icon">
-                              <i className="fas fa-trash-alt" />
-                            </span>
-                          </button>
+                          <UserDetailsConsumer>
+                            {({ permissions }: IUserDetailsContext) => (
+                              <Fragment>
+                                {permissions.hasPermission(
+                                  'admin',
+                                  'delete',
+                                ) && (
+                                  <button
+                                    className="button is-danger"
+                                    disabled={context.deleteUserLoading}
+                                    onClick={() =>
+                                      this.setState({
+                                        showDeleteModal: true,
+                                        activeUserId: user._id,
+                                        actionFn: context.deleteUser,
+                                      })
+                                    }
+                                  >
+                                    <span className="icon">
+                                      <i className="fas fa-trash-alt" />
+                                    </span>
+                                  </button>
+                                )}
+                              </Fragment>
+                            )}
+                          </UserDetailsConsumer>
                         </td>
                       </tr>
                     ))}
