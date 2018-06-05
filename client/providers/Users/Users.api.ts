@@ -1,3 +1,4 @@
+import { Schema } from 'mongoose';
 import { IUserDto } from './dto/IUser.dto';
 import Axios from '../../utils/Axios';
 import { IUserCreate } from './interfaces/IUserCreate.interface';
@@ -27,6 +28,17 @@ export class UserApi {
         headers: {
           'Content-Type': 'application/json',
         },
+      })
+        .then(res => resolve(res.data))
+        .catch((error: Error) => reject(error.message));
+    });
+  }
+
+  deleteUser(_id: Schema.Types.ObjectId): Promise<IUserDto> {
+    return new Promise((resolve, reject) => {
+      Axios({
+        method: 'DELETE',
+        url: `/api/users/${_id}`,
       })
         .then(res => resolve(res.data))
         .catch((error: Error) => reject(error.message));

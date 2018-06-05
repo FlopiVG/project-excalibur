@@ -38,7 +38,10 @@ export default class extends React.Component {
                         <td>{user.email}</td>
                         <td>{user.password.slice(0, 20)} ...</td>
                         <td>
-                          <button className="button is-danger">
+                          <button
+                            className="button is-danger"
+                            onClick={() => context.deleteUser(user._id)}
+                          >
                             <span className="icon">
                               <i className="fas fa-trash-alt" />
                             </span>
