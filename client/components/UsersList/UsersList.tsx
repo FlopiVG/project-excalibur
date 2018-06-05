@@ -6,6 +6,7 @@ import { IUsersContext } from '../../providers/Users/interfaces/IUsersContext.in
 import { IUserDto } from '../../providers/Users/dto/IUser.dto';
 import CreateUser from './CreateUser';
 import { IUserDetailsContext } from '../../providers/UserDetails/interfaces/IUserDetailsContext.interface';
+import UserShowRow from './UserShowRow';
 
 interface IUsersListState {
   showDeleteModal: boolean;
@@ -114,10 +115,7 @@ export default class extends React.Component<null, IUsersListState> {
                   <tbody>
                     {context.users.map((user: IUserDto) => (
                       <tr key={user._id}>
-                        <td>{user._id}</td>
-                        <td>{user.username}</td>
-                        <td>{user.email}</td>
-                        <td>{user.password.slice(0, 20)} ...</td>
+                        <UserShowRow {...user} />
                         <td>
                           <UserDetailsConsumer>
                             {({ permissions }: IUserDetailsContext) => (
