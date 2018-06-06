@@ -1,3 +1,4 @@
 import UserEditRow from './UserEditRow';
+import UserEditRowContainer from './UserEditRow.container';
 
-export default UserEditRow;
+export default UserEditRowContainer(UserEditRow);

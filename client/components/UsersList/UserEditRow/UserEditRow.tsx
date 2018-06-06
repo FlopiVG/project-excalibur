@@ -1,8 +1,21 @@
-import React, { Component, Fragment } from 'react';
-import { IUserEditRowProps } from './IUserEditRowProps.interface';
-import { IUserEditRowState } from './IUserEditRowState.interface';
+import React, { Component } from 'react';
 
-export default class extends Component<IUserEditRowProps, IUserEditRowState> {
+interface IProps {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  editCancel: () => void;
+}
+
+interface IState {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+}
+
+export default class extends Component<IProps, IState> {
   constructor(props) {
     super(props);
 
@@ -14,59 +27,47 @@ export default class extends Component<IUserEditRowProps, IUserEditRowState> {
     };
   }
   render() {
-    const { _id, userEditCancel } = this.props;
+    const { _id, editCancel } = this.props;
     const { username, email, password } = this.state;
 
     return (
-      <Fragment>
+      <tr>
         <td>{_id}</td>
         <td>
-          <div className="field">
-            <p className="control">
-              <input
-                type="text"
-                className="input"
-                value={username}
-                onChange={e => this.setState({ username: e.target.value })}
-              />
-            </p>
-          </div>
+          <RenderInput field="username" value={username} />
         </td>
         <td>
-          <div className="field">
-            <p className="control">
-              <input
-                type="email"
-                className="input"
-                value={email}
-                onChange={e => this.setState({ email: e.target.value })}
-              />
-            </p>
-          </div>
+          <RenderInput field="email" value={email} type={email} />
         </td>
         <td>
-          <div className="field">
-            <p className="control">
-              <input
-                type="text"
-                className="input"
-                value={password}
-                onChange={e => this.setState({ password: e.target.value })}
-              />
-            </p>
-          </div>
+          <RenderInput field="password" value={password} type={password} />
+        </td>
+        <td>
           <button className="button is-primary">
             <span className="icon">
               <i className="fas fa-check-circle" />
             </span>
           </button>
-          <button className="button is-danger" onClick={userEditCancel}>
+          <button className="button is-danger" onClick={editCancel}>
             <span className="icon">
               <i className="fas fa-ban" />
             </span>
           </button>
         </td>
-      </Fragment>
+      </tr>
     );
   }
 }
+
+const RenderInput = ({ field, value, type = 'text' }) => (
+  <div className="field">
+    <p className="control">
+      <input
+        type={type}
+        className="input"
+        value={value}
+        onChange={e => this.setState({ [field]: e.target.value })}
+      />
+    </p>
+  </div>
+);

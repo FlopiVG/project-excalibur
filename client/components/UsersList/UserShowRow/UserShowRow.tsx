@@ -8,11 +8,20 @@ interface IProps {
   email: string;
   hasDelete: boolean;
   hasEdit: boolean;
+  toggleEdit: (_id: string) => void;
 }
 
 export default class extends Component<IProps> {
   render() {
-    const { _id, username, email, password, hasDelete, hasEdit } = this.props;
+    const {
+      _id,
+      username,
+      email,
+      password,
+      hasDelete,
+      hasEdit,
+      toggleEdit,
+    } = this.props;
     return (
       <tr>
         <td>{_id}</td>
@@ -28,7 +37,7 @@ export default class extends Component<IProps> {
             </button>
           </If>
           <If condition={hasEdit}>
-            <button className="button">
+            <button className="button" onClick={() => toggleEdit(_id)}>
               <span className="icon">
                 <i className="fas fa-edit" />
               </span>

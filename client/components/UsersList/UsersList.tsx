@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import If from '../utils-cmp/If';
 import UsersProvider, { Consumer } from '../../providers/Users';
 import { Consumer as UserDetailsConsumer } from '../../providers/UserDetails';
 import { IUsersContext } from '../../providers/Users/interfaces/IUsersContext.interface';
@@ -20,6 +21,7 @@ export default class extends React.Component<null, IUsersListState> {
     super(props);
 
     this.renderDeleteModal = this.renderDeleteModal.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   state = {
@@ -30,6 +32,12 @@ export default class extends React.Component<null, IUsersListState> {
   };
 
   handleDelete(_id, deleteFn) {}
+
+  toggleEdit(_id) {
+    const { editUserId } = this.state;
+
+    this.setState({ editUserId: _id === editUserId ? '' : _id });
+  }
 
   renderDeleteModal() {
     const { showDeleteModal, activeUserId, actionFn } = this.state;
@@ -116,7 +124,17 @@ export default class extends React.Component<null, IUsersListState> {
                   </thead>
                   <tbody>
                     {context.users.map((user: IUserDto) => (
-                      <UserShowRow key={user._id} {...user} />
+                      <Fragment key={user._id}>
+                        <If condition={editUserId !== user._id}>
+                          <UserShowRow {...user} toggleEdit={this.toggleEdit} />
+                        </If>
+                        <If condition={editUserId === user._id}>
+                          <UserEditRow
+                            {...user}
+                            editCancel={() => this.toggleEdit('')}
+                          />
+                        </If>
+                      </Fragment>
                     ))}
                   </tbody>
                 </table>

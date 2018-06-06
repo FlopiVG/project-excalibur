@@ -7,12 +7,13 @@ interface IProps {
   username: string;
   password: string;
   email: string;
+  toggleEdit: (_id: string) => void;
 }
 
 export default Cmp =>
   class extends Component<IProps> {
     render() {
-      const { _id, username, password, email } = this.props;
+      const { _id, username, password, email, toggleEdit } = this.props;
       return (
         <UserDetailsConsumer>
           {({ permissions }) => (
@@ -23,6 +24,7 @@ export default Cmp =>
               email={email}
               hasDelete={permissions.hasPermission('admin', 'read')}
               hasEdit={permissions.hasPermission('admin', 'delete')}
+              toggleEdit={toggleEdit}
             />
           )}
         </UserDetailsConsumer>
