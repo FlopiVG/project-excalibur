@@ -1,3 +1,4 @@
 import UserShowRow from './UserShowRow';
+import UserShowRowContainer from './UserShowRow.container';
 
-export default UserShowRow;
+export default UserShowRowContainer(UserShowRow);

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import '../../utils/Permissions';
 import UsersProvider, { Consumer } from '../../providers/Users';
 import { Consumer as UserDetailsConsumer } from '../../providers/UserDetails';
 import { IUsersContext } from '../../providers/Users/interfaces/IUsersContext.interface';
@@ -117,58 +116,7 @@ export default class extends React.Component<null, IUsersListState> {
                   </thead>
                   <tbody>
                     {context.users.map((user: IUserDto) => (
-                      <tr key={user._id}>
-                        {editUserId === user._id ? (
-                          <UserEditRow
-                            {...user}
-                            userEditCancel={() =>
-                              this.setState({ editUserId: '' })
-                            }
-                          />
-                        ) : (
-                          <UserShowRow {...user} />
-                        )}
-                        <td>
-                          <UserDetailsConsumer>
-                            {({ permissions }: IUserDetailsContext) => (
-                              <Fragment>
-                                {permissions.hasPermission(
-                                  'admin',
-                                  'delete',
-                                ) && (
-                                  <button
-                                    className="button is-danger"
-                                    disabled={context.deleteUserLoading}
-                                    onClick={() =>
-                                      this.setState({
-                                        showDeleteModal: true,
-                                        activeUserId: user._id,
-                                        actionFn: context.deleteUser,
-                                      })
-                                    }
-                                  >
-                                    <span className="icon">
-                                      <i className="fas fa-trash-alt" />
-                                    </span>
-                                  </button>
-                                )}
-                                <button
-                                  className="button"
-                                  onClick={() =>
-                                    this.setState({
-                                      editUserId: editUserId ? '' : user._id,
-                                    })
-                                  }
-                                >
-                                  <span className="icon">
-                                    <i className="fas fa-edit" />
-                                  </span>
-                                </button>
-                              </Fragment>
-                            )}
-                          </UserDetailsConsumer>
-                        </td>
-                      </tr>
+                      <UserShowRow key={user._id} {...user} />
                     ))}
                   </tbody>
                 </table>
