@@ -7,6 +7,7 @@ interface IProps {
   email: string;
   password: string;
   editCancel: () => void;
+  edit: (user: any) => void;
 }
 
 interface IState {
@@ -38,20 +39,31 @@ export default class extends Component<IProps, IState> {
   }
 
   render() {
-    const { _id, editCancel } = this.props;
+    const { _id, editCancel, edit } = this.props;
     const { username, email, password, showEditModal } = this.state;
 
     return (
       <tr>
         <td>{_id}</td>
         <td>
-          <RenderInput field="username" value={username} />
+          <RenderInput
+            value={username}
+            handleChange={e => this.setState({ username: e.target.value })}
+          />
         </td>
         <td>
-          <RenderInput field="email" value={email} type={email} />
+          <RenderInput
+            value={email}
+            type={email}
+            handleChange={e => this.setState({ email: e.target.value })}
+          />
         </td>
         <td>
-          <RenderInput field="password" value={password} type={password} />
+          <RenderInput
+            value={password}
+            type={password}
+            handleChange={e => this.setState({ password: e.target.value })}
+          />
         </td>
         <td>
           <button className="button is-primary" onClick={this.toggleEditModal}>
@@ -65,7 +77,10 @@ export default class extends Component<IProps, IState> {
             </span>
           </button>
           <If condition={showEditModal}>
-            <EditModal cancel={this.toggleEditModal} confirm={() => {}} />
+            <EditModal
+              cancel={this.toggleEditModal}
+              confirm={() => edit({ username, password, email })}
+            />
           </If>
         </td>
       </tr>
@@ -73,14 +88,14 @@ export default class extends Component<IProps, IState> {
   }
 }
 
-const RenderInput = ({ field, value, type = 'text' }) => (
+const RenderInput = ({ value, type = 'text', handleChange }) => (
   <div className="field">
     <p className="control">
       <input
         type={type}
         className="input"
         value={value}
-        onChange={e => this.setState({ [field]: e.target.value })}
+        onChange={handleChange}
       />
     </p>
   </div>
@@ -101,7 +116,7 @@ const EditModal = ({ cancel, confirm }) => (
       </section>
       <footer className="modal-card-foot">
         <button className="button is-danger" onClick={confirm}>
-          Delete
+          Edit
         </button>
         <button className="button" onClick={cancel}>
           Cancel

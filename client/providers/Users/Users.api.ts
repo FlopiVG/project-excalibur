@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import { IUserDto } from './dto/IUser.dto';
 import Axios from '../../utils/Axios';
 import { IUserCreate } from './interfaces/IUserCreate.interface';
+import { IUserEdit } from './interfaces/IUserEdit.interface';
 
 export class UserApi {
   fetchUsers(): Promise<IUserDto[]> {
@@ -31,6 +32,13 @@ export class UserApi {
       })
         .then(res => resolve(res.data))
         .catch((error: Error) => reject(error.message));
+    });
+  }
+
+  editUser(userEdit: IUserEdit): Promise<IUserEdit> {
+    return new Promise((resolve, reject) => {
+      // Todo: create put service
+      resolve(userEdit);
     });
   }
 
