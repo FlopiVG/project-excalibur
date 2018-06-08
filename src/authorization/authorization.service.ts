@@ -41,7 +41,7 @@ export class AuthorizationService {
         .then(user => {
           if (!user)
             return reject(
-              new NotFoundException('Not found user with id: ' + user.id),
+              new NotFoundException('Not found user with id: ' + user_id),
             );
           return resolve(user);
         })
@@ -158,7 +158,7 @@ export class AuthorizationService {
 
       this.authorizationModel
         .findOne({ user_id: userInfo._id })
-        .then(data => resolve(data.permissions))
+        .then(data => resolve(data ? data.permissions : []))
         .catch(reject);
     });
   }

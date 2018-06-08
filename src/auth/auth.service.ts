@@ -41,13 +41,18 @@ export class AuthService {
           if (!(await user.comparePassword(payload.password)))
             return reject(new UnauthorizedException());
 
-          const authorization = await this.authorizationService.findOne(
-            user._id,
-          );
+          let permissions = [];
+          try {
+            const authorization = await this.authorizationService.findOne(
+              user._id,
+            );
+            permissions = authorization.permissions;
+          } catch (e) {}
+
           return resolve({
             username: user.username,
             token: await this.createToken(user),
-            permissions: authorization.permissions,
+            permissions,
           });
         });
     });
