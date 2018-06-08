@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import {
   Injectable,
   Inject,
@@ -13,6 +13,7 @@ import { IDeletePermissionDto } from './dto/IDeletePermission.dto';
 import { IAddPermissionDto } from './dto/IAddPermission.dto';
 
 const { SECRET } = process.env;
+const PERMISSION_WHITE_LIST: any = ['read', 'write', 'edit', 'delete'];
 
 @Injectable()
 export class AuthorizationService {
@@ -30,6 +31,24 @@ export class AuthorizationService {
     });
   }
 
+  findOne(user_id: Types.ObjectId): Promise<IAuthorization> {
+    return new Promise((resolve, reject) => {
+      if (!Types.ObjectId.isValid(user_id))
+        return reject(new BadRequestException('Invalid user_id!'));
+
+      this.authorizationModel
+        .findOne({ user_id })
+        .then(user => {
+          if (!user)
+            return reject(
+              new NotFoundException('Not found user with id: ' + user_id),
+            );
+          return resolve(user);
+        })
+        .catch(reject);
+    });
+  }
+
   addUserPermission(
     addPermissionDto: IAddPermissionDto,
   ): Promise<IAuthorization> {
@@ -40,13 +59,12 @@ export class AuthorizationService {
       if (!module)
         return reject(new BadRequestException('Need module parameter!.'));
 
-      const permissionWhiteList: any = ['read', 'write', 'edit', 'delete'];
       const create = {
         module,
       };
 
       for (let key in permissions) {
-        if (!permissionWhiteList.includes(key))
+        if (!PERMISSION_WHITE_LIST.includes(key))
           return reject(new BadRequestException(`Invalid ${key} permission!`));
         create[key] = permissions[key];
       }
@@ -81,13 +99,12 @@ export class AuthorizationService {
       if (!module)
         return reject(new BadRequestException('Need module parameter!.'));
 
-      const permissionWhiteList: any = ['read', 'write', 'edit', 'delete'];
       const update = {
         'permissions.$.module': module,
       };
 
       for (let key in permissions) {
-        if (!permissionWhiteList.includes(key))
+        if (!PERMISSION_WHITE_LIST.includes(key))
           return reject(new BadRequestException(`Invalid ${key} permission!`));
         update[`permissions.$.${key}`] = permissions[key];
       }
@@ -141,7 +158,7 @@ export class AuthorizationService {
 
       this.authorizationModel
         .findOne({ user_id: userInfo._id })
-        .then(data => resolve(data.permissions))
+        .then(data => resolve(data ? data.permissions : []))
         .catch(reject);
     });
   }

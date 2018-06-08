@@ -9,12 +9,16 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Users } from '../users/interfaces/users.interface';
 import { UserResponse } from './interfaces/user-response.interface';
+import { AuthorizationService } from 'authorization/authorization.service';
 
 const { SECRET } = process.env;
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authorizationService: AuthorizationService,
+  ) {}
 
   public async createToken(user: Users): Promise<string> {
     const jwtPayload: JwtPayload = {
@@ -37,16 +41,33 @@ export class AuthService {
           if (!(await user.comparePassword(payload.password)))
             return reject(new UnauthorizedException());
 
+          let permissions = [];
+          try {
+            const authorization = await this.authorizationService.findOne(
+              user._id,
+            );
+            permissions = authorization.permissions;
+          } catch (e) {}
+
           return resolve({
             username: user.username,
             token: await this.createToken(user),
+            permissions,
           });
         });
     });
   }
 
-  getUserInfo(bearerToken: string) {
+  async getUserInfo(bearerToken: string) {
     const token = bearerToken.split(' ')[1];
-    return jwt.verify(token, SECRET);
+    const { _id, username }: any = jwt.verify(token, SECRET);
+    return {
+      _id,
+      username,
+      token,
+      permissions: await this.authorizationService.findUserAuthorization(
+        bearerToken,
+      ),
+    };
   }
 }

@@ -1,21 +1,25 @@
 import React from 'react';
-import { AuthApi } from './auth.api';
-import { IAuthContext } from './interfaces/authContext.interface';
+import Router from 'next/router';
+import { UserDetailsApi } from './UserDetails.api';
+import { IUserDetailsContext } from './interfaces/IUserDetailsContext.interface';
 
-const initialContext: IAuthContext = {
+const initialContext: IUserDetailsContext = {
   token: '',
   username: '',
+  login: () => {},
   loginLoading: false,
   loginError: '',
+  logout: () => {},
   logoutLoading: false,
+  permissions: [],
 };
 
-const { Provider, Consumer } = React.createContext<IAuthContext>(
+const { Provider, Consumer } = React.createContext<IUserDetailsContext>(
   initialContext,
 );
 
 export default class extends React.Component {
-  authApi = new AuthApi();
+  UserDetailsApi = new UserDetailsApi();
   state = initialContext;
 
   constructor(props) {
@@ -39,30 +43,32 @@ export default class extends React.Component {
 
   login(data) {
     this.setState({ loginLoading: true, loginError: '' });
-    this.authApi
-      .login(data)
-      .then(({ username, token }) =>
-        this.setState({ loginLoading: false, username, token }),
+    this.UserDetailsApi.login(data)
+      .then(({ username, token, permissions }) =>
+        this.setState({ loginLoading: false, username, token, permissions }),
       )
       .catch(loginError => this.setState({ loginLoading: false, loginError }));
   }
 
   logout() {
     this.setState({ logoutLoading: true });
-    this.authApi.logout().then(() => {
+    this.UserDetailsApi.logout().then(() => {
       this.setState({
         token: '',
         username: '',
+        permissions: [],
         logoutLoading: false,
+      });
+      Router.push({
+        pathname: '/',
       });
     });
   }
 
   whoAmi() {
-    this.authApi
-      .whoAmi()
-      .then(user => {
-        this.setState({ username: user.username });
+    this.UserDetailsApi.whoAmi()
+      .then(({ username, token, permissions }) => {
+        this.setState({ username, token, permissions });
       })
       .catch(() => {});
   }

@@ -1,6 +1,6 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-export interface Heroes {
+export interface Heroes extends Document {
   readonly name: String;
   readonly str: Number;
   readonly dex: Number;

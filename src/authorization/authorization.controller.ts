@@ -7,6 +7,7 @@ import {
   Put,
   Body,
   Delete,
+  Param,
 } from '@nestjs/common';
 import { AuthorizationService } from './authorization.service';
 import { IAuthorization } from './interfaces/IAuthorization.interface';
@@ -15,6 +16,7 @@ import { IPermissions } from './interfaces/IPermissions.interface';
 import { IChangePermissionsDto } from './dto/IChangePermissions.dto';
 import { IDeletePermissionDto } from './dto/IDeletePermission.dto';
 import { IAddPermissionDto } from './dto/IAddPermission.dto';
+import { Schema } from 'mongoose';
 
 @Controller('api/authorization')
 export class AuthorizationController {
@@ -23,6 +25,13 @@ export class AuthorizationController {
   @Get()
   findAll(): Promise<IAuthorization[]> {
     return this.authorizationService.findAll();
+  }
+
+  @Get(':user_id')
+  findOne(
+    @Param('user_id') user_id: Schema.Types.ObjectId,
+  ): Promise<IAuthorization> {
+    return this.authorizationService.findOne(user_id);
   }
 
   @Post('add')
